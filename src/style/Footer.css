@@ -1,0 +1,30 @@
+.Test {
+    color: white;
+    font-size: 40px;
+}
+
+.Footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.InstagramLogo, .FacebookLogo, .TwitterLogo {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+.InstagramLogo:hover, .FacebookLogo:hover, .TwitterLogo:hover {
+    opacity: 0.5;
+}
+
+.VisaLogo, .AmexLogo, .MastercardLogo {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.FooterExtras {
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    text-shadow: grey 0.1em 0.1em 0.2em;
+}
