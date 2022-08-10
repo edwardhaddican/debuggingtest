@@ -5,12 +5,12 @@ import React, { useState, useEffect } from "react";
 import { getAPIHealth } from "../axios-services";
 import "../style/App.css";
 import SunnyDays from "./video/SunnyDays.mp4";
-import { Header, Footer, Home, Register, Login, Shop } from "./";
+import { Header, Footer, Home, Register, Login, Shop, Login, About, PrivacyAndLegal } from "./";
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -44,13 +44,19 @@ const App = () => {
         <Footer />
       </div>
       <Routes>
-        <Route path="/login" element={<Login 
-        setIsLoggedIn={setIsLoggedIn}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        />} />
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={
+            <Login
+              setIsLoggedIn={setIsLoggedIn}
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+            />
+          }
+        />
         <Route
           path="/register"
           element={
@@ -67,6 +73,18 @@ const App = () => {
               setEmail={setEmail}
             />
           }
+        />
+        <Route
+          path='/about'
+          element={
+            <About />
+          }
+        />
+        <Route
+        path='/privacy_legal'
+        element={
+          <PrivacyAndLegal />
+        }
         />
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />

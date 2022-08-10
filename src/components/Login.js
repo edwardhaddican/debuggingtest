@@ -8,6 +8,9 @@ const Login = ({
   setUsername,
   setPassword,
 }) => {
+  const [hidePassword, setHidePassword] = useState(true)
+  const [passwordType, setPasswordType] = useState('password')
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -22,18 +25,15 @@ const Login = ({
     }
   };
 
-  function showPassword() {
-    const shownPass = document.getElementById("LoginPasswordInput");
-    const passwordButton = document.getElementById("LoginButton");
-    if (shownPass.type === "password") {
-      shownPass.type = "text";
-      passwordButton.innerHTML = 'Hide Password'
-    } else {
-      shownPass.type = "password";
-      passwordButton.innerHTML = 'Show Password'
-    }
+  function showPasswordFunc() {
+    setHidePassword(false)
+    setPasswordType('text')
   }
 
+  function hidePasswordFunc() {
+    setHidePassword(true)
+    setPasswordType('password')
+  }
 
   return (
     <div className="LoginContainer">
@@ -60,7 +60,7 @@ const Login = ({
             className="LoginInput"
             id="LoginPasswordInput"
             name="Password"
-            type="password"
+            type={passwordType}
             placeholder="Password"
             value={password}
             onChange={(event) => {
@@ -69,8 +69,12 @@ const Login = ({
           />
         </label>
       </form>
-      <button className="LoginButton">Login</button>
-      <button id="LoginButton" className="ShowPasswordButton" onClick={showPassword}>Show Password</button>
+      <button className="LoginButton" type='submit'>Login</button>
+      { hidePassword ?
+        <button id="LoginButton" className="ShowPasswordButton" onClick={showPasswordFunc}>Show Password</button>
+        :
+        <button id="LoginButton" className="ShowPasswordButton" onClick={hidePasswordFunc}>Hide Password</button>
+      }
     </div>
   );
 };

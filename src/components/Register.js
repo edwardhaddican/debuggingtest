@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/Register.css";
 
 const Register = ({
@@ -13,6 +13,9 @@ const Register = ({
   email,
   setEmail,
 }) => {
+  const [hidePassword, setHidePassword] = useState(true);
+  const [passwordType, setPasswordType] = useState("password");
+
   async function handleSubmit(event) {
     event.preventDefault();
     try {
@@ -22,16 +25,14 @@ const Register = ({
     }
   }
 
-  function showPassword() {
-    const shownPass = document.getElementById("registerPasswordInput");
-    const passwordButton = document.getElementById("passwordButton");
-    if (shownPass.type === "password") {
-      shownPass.type = "text";
-      passwordButton.innerHTML = "Hide Password";
-    } else {
-      shownPass.type = "password";
-      passwordButton.innerHTML = "Show Password";
-    }
+  function showPasswordFunc() {
+    setHidePassword(false);
+    setPasswordType("text");
+  }
+
+  function hidePasswordFunc() {
+    setHidePassword(true);
+    setPasswordType("password");
   }
 
   return (
@@ -50,7 +51,7 @@ const Register = ({
             setFirstName(event.target.value);
           }}
         />
-          <br></br>
+        <br></br>
         <br></br>
         <input
           className="RegisterInput"
@@ -62,7 +63,7 @@ const Register = ({
             setLastName(event.target.value);
           }}
         />
-          <br></br>
+        <br></br>
         <br></br>
         <input
           className="RegisterInput"
@@ -74,12 +75,12 @@ const Register = ({
             setUsername(event.target.value);
           }}
         />
-          <br></br>
+        <br></br>
         <br></br>
         <input
           id="registerPasswordInput"
           className="RegisterInput"
-          type="password"
+          type={passwordType}
           placeholder="Enter password here..."
           name="password"
           value={password}
@@ -99,12 +100,28 @@ const Register = ({
             setEmail(event.target.value);
           }}
         />
-          <br></br>
         <br></br>
-        <button className="RegisterButton" type="submit">Register</button>
-        <button className="ShowPasswordButton" id="passwordButton" onClick={showPassword}>
-          Show Password
+        <br></br>
+        <button className="RegisterButton" type="submit">
+          Register
         </button>
+        {hidePassword ? (
+          <button
+            id="RegisterButton"
+            className="ShowPasswordButton"
+            onClick={showPasswordFunc}
+          >
+            Show Password
+          </button>
+        ) : (
+          <button
+            id="RegisterButton"
+            className="ShowPasswordButton"
+            onClick={hidePasswordFunc}
+          >
+            Hide Password
+          </button>
+        )}
       </form>
     </div>
   );
