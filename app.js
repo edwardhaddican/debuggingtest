@@ -1,3 +1,35 @@
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+const app = express();
+const router = require('./api');
+const client = require('./db/client');
+
+// MIDDLEWARE AND API ROUTER
+app.use(cors());
+app.use(express.json());
+app.use(morgan('dev'));
+app.use('/api', router);
+client.connect();
+
+// ERROR HANDLING
+router.use((req, res, next) => {
+  if (req.user) {
+    console.log('User is set:', req.user);
+  }
+  next();
+});
+router.use((error, req, res) => {
+  res.send({
+    error: error.message,
+    name: error.name,
+    message: error.message,
+  });
+});
+
+/*
+
 // This is the Web Server
 const express = require('express');
 const server = express();
@@ -46,3 +78,5 @@ const handle = server.listen(PORT, async () => {
 
 // export server and handle for routes/*.test.js
 module.exports = { server, handle };
+
+*/
