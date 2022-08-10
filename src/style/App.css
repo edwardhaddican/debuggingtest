@@ -16,8 +16,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #48D1CC;
-  mix-blend-mode: overlay;
 }
 
 .ShowcaseHeader {
@@ -44,6 +42,16 @@
   width: 400px;
   position: relative;
   z-index: 10;
+  color: white;
+  text-shadow: grey 0.1em 0.1em 0.2em;
+}
+
+.ShowcaseRegister {
+  margin-top: 20%;
+  margin-left: 20%;
+  width: 400px;
+  position: relative;
+  z-index: 11;
   color: white;
   text-shadow: grey 0.1em 0.1em 0.2em;
 }

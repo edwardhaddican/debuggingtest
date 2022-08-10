@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react"
+import { NavLink } from "react-router-dom"
 import '../style/Header.css'
 
 const Header = () => {
@@ -27,10 +28,10 @@ const Header = () => {
                     <a href="#">Login</a>
                     </div>
                     <div>
-                    <a href="#">Register</a>
+                        <NavLink to='/register'>Register</NavLink>
                     </div>
                     <div>
-                    <a href="#">Home</a>
+                        <NavLink to='/'>Home</NavLink>
                     </div>
                     <div>
                     <a href="#">About</a>

@@ -5,7 +5,8 @@ import React, { useState, useEffect } from 'react';
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import SunnyDays from './video/SunnyDays.mp4'
-import { Header, Footer, Home } from './'
+import { Header, Footer, Home, Register } from './'
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
@@ -33,18 +34,20 @@ const App = () => {
       <div className='ShowcaseHeader'>
       <Header />
     </div>
-    <div className='ShowcaseHome'>
-      <Home />
-    </div>
-    {/* <div className="app-container">
-      <h1>Hello, World!</h1>
-      <p>API Status: {APIHealth}</p>
-    </div> */}
     <div className='ShowcaseFooter'>
       <Footer />
     </div>
+    <Routes>
+      <Route path='/' element={<Home />} className='ShowcaseHome' />
+      <Route path='/register' element={<Register />} className='ShowcaseRegister'/>
+    </Routes>
     </div>
   );
 };
 
 export default App;
+
+{/* <div className="app-container">
+      <h1>Hello, World!</h1>
+      <p>API Status: {APIHealth}</p>
+    </div> */}

@@ -2,7 +2,7 @@ import React from "react";
 
 const Home = () => {
     return (
-        <div>
+        <div className='ShowcaseHome'>
             <h2>THE ONLY SUMMER CLOTHING BRAND</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
