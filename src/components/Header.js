@@ -25,7 +25,7 @@ const Header = () => {
                 </button>
                 <div className="ContainerMenu">
                     <div>
-                    <a href="#">Login</a>
+                    <NavLink to='/login'>Login</NavLink>
                     </div>
                     <div>
                         <NavLink to='/register'>Register</NavLink>

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import SunnyDays from './video/SunnyDays.mp4'
-import { Header, Footer, Home, Register } from './'
+import { Header, Footer, Home, Register, Login } from './'
 import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
@@ -38,8 +38,9 @@ const App = () => {
       <Footer />
     </div>
     <Routes>
-      <Route path='/' element={<Home />} className='ShowcaseHome' />
-      <Route path='/register' element={<Register />} className='ShowcaseRegister'/>
+      <Route path='/' element={<Home />} />
+      <Route path='/register' element={<Register />}/>
+      <Route path='/login' element={<Login />}/>
     </Routes>
     </div>
   );
