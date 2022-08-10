@@ -1,7 +1,7 @@
 {
   "name": "grace_shopper",
   "version": "1.0.0",
-  "description": "",
+  "description": "e-commerce web application",
   "main": "index.js",
   "scripts": {
     "postinstall": "npm run client:build",
