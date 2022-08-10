@@ -11,13 +11,13 @@ const Header = () => {
         hamburgerDisplay.addEventListener('click', function () {
         hamburgerDisplay.classList.toggle('is-active')
         ContainerMenuDisplay.classList.toggle('is-active')
-        })
+    })
     }
 
     return (
         <div className="Header">
             <div className="HeaderTitle">
-            TOP SECRET
+            TOP SECRET SHIRTS LA
             </div>
             <div className="Container">
                 <button className="hamburger" data-hamburger-button ref={ref}>
