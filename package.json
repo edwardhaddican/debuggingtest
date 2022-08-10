@@ -1,5 +1,5 @@
 {
-  "name": "starting_code",
+  "name": "grace_shopper",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,32 +8,45 @@
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
-    "db:build": "node ./db/init_db",
-    "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
-    "start": "node index.js",
-    "test": "jest --runInBand"
+    "db:build": "node ./db/seedData",
+    "start:dev": "nodemon server.js",
+    "start": "node server.js",
+    "seed:dev": "nodemon ./db/seed.js",
+    "seed": "node ./db/seed.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --runInBand --watchAll"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "node",
+    "express",
+    "postgresql",
+    "javascript"
+  ],
+  "author": "Tanner Monaco, Alia Taha, and Lucas Maul",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
-    "concurrently": "^7.0.0",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "jest": "^24.9.0",
+    "jest": "^26.0.1",
     "morgan": "^1.10.0",
-    "pg": "^8.2.1",
+    "npm": "^8.16.0",
+    "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "start": "^5.1.0",
+    "startnpm": "^1.0.0",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-plugin-jest": "^25.2.4",
     "nodemon": "^2.0.4",
-    "supertest": "^6.2.1"
+    "supertest": "^6.1.6"
   },
-  "proxy": "http://localhost:4000",
   "browserslist": {
     "production": [
       ">0.2%",

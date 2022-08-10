@@ -1,9 +1,21 @@
-// Connect to DB
-const { Client } = require('pg');
+// constructing client
 
-// change the DB_NAME string to whatever your group decides on
-const DB_NAME = 'univ-boilerplate';
+const { Pool } = require('pg');
 
+const connectionString =
+  process.env.DATABASE_URL || 'https://localhost:5432/topsecret';
+
+const client = new Pool({
+  connectionString,
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: false }
+      : undefined,
+});
+
+module.exports = client;
+
+/*
 const DB_URL =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
 
@@ -12,15 +24,14 @@ let client;
 // github actions client config
 if (process.env.CI) {
   client = new Client({
-    host: 'localhost',
-    port: 5432,
     user: 'postgres',
-    password: 'postgres',
+    host: 'localhost',
     database: 'postgres',
+    password: 'postgres',
+    port: 5432,
   });
 } else {
   // local / heroku client config
   client = new Client(DB_URL);
 }
-
-module.exports = client;
+*/
