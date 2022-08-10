@@ -1,10 +1,11 @@
 import React from "react";
-import '../style/Footer.css'
-import FacebookLogo from './Photo/FacebookLogo.png'
-import TwitterLogo from './Photo/TwitterLogo.png'
-import VisaLogo from './Photo/VisaLogo.png'
-import AmexLogo from './Photo/AmexLogo.png'
-import MastercardLogo from './Photo/MastercardLogo.png'
+import '../style/Footer.css';
+import { NavLink } from 'react-router-dom';
+import FacebookLogo from './Photo/FacebookLogo.png';
+import TwitterLogo from './Photo/TwitterLogo.png';
+import VisaLogo from './Photo/VisaLogo.png';
+import AmexLogo from './Photo/AmexLogo.png';
+import MastercardLogo from './Photo/MastercardLogo.png';
 
 const Footer = () => {
     return (
@@ -30,9 +31,11 @@ const Footer = () => {
                 </a>
            </div>
            <div className="FooterExtras">
-                    <div>About</div>
-                    <div>Terms of Service</div>
-                    <div>Privacy Policy</div>
+                    <NavLink id='NavLink' to='/about'>About</NavLink>
+                    <br></br>
+                    <NavLink id='NavLink' to='/tos'>Terms of Service</NavLink>
+                    <br></br>
+                    <NavLink id='NavLink' to='/privacy_legal'>Privacy {'&'} Legal</NavLink>
            </div>
            <div className="FooterPayments">
                     <img className="VisaLogo" src={VisaLogo}/>
