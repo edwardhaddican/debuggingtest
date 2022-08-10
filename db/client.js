@@ -1,5 +1,3 @@
-// constructing client
-
 const { Pool } = require('pg');
 
 const connectionString =
