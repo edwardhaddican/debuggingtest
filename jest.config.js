@@ -5,3 +5,5 @@ module.exports = {
   collectCoverage: false,
   forceExit: true,
 };
+
+// jest.config.js cleared
