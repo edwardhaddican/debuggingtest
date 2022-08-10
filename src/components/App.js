@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { getAPIHealth } from "../axios-services";
 import "../style/App.css";
 import SunnyDays from "./video/SunnyDays.mp4";
-import { Header, Footer, Home, Register, Login, Shop, Login, About, PrivacyAndLegal } from "./";
+import { Header, Footer, Home, Register, Login, Shop, About, PrivacyAndLegal } from "./";
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {
