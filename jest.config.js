@@ -6,4 +6,4 @@ module.exports = {
   forceExit: true,
 };
 
-// jest.config.js cleared
+// clear

@@ -28,6 +28,8 @@ router.use((error, req, res) => {
   });
 });
 
+// clear
+
 /*
 
 // This is the Web Server
