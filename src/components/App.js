@@ -2,22 +2,15 @@ import React, { useState, useEffect } from "react";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-<<<<<<< HEAD
-import { getAPIHealth } from '../axios-services';
-import '../style/App.css';
-import SunnyDays from './video/SunnyDays.mp4'
-import { Header, Footer, Home, Register, Login } from './'
-import { Route, Routes } from 'react-router-dom';
-=======
 import { getAPIHealth } from "../axios-services";
 import "../style/App.css";
 import SunnyDays from "./video/SunnyDays.mp4";
-import { Header, Footer, Home, Register } from "./";
+import { Header, Footer, Home, Register, Login, Shop } from "./";
 import { Route, Routes } from "react-router-dom";
->>>>>>> RegisterWireFrameWork
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -41,22 +34,6 @@ const App = () => {
   return (
     <div className="Showcase">
       <video muted loop autoPlay>
-<<<<<<< HEAD
-      <source src={SunnyDays} type="video/mp4"/>
-    </video>
-    <div className='ShowcaseOverlay'></div>
-      <div className='ShowcaseHeader'>
-      <Header />
-    </div>
-    <div className='ShowcaseFooter'>
-      <Footer />
-    </div>
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/register' element={<Register />}/>
-      <Route path='/login' element={<Login />}/>
-    </Routes>
-=======
         <source src={SunnyDays} type="video/mp4" />
       </video>
       <div className="ShowcaseOverlay"></div>
@@ -67,7 +44,13 @@ const App = () => {
         <Footer />
       </div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login 
+        setIsLoggedIn={setIsLoggedIn}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        />} />
         <Route
           path="/register"
           element={
@@ -85,8 +68,9 @@ const App = () => {
             />
           }
         />
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
       </Routes>
->>>>>>> RegisterWireFrameWork
     </div>
   );
 };
