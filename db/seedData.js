@@ -29,7 +29,8 @@ async function createTables() {
       password VARCHAR (255) NOT NULL,
       first_name VARCHAR (255) NOT NULL,
       last_name VARCHAR (255) NOT NULL,
-      email VARCHAR (255) NOT NULL
+      email VARCHAR (255) NOT NULL,
+      active BOOLEAN
  );`);
     await client.query(`
  CREATE TABLE products (
@@ -76,6 +77,7 @@ async function createInitialUsers() {
         first_name: 'Alia',
         last_name: 'Taha',
         email: 'aliataha2206@gmail.com',
+        active: true
       },
       {
         admin: true,
@@ -84,6 +86,7 @@ async function createInitialUsers() {
         first_name: 'Tanner',
         last_name: 'Monaco',
         email: 'tannermonaco2206@gmail.com',
+        active: true
       },
       {
         admin: true,
@@ -92,6 +95,7 @@ async function createInitialUsers() {
         first_name: 'Lucas',
         last_name: 'Maul',
         email: 'lucasmaul2206@gmail.com',
+        active: true
       },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));

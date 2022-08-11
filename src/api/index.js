@@ -1,8 +1,8 @@
-const BASE = 'localhost:3000'
+const BASE = 'localhost:3001'
 
 export async function registerPerson(username, password) {
     try {
-      const response = await fetch(`${BASE}/register`, {
+      const response = await fetch(`${BASE}/api/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
