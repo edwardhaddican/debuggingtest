@@ -5,9 +5,9 @@ module.exports = {
     es2021: true,
     'jest/globals': true,
     node: true,
-    parser: babel-eslint,
   },
   extends: 'eslint:recommended',
+  parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaVersion: 13,
     sourceType: "module",
