@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c4681735.css",
+    "main.js": "/static/js/main.ad7a1ca6.js",
+    "static/media/SunnyDays.mp4": "/static/media/SunnyDays.6ddc785405d3535f3fdf.mp4",
+    "static/media/LongSleeveImage.jpg": "/static/media/LongSleeveImage.97a43a2657f7935b698a.jpg",
+    "static/media/SweaterImage.jpg": "/static/media/SweaterImage.f4cb608f3dda1c60aced.jpg",
+    "static/media/ShortSleeveImage.jpg": "/static/media/ShortSleeveImage.5df2c2d556e8469d066c.jpg",
+    "static/media/HoodieImage.jpg": "/static/media/HoodieImage.7178b0413322602ad873.jpg",
+    "index.html": "/index.html",
+    "main.c4681735.css.map": "/static/css/main.c4681735.css.map",
+    "main.ad7a1ca6.js.map": "/static/js/main.ad7a1ca6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c4681735.css",
+    "static/js/main.ad7a1ca6.js"
+  ]
+}
