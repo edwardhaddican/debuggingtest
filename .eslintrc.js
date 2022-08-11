@@ -5,7 +5,7 @@ module.exports = {
     es2021: true,
     'jest/globals': true,
     node: true,
-  },
+    },
   extends: 'eslint:recommended',
   parser: "@babel/eslint-parser",
   parserOptions: {
