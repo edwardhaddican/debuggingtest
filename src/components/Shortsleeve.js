@@ -1,10 +1,15 @@
 import React from "react";
 import ShortSleeve from "./Photo/ShortSleeveImage.jpg";
+import { motion } from "framer-motion";
 import "../style/Shortsleeve.css";
 
 const Shortsleeve = () => {
   return (
-    <div className="ShortSleeveGrid">
+    <motion.div className="ShortSleeveGrid"
+    initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 1}}
+    >
       <div className="ShortSleeveContainer">
         <div>Name of Product</div>
         <img className="ShortSleeveImage" src={ShortSleeve} />
@@ -13,7 +18,7 @@ const Shortsleeve = () => {
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -23,7 +28,7 @@ const Shortsleeve = () => {
             </div>
             <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">CheckOut</button>
+                <button className="ShortSleeveButton">Add to Cart</button>
         </div>
       </div>
       <div className="ShortSleeveContainer">
@@ -34,7 +39,7 @@ const Shortsleeve = () => {
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -44,7 +49,7 @@ const Shortsleeve = () => {
             </div>
             <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">CheckOut</button>
+                <button className="ShortSleeveButton">Add to Cart</button>
         </div>
       </div>
       <div className="ShortSleeveContainer">
@@ -55,7 +60,7 @@ const Shortsleeve = () => {
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -65,7 +70,7 @@ const Shortsleeve = () => {
             </div>
             <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">CheckOut</button>
+                <button className="ShortSleeveButton">Add to Cart</button>
         </div>
       </div>
       <div className="ShortSleeveContainer">
@@ -76,7 +81,7 @@ const Shortsleeve = () => {
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -86,10 +91,10 @@ const Shortsleeve = () => {
             </div>
             <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">CheckOut</button>
+                <button className="ShortSleeveButton">Add to Cart</button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

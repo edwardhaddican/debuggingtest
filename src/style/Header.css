@@ -100,13 +100,22 @@
     border-radius: 15px;
     height: 30px;
     width: 50%;
+    opacity: 0.7;
 }
 
-#magnifyingGlass {
-    height: 1.5rem;
-    width: 1.5rem;
-    margin-right: 10px;
-    margin-top: 3px;
+#WhiteMagnifyingGlass {
+    height: 2rem;
+    width: 2rem;
+    margin-left: 51rem;
+    margin-top: 0.225rem;
+    font-weight: bolder;
+}
+
+#GreyMagnifyingGlass {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-top: -0.3rem;
+    margin-right: -1.4rem;
 }
 
 #xIconSearch {
@@ -116,7 +125,7 @@
     margin-bottom: 3px;
 }
 
-#magnifyingGlass:hover, #xIconSearch:hover {
+#WhiteMagnifyingGlass:hover, #xIconSearch:hover {
     opacity: 0.75;
 }
 
@@ -126,4 +135,6 @@
     margin-left: 10px;
     margin-top: 3px;
     font-size: 1rem;
+    border: none;
+    outline: none;
 }

@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import WhiteSearchIcon from './Photo/WhiteSearchIcon.png'
+import GreySearchIcon from './Photo/GreySearchIcon.png'
 import "../style/Header.css";
 
 const Header = () => {
@@ -38,8 +40,8 @@ const Header = () => {
       <div className="HeaderTitle">TOP SECRET SHIRTS LA</div>
         {!hideSearch ? (
           <img
-            src="https://cdn-icons-png.flaticon.com/512/751/751463.png"
-            id="magnifyingGlass"
+            src={WhiteSearchIcon}
+            id="WhiteMagnifyingGlass"
             onClick={showMagGlass}
           />
         ) : (
@@ -48,8 +50,8 @@ const Header = () => {
               <input type="search" id="searchBar" placeholder="Search inventory..." />
               <label for="search">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/751/751463.png"
-                  id="magnifyingGlass"
+                  src={GreySearchIcon}
+                  id="GreyMagnifyingGlass"
                 />
                 <img
                   src="https://cdn-icons.flaticon.com/png/512/2997/premium/2997911.png?token=exp=1660229420~hmac=c55efdbb55bb38520c1e0bcd5d56dfff"

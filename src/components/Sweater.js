@@ -1,19 +1,24 @@
 import React from "react";
-import Sweater from "./Photo/SweaterImage.jpg";
+import SweaterImage from "./Photo/SweaterImage.jpg";
+import { motion } from "framer-motion";
 import "../style/Sweater.css";
 
 const Sweater = () => {
   return (
-    <div className="SweaterGrid">
+    <motion.div className="SweaterGrid"
+    initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 1}}
+    >
       <div className="SweaterContainer">
         <div>Name of Product</div>
-        <img className="SweaterImage" src={Sweater} />
+        <img className="SweaterImage" src={SweaterImage} />
         <div className="SweaterInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -23,18 +28,18 @@ const Sweater = () => {
             </div>
             <p className="SweaterAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="SweaterButton">CheckOut</button>
+                <button className="SweaterButton">Add to Cart</button>
         </div>
       </div>
       <div className="SweaterContainer">
         <div>Name of Product</div>
-        <img className="SweaterImage" src={Sweater} />
+        <img className="SweaterImage" src={SweaterImage} />
         <div className="SweaterInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -44,18 +49,18 @@ const Sweater = () => {
             </div>
             <p className="SweaterAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="SweaterButton">CheckOut</button>
+                <button className="SweaterButton">Add to Cart</button>
         </div>
       </div>
       <div className="SweaterContainer">
         <div>Name of Product</div>
-        <img className="SweaterImage" src={Sweater} />
+        <img className="SweaterImage" src={SweaterImage} />
         <div className="SweaterInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -65,18 +70,18 @@ const Sweater = () => {
             </div>
             <p className="SweaterAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="SweaterButton">CheckOut</button>
+                <button className="SweaterButton">Add to Cart</button>
         </div>
       </div>
       <div className="SweaterContainer">
         <div>Name of Product</div>
-        <img className="SweaterImage" src={Sweater} />
+        <img className="SweaterImage" src={SweaterImage} />
         <div className="SweaterInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -86,10 +91,10 @@ const Sweater = () => {
             </div>
             <p className="SweaterAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="SweaterButton">CheckOut</button>
+                <button className="SweaterButton">Add to Cart</button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,19 +1,24 @@
 import React from "react";
-import Hoodie from "./Photo/HoodieImage.jpg";
+import HoodieImage from "./Photo/HoodieImage.jpg";
+import { motion } from "framer-motion";
 import "../style/Hoodie.css";
 
 const Hoodie = () => {
   return (
-    <div className="HoodieGrid">
+    <motion.div className="HoodieGrid"
+    initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 1}}
+    >
       <div className="HoodieContainer">
         <div>Name of Product</div>
-        <img className="HoodieImage" src={Hoodie} />
+        <img className="HoodieImage" src={HoodieImage} />
         <div className="HoodieInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -23,18 +28,18 @@ const Hoodie = () => {
             </div>
             <p className="HoodieAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="HoodieButton">CheckOut</button>
+                <button className="HoodieButton">Add to Cart</button>
         </div>
       </div>
       <div className="HoodieContainer">
         <div>Name of Product</div>
-        <img className="HoodieImage" src={Hoodie} />
+        <img className="HoodieImage" src={HoodieImage} />
         <div className="HoodieInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -44,18 +49,18 @@ const Hoodie = () => {
             </div>
             <p className="HoodieAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="HoodieButton">CheckOut</button>
+                <button className="HoodieButton">Add to Cart</button>
         </div>
       </div>
       <div className="HoodieContainer">
         <div>Name of Product</div>
-        <img className="HoodieImage" src={Hoodie} />
+        <img className="HoodieImage" src={HoodieImage} />
         <div className="HoodieInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -65,18 +70,18 @@ const Hoodie = () => {
             </div>
             <p className="HoodieAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="HoodieButton">CheckOut</button>
+                <button className="HoodieButton">Add to Cart</button>
         </div>
       </div>
       <div className="HoodieContainer">
         <div>Name of Product</div>
-        <img className="HoodieImage" src={Hoodie} />
+        <img className="HoodieImage" src={HoodieImage} />
         <div className="HoodieInfoContainer">
             <div>
                 Color: N/A
             </div>
             <div>
-                size: N/A
+                Size: N/A
             </div>
             <div>
                 Price: N/A
@@ -86,10 +91,10 @@ const Hoodie = () => {
             </div>
             <p className="HoodieAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="HoodieButton">CheckOut</button>
+                <button className="HoodieButton">Add to Cart</button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
