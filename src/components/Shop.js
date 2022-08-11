@@ -4,12 +4,17 @@ import ShortSleeve from "./Photo/ShortSleeveImage.jpg"
 import LongSleeve from "./Photo/LongSleeveImage.jpg"
 import Hoodie from "./Photo/HoodieImage.jpg"
 import Sweater from "./Photo/SweaterImage.jpg"
+import { motion } from "framer-motion";
 import "../style/Shop.css";
 
 
 const Shop = () => {
     return (
-        <div className="ShopGrid">
+        <motion.div className="ShopGrid"
+        initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 1}}
+        >
                 <NavLink to="/shortsleeve">
                     <div className="ShopContainer">
                     <img className="Image" src={ShortSleeve} />
@@ -34,7 +39,7 @@ const Shop = () => {
                     <div className="HeaderCenter">Sweater</div>
                     </div>
                 </NavLink>
-        </div>
+        </motion.div>
     )
 }
 

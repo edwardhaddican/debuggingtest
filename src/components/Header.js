@@ -1,5 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 import "../style/Header.css";
 
 const Header = () => {
@@ -46,7 +47,11 @@ const Header = () => {
             >
               <div className="bar"></div>
             </button>
-            <div className="ContainerMenu">
+            <motion.div className="ContainerMenu"
+            initial={{opacity: 0}}
+            animate={{opacity: 0.9}}
+            transition={{ duration: 0.7}}
+            >
               <div>
                 <NavLink to="/login">Login</NavLink>
               </div>
@@ -62,7 +67,7 @@ const Header = () => {
                     <div>
                 <NavLink to="/about">About</NavLink>
               </div>
-            </div>
+            </motion.div>
           </>
         )}
       </div>
