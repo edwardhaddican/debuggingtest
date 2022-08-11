@@ -17,7 +17,7 @@ async function dropTables() {
     throw error;
   }
 }
-
+//DROP TABLE IF EXISTS users;
 async function createTables() {
   try {
     console.log('Starting to build tables...');
@@ -48,14 +48,14 @@ async function createTables() {
     await client.query(`  
 CREATE TABLE cart_products (
   id SERIAL PRIMARY KEY,
-  cart_id INTEGER REFERENCES cart(id),
+  cart_id INTEGER REFERENCES carts(id),
   product_id INTEGER REFERENCES product(id),
   quantity INTEGER
   );`);
     await client.query(`  
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
-  cart_id INTEGER REFERENCES cart(id),
+  cart_id INTEGER REFERENCES carts(id),
   status VARCHAR (255) NOT NULL
   );`);
     console.log('Finished building tables!');
