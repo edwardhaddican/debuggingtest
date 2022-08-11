@@ -43,6 +43,8 @@
     "startnpm": "^1.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "eslint": "^8.2.0",
     "eslint-plugin-jest": "^25.2.4",
     "nodemon": "^2.0.4",

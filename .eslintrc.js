@@ -6,14 +6,12 @@ module.exports = {
     'jest/globals': true,
     node: true,
     parser: babel-eslint,
-    parserOptions: {
-      sourceType: "module",
-      allowImportExportEverywhere: true
-    }
   },
   extends: 'eslint:recommended',
   parserOptions: {
     ecmaVersion: 13,
+    sourceType: "module",
+    allowImportExportEverywhere: true
   },
   rules: {},
   plugins: ['jest'],
