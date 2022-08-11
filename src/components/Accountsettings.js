@@ -1,10 +1,15 @@
 import React from "react";
 import ProfileIconAccPage from './Photo/ProfileIconAccPage.png'
+import { motion } from "framer-motion";
 import "../style/Accountsettings.css";
 
 const Accountsettings = () => {
     return (
-        <div className="AccSettingsContainer">
+        <motion.div className="AccSettingsContainer"
+        initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 0.3}}
+        >
             <div className="AccSettingsHeader">
             Account Settings
             </div>
@@ -55,7 +60,7 @@ const Accountsettings = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
