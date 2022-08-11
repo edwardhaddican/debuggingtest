@@ -27,10 +27,6 @@ const Header = () => {
   return (
     <div className="Header">
       <div className="HeaderTitle">TOP SECRET SHIRTS LA</div>
-      <div className="searchDiv">
-        <input type="search" id="searchBar"/>
-        <label for="search"><img src="https://cdn-icons-png.flaticon.com/512/751/751463.png" id="magnifyingGlass" /></label>
-      </div>
       <div className="Container">
         {hideMenu ? (
           <button
