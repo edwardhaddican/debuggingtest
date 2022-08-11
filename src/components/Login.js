@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "../style/Login.css";
 
 const Login = ({
@@ -15,11 +16,11 @@ const Login = ({
     event.preventDefault();
     try {
       console.log("REPLACE ME WITH API CALL");
-      localStorage.setItem("token", token);
+      // localStorage.setItem("token", token);
       setIsLoggedIn(true);
       setUsername("");
       setPassword("");
-      navigate("/userRoutines");
+      // navigate("/userRoutines");
     } catch (error) {
       alert(error.message);
     }
@@ -36,7 +37,11 @@ const Login = ({
   }
 
   return (
-    <div className="LoginContainer">
+    <motion.div className="LoginContainer"
+    initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 1}}
+    >
       <div>
         <h1 className="LoginHeader">Login</h1>
       </div>
@@ -75,7 +80,7 @@ const Login = ({
         :
         <button id="LoginButton" className="ShowPasswordButton" onClick={hidePasswordFunc}>Hide Password</button>
       }
-    </div>
+    </motion.div>
   );
 };
 

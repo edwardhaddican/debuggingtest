@@ -1,9 +1,14 @@
 import React from "react";
+import { motion } from "framer-motion";
 import "../style/About.css";
 
 const About = () => {
   return (
-    <div className="AboutContainer">
+    <motion.div className="AboutContainer"
+    initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 1}}
+    >
       <h1>About Us</h1>
       <br></br>
       <h2>Top Secret Shirts LA</h2>
@@ -21,7 +26,7 @@ const About = () => {
       <p>Lorem Ipsum</p>
       <br></br>
       <br></br>
-    </div>
+    </motion.div>
   );
 };
 

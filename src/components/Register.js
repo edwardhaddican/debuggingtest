@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "../style/Register.css";
 
 const Register = ({
@@ -36,7 +37,11 @@ const Register = ({
   }
 
   return (
-    <div className="RegisterContainer">
+    <motion.div className="RegisterContainer"
+    initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 1}}
+    >
       <div>
         <h1 className="RegisterHeader">Register</h1>
       </div>
@@ -123,7 +128,7 @@ const Register = ({
           </button>
         )}
       </form>
-    </div>
+    </motion.div>
   );
 };
 

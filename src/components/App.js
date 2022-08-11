@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth } from "../axios-services";
+// import { getAPIHealth } from "../axios-services";
 import "../style/App.css";
 import SunnyDays from "./video/SunnyDays.mp4";
-import { Header, Footer, Home, Register, Login, Shop, About, PrivacyAndLegal } from "./";
-import { Route, Routes } from "react-router-dom";
+import { Header, Footer, AnimatedRoutes } from "./";
 
 const App = () => {
-  const [APIHealth, setAPIHealth] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [APIHealth, setAPIHealth] = useState("");
 
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
@@ -43,52 +36,7 @@ const App = () => {
       <div className="ShowcaseFooter">
         <Footer />
       </div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={
-            <Login
-              setIsLoggedIn={setIsLoggedIn}
-              username={username}
-              setUsername={setUsername}
-              password={password}
-              setPassword={setPassword}
-            />
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <Register
-              username={username}
-              setUsername={setUsername}
-              password={password}
-              setPassword={setPassword}
-              firstName={firstName}
-              setFirstName={setFirstName}
-              lastName={lastName}
-              setLastName={setLastName}
-              email={email}
-              setEmail={setEmail}
-            />
-          }
-        />
-        <Route
-          path='/about'
-          element={
-            <About />
-          }
-        />
-        <Route
-        path='/privacy_legal'
-        element={
-          <PrivacyAndLegal />
-        }
-        />
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-      </Routes>
+      <AnimatedRoutes />
     </div>
   );
 };
