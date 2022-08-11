@@ -6,7 +6,7 @@
   "scripts": {
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
-    "server:dev": "nodemon index.js",
+    "server:dev": "nodemon app.js",
     "db:build": "node ./db/seedData",
     "start:dev": "nodemon server.js",
     "start": "node server.js",

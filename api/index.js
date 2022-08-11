@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const server = require('../server')
+const router = server;
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const { getUserById } = require('../db');
@@ -8,6 +8,7 @@ router.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', '*');
   next();
 });
+
 router.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');

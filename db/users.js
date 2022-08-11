@@ -1,8 +1,15 @@
 const client = require('./client');
 const bcrypt = require('bcrypt');
 
-async function createUser({ username, password }) {
-  console.log('Starting to create user! users.js');
+async function createUser({
+  admin,
+  username,
+  password,
+  first_name,
+  last_name,
+  email,
+}) {
+  console.log("Starting to create user! db/users.js");
   const SALT_COUNT = 10;
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
   try {
@@ -10,46 +17,40 @@ async function createUser({ username, password }) {
       rows: [user],
     } = await client.query(
       `
-        INSERT INTO users(username, password) 
-        VALUES($1, $2) 
+        INSERT INTO users(admin, username, password, first_name, last_name, email) 
+        VALUES($1, $2, $3, $4, $5, $6) 
         ON CONFLICT (username) DO NOTHING 
-        RETURNING id, username;
+        RETURNING id, username, email;
       `,
-      [username, hashedPassword]
+      [admin, username, hashedPassword, first_name, last_name, email]
     );
 
-    console.log('User created: ..');
+    console.log("User created: ..");
     console.log(user);
-    console.log('Finished Creating user! users.js');
+    console.log("Finished Creating user! users.js");
     return user;
   } catch (error) {
-    console.error('Error Creating User! users.js');
+    console.error("Error Creating User! users.js");
     throw error;
   }
 }
 
 async function getUser({ username, password }) {
-  const user = await getUserByUsername(username);
-  const hashedPassword = user.password;
-  const passwordsMatch = await bcrypt.compare(password, hashedPassword);
-  if (passwordsMatch) {
-    try {
-      const {
-        rows: [user],
-      } = await client.query(
-        `
-      SELECT id, username
-      FROM users
-      WHERE username=$1 AND password=$2;
-      `,
-        [username, hashedPassword]
-      );
+  try {
+    const user = await getUserByUsername(username);
+    console.log(user, "USER")
+    const hashedPassword = user.password;
 
+    const isValid = await bcrypt.compare(password, hashedPassword);
+
+    if (isValid) {
+      delete user.password;
       return user;
-    } catch (error) {
-      console.error('Error getting User! users.js');
-      throw error;
+    } else {
+      return null;
     }
+  } catch (error) {
+    return error;
   }
 }
 
@@ -64,7 +65,7 @@ async function getUserById(user_Id) {
     `);
     return user;
   } catch (error) {
-    console.error('Error getting user by id! users.js');
+    console.error('Error getting user by id! db/users.js');
     throw error;
   }
 }
@@ -84,7 +85,7 @@ async function getUserByUsername(username) {
 
     return user;
   } catch (error) {
-    console.error('Error getting user by username! users.js');
+    console.error('Error getting user by username! db/users.js');
     throw error;
   }
 }
