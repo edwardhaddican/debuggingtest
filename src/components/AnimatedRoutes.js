@@ -16,9 +16,6 @@ const AnimatedRoutes = () => {
 
   return (
     <AnimatePresence exitBeforeEnter>
-        {/* <video muted loop autoPlay>
-        <source src={SunnyDays} type="video/mp4" />
-      </video> */}
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route

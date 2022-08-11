@@ -5,6 +5,11 @@ module.exports = {
     es2021: true,
     'jest/globals': true,
     node: true,
+    parser: babel-eslint,
+    parserOptions: {
+      sourceType: "module",
+      allowImportExportEverywhere: true
+    }
   },
   extends: 'eslint:recommended',
   parserOptions: {
@@ -13,5 +18,6 @@ module.exports = {
   rules: {},
   plugins: ['jest'],
 };
+  
 
 // clear
