@@ -1,5 +1,5 @@
 const { createUser } = require('./users');
-const client = require('./client');
+const {client} = require('./client');
 
 async function dropTables() {
   try {

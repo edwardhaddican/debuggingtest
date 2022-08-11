@@ -1,4 +1,4 @@
-const { Client } = require('pg');
+const { Client} = require('pg');
 
 const connectionString =
   process.env.DATABASE_URL || 'https://localhost:5432/topsecret';
@@ -6,8 +6,7 @@ const connectionString =
 const client = new Client({
   connectionString,
 });
-
-console.log(client, "THIS IS CLIENT")
+client.connect()
 
 module.exports = client;
 

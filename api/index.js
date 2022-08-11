@@ -1,13 +1,22 @@
-const server = require('../server')
-const router = server;
+const router = require('express').Router()
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const { getUserById } = require('../db');
 
-router.use((req, res, next) => {
-  res.header('Access-Control-Allow-Methods', '*');
-  next();
+// GET /api/health
+router.get('/health', async (req, res) => {
+  const data = {
+    message: 'I am healthy',
+  };
+  res.status(200).send(data);
 });
+
+router.get('/unknown', async (req, res) => {
+  res.status(404).send({
+    message: 'Not Found',
+  });
+});
+// '/unknown' or '*' ? ^^
 
 router.use(async (req, res, next) => {
   const prefix = 'Bearer ';
@@ -23,6 +32,9 @@ router.use(async (req, res, next) => {
       if (id) {
         req.user = await getUserById(id);
         next();
+      }
+      else {
+        next({name: "You don't have proper JWT", message: "You need to contact someone about that"})
       }
     } catch ({ name, message }) {
       next({ name, message });
@@ -43,20 +55,6 @@ router.use((req, res, next) => {
   next();
 });
 
-// GET /api/health
-router.get('/health', async (req, res) => {
-  const data = {
-    message: 'I am healthy',
-  };
-  res.status(200).send(data);
-});
-
-router.get('/unknown', async (req, res) => {
-  res.status(404).send({
-    message: 'Not Found',
-  });
-});
-// '/unknown' or '*' ? ^^
 
 // ROUTER: /api/users
 const usersRouter = require('./users');

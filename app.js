@@ -4,25 +4,17 @@ const cors = require('cors');
 const morgan = require('morgan');
 const app = express();
 const router = require('./api');
-const client = require('./db/client');
+
 
 // MIDDLEWARE AND API ROUTER
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use('/api', router);
-client.connect();
+
 
 // ERROR HANDLING
-router.use((req, res, next) => {
-  if (req.user) {
-    console.log('User is set:', req.user);
-  }
-  next();
-});
-// unsure if necessary ^
-
-router.use((error, req, res) => {
+router.use((error, req, res, next) => {
   res.send({
     error: error.message,
     name: error.name,
@@ -84,3 +76,4 @@ const handle = server.listen(PORT, async () => {
 module.exports = { server, handle };
 
 */
+module.exports = {app}

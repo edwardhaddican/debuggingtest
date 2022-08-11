@@ -1,6 +1,5 @@
-const client = require('./client');
+const client = require('./client')
 const bcrypt = require('bcrypt');
-
 async function createUser({
   admin,
   username,
@@ -72,6 +71,7 @@ async function getUserById(user_Id) {
 
 async function getUserByUsername(username) {
   try {
+    console.log(client, "client and stuff")
     const {
       rows: [user],
     } = await client.query(
