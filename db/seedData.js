@@ -7,8 +7,8 @@ async function dropTables() {
     await client.query(`
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS cart_products;
-    DROP TABLE IF EXISTS cart;
-    DROP TABLE IF EXISTS product;
+    DROP TABLE IF EXISTS carts;
+    DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
     `);
     console.log('Finished dropping tables!');
@@ -32,7 +32,7 @@ async function createTables() {
       email VARCHAR (255) NOT NULL
  );`);
     await client.query(`
- CREATE TABLE product (
+ CREATE TABLE products (
       id SERIAL PRIMARY KEY,
       creator VARCHAR (255) NOT NULL,
       name VARCHAR (255) NOT NULL,
@@ -40,7 +40,7 @@ async function createTables() {
       status BOOLEAN
       );`);
     await client.query(`     
- CREATE TABLE cart (
+ CREATE TABLE carts (
   id SERIAL PRIMARY KEY,
   "isOrdered" BOOLEAN,
   user_id INTEGER REFERENCES users(id)

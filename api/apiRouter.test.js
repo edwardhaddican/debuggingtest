@@ -1,3 +1,55 @@
+const express = require('express');
+const router = express.Router();
+
+// GET /api/health
+router.get('/health', async (req, res, next) => {});
+
+// ROUTER: /api/users
+const usersRouter = require('./users');
+router.use('/users', usersRouter);
+
+// ROUTER: /api/products
+const products = require('./products');
+router.use('/products', productsRouter);
+
+// ROUTER: /api/cart
+const carts = require('./carts');
+router.use('/cart', cartRouter);
+
+// ROUTER: /api/cart_products
+const cart_productsRouter = require('./cart_products');
+router.use('/cart_products', cart_productsRouter);
+
+// ROUTER: /api/orders
+const orders = require('./orders');
+router.use('/orders', ordersRouter);
+
+router.use('*', (req, res, next) => {
+  res.status(404);
+  res.render('error', { error: 'Not Found' });
+});
+
+module.exports = router;
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 const { server, handle } = require('../index');
 const { client } = require('../db');
 const supertest = require('supertest');
@@ -17,5 +69,4 @@ describe('/api/health endpoint', () => {
   });
 });
 
-/* testing
- */
+*/

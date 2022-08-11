@@ -20,6 +20,8 @@ router.use((req, res, next) => {
   }
   next();
 });
+// unsure if necessary ^
+
 router.use((error, req, res) => {
   res.send({
     error: error.message,
