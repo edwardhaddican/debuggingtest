@@ -1,6 +1,5 @@
 const { createUser } = require('./users');
-const {client} = require('./client');
-
+const client = require('./client');
 async function dropTables() {
   try {
     console.log('Starting To Drop Tables...');
@@ -111,7 +110,6 @@ async function createInitialUsers() {
 
 async function rebuildDB() {
   try {
-    client.connect();
     await dropTables();
     await createTables();
     await createInitialUsers();

@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post("/register", async (req, res, next) => {
-  const { username, password, first_name, last_name, email } = req.body;
+  const { admin, username, password, first_name, last_name, email, active } = req.body;
   
   try {
     if (username) {
@@ -32,11 +32,13 @@ router.post("/register", async (req, res, next) => {
     }
 
     const user = await createUser({
+      admin,
       username,
       password,
       first_name,
       last_name,
       email,
+      active
     })
     
     const token = jwt.sign(
@@ -82,7 +84,7 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.patch('/:userId', async (req, res, next) => {
+router.patch('/:userId', requireUser, async (req, res, next) => {
   const { username, password, email } = req.body
 
   try {
@@ -101,7 +103,6 @@ router.patch('/:userId', async (req, res, next) => {
         message: "That user has already been activated."
       });
     }
-
 
   } catch ({ name, message }) {
     next({ name, message })

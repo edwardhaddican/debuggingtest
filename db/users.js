@@ -2,11 +2,13 @@ const client = require('./client')
 const bcrypt = require('bcrypt');
 
 async function createUser({
+  admin,
   username,
   password,
   first_name,
   last_name,
   email,
+  active
 }) {
   console.log("Starting to create user! db/users.js");
   const SALT_COUNT = 10;
@@ -16,12 +18,12 @@ async function createUser({
       rows: [user],
     } = await client.query(
       `
-        INSERT INTO users(username, password, first_name, last_name, email) 
-        VALUES($1, $2, $3, $4, $5) 
+        INSERT INTO users(admin, username, password, first_name, last_name, email, active) 
+        VALUES($1, $2, $3, $4, $5, $6, $7) 
         ON CONFLICT (username) DO NOTHING 
         RETURNING *;
       `,
-      [username, hashedPassword, first_name, last_name, email]
+      [admin, username, hashedPassword, first_name, last_name, email, active]
     );
 
     console.log("User created: ..");
@@ -96,6 +98,34 @@ async function getAllUsers() {
         `
   );
   return rows;
+}
+
+async function updateUser(id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+
+  if (setString.length === 0) {
+    return;
+  }
+
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        UPDATE users
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *;
+        `,
+      Object.values(fields)
+    );
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function updateUser(id, fields = {}) {
