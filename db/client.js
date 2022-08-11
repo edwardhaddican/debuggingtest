@@ -12,3 +12,5 @@ const client = new Pool({
 });
 
 module.exports = client;
+
+// clear

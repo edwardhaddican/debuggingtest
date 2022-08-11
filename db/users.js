@@ -38,29 +38,29 @@ async function getUser({ username, password }) {
         rows: [user],
       } = await client.query(
         `
-        SELECT id, username
-        FROM users
-        WHERE username=$1 AND password=$2;
-        `,
+      SELECT id, username
+      FROM users
+      WHERE username=$1 AND password=$2;
+      `,
         [username, hashedPassword]
       );
 
       return user;
     } catch (error) {
-      console.error('Error getting user by username! users.js');
+      console.error('Error getting User! users.js');
       throw error;
     }
   }
 }
 
-async function getUserById(userId) {
+async function getUserById(user_Id) {
   try {
     const {
       rows: [user],
     } = await client.query(`
     SELECT id, username     
     FROM users
-    WHERE id=${userId};
+    WHERE id=${user_Id};
     `);
     return user;
   } catch (error) {
@@ -89,6 +89,7 @@ async function getUserByUsername(username) {
   }
 }
 
+/*
 async function getUserByEmail(email) {
   try {
     const {
@@ -99,7 +100,7 @@ async function getUserByEmail(email) {
         FROM users
         WHERE email=$1;
       `,
-      [username]
+      [email]
     );
 
     return user;
@@ -108,13 +109,13 @@ async function getUserByEmail(email) {
     throw error;
   }
 }
+*/
 
 module.exports = {
   createUser,
   getUser,
   getUserById,
   getUserByUsername,
-  getUserByEmail,
 };
 
 /*
