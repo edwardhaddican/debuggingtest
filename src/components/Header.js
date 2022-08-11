@@ -7,7 +7,9 @@ import "../style/Header.css";
 
 const Header = () => {
   const ref = useRef(null);
+  const reftwo = useRef(null)
   const [hideMenu, setHideMenu] = useState(true);
+  const [hideAccountMenu, setHideAccountMenu] = useState(true)
   const [hideSearch, setHideSearch] = useState(false);
 
   //   window.onload = function () {
@@ -33,6 +35,14 @@ const Header = () => {
 
   function showMagGlass() {
     setHideSearch(true);
+  }
+
+  function accMenuShowFunc() {
+    setHideAccountMenu(false);
+  }
+
+  function accMenuHideFunc() {
+    setHideAccountMenu(true);
   }
 
   return (
@@ -86,7 +96,7 @@ const Header = () => {
               className="ContainerMenu"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.9 }}
-              transition={{ duration: 0.1 }}
+              transition={{ duration: 0.3 }}
             >
               <div>
                 <NavLink to="/login">Login</NavLink>
@@ -102,6 +112,9 @@ const Header = () => {
               </div>
               <div>
                 <NavLink to="/about">About</NavLink>
+              </div>
+              <div>
+                <NavLink to="/youraccount">Your Account</NavLink>
               </div>
             </motion.div>
           </>

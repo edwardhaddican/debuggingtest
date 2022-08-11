@@ -7,7 +7,7 @@ const About = () => {
     <motion.div className="AboutContainer"
     initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 1}}
+        transition={{duration: 0.3}}
     >
       <h1>About Us</h1>
       <br></br>

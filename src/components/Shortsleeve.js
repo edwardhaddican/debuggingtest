@@ -8,7 +8,7 @@ const Shortsleeve = () => {
     <motion.div className="ShortSleeveGrid"
     initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 1}}
+        transition={{duration: 0.3}}
     >
       <div className="ShortSleeveContainer">
         <div>Name of Product</div>

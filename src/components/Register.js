@@ -40,7 +40,7 @@ const Register = ({
     <motion.div className="RegisterContainer"
     initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 1}}
+        transition={{duration: 0.3}}
     >
       <div>
         <h1 className="RegisterHeader">Register</h1>

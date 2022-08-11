@@ -8,7 +8,7 @@ const Sweater = () => {
     <motion.div className="SweaterGrid"
     initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 1}}
+        transition={{duration: 0.3}}
     >
       <div className="SweaterContainer">
         <div>Name of Product</div>
