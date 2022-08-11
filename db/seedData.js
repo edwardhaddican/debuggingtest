@@ -1,5 +1,5 @@
 const { createUser } = require('./users');
-const client = require('./client');
+const {client} = require('./client');
 
 async function dropTables() {
   try {
@@ -49,7 +49,7 @@ async function createTables() {
 CREATE TABLE cart_products (
   id SERIAL PRIMARY KEY,
   cart_id INTEGER REFERENCES carts(id),
-  product_id INTEGER REFERENCES product(id),
+  product_id INTEGER REFERENCES products(id),
   quantity INTEGER
   );`);
     await client.query(`  

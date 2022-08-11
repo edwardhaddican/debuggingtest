@@ -1,10 +1,6 @@
-module.exports = {
-  ...require('./client'),
-  ...require('./users'),
-  // ...require('./product'),
-  // ...require('./carts'),
-  // ...require('./cart_products'),
-  // ...require('./orders'),
-};
 
-// clear
+const users = require('./users')
+
+module.exports = {
+  ...users,
+};

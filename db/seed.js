@@ -1,6 +1,6 @@
 // * leave as is * //
 
-const client = require('./client');
+const {client} = require('./client');
 const { rebuildDB } = require('./seedData');
 
 rebuildDB()
