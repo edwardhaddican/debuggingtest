@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Home, Login, Register, About, PrivacyAndLegal, Shop } from "./";
+import { Home, Login, Register, About, PrivacyAndLegal, Shop, Shortsleeve, Longsleeve } from "./";
 // import SunnyDays from "./video/SunnyDays.mp4";
 
 import { AnimatePresence } from "framer-motion";
@@ -51,6 +51,8 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/privacy_legal" element={<PrivacyAndLegal />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/shortsleeve" element={<Shortsleeve />} />
+        <Route path="/longsleeve" element={<Longsleeve />} />
       </Routes>
     </AnimatePresence>
   );
