@@ -2,16 +2,60 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
-const {createUser, getUser, getUserById, getUserByUsername} = require("../db");
+const {createUser, getUser, getUserById, getUserByUsername, getAllUsers, updateUser} = require("../db");
+const { requireUser } = require("./utils")
 
-// usersRouter.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
 
-//   const users = await getAllUsers();
+  const users = await getAllUsers();
 
-//   res.send({
-//       users
-//   });
-// });
+  res.send({
+      users
+  });
+});
+
+router.post("/register", async (req, res, next) => {
+  const { admin, username, password, first_name, last_name, email, active } = req.body;
+  
+  try {
+    if (username) {
+      const _user = await getUserByUsername(username);
+
+      if (_user) {
+        res.status(401);
+        next({
+          error: "USERNAME ALREADY EXISTS",
+          message: `User ${username} is already taken.`,
+          name: "UserAlreadyExists",
+        });
+      }
+    }
+
+    const user = await createUser({
+      admin,
+      username,
+      password,
+      first_name,
+      last_name,
+      email,
+      active
+    })
+    
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username,
+      },
+      JWT_SECRET,
+      {
+        expiresIn: "1y",
+      }
+      )
+
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 
 router.post('/login', async (req, res, next) => {
   const { username, password } = req.body;
@@ -40,40 +84,28 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.post("/register", async (req, res, next) => {
-  const { username, password } = req.body;
-  try {
-    if (username) {
-      const _user = await getUserByUsername(username);
+router.patch('/:userId', requireUser, async (req, res, next) => {
+  const { username, password, email } = req.body
 
-      if (_user) {
-        res.status(401);
-        next({
-          error: "USERNAME ALREADY EXISTS",
-          message: `User ${username} is already taken.`,
-          name: "UserAlreadyExists",
-        });
-      }
+  try {
+    const { userId } = req.params;
+    const user = await getUserById(userId);
+    if(!user.active && (user.id == userId)) {
+      const updatedUser = updateUser(userId, { username: username, password: password, email: email, })
+      
+      res.send({ user: updatedUser })
+    } else {
+      next(!user.active ? { 
+        name: "UnauthorizedUserError",
+        message: "You cannot update a user which is not yours."
+      } : {
+        name: "UserAlreadyActivated",
+        message: "That user has already been activated."
+      });
     }
 
-    const user = await createUser({
-        username,
-        password,
-    })
-
-    const token = jwt.sign(
-        {
-            id: user.id,
-            username,
-        },
-        JWT_SECRET,
-        {
-            expiresIn: "1y",
-        }
-        )
-
   } catch ({ name, message }) {
-    next({ name, message });
+    next({ name, message })
   }
 });
 
