@@ -29,3 +29,34 @@ export async function registerPerson(username, password, email, first_name, last
       throw error;
     }
   }
+
+  export async function loginPerson(username, password) {
+    try {
+      const response = await fetch(`${BASE}/api/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        }),
+      });
+      const result = await response.json();
+      console.log(result, "RESULT")
+      if (result.error) {
+        throw result;
+      }
+      const token = result.token;
+      const id = result.id;
+  
+      if (token) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("username", username);
+        localStorage.setItem("id", id);
+        return result;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }

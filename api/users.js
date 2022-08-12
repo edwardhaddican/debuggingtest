@@ -81,11 +81,11 @@ router.post("/login", async (req, res, next) => {
   }
 
   try {
-    const user = await getUserByUsername(username);
-
-    if (user && user.password == password) {
-      const token = jwt.sign(user, JWT_SECRET);
-      res.send({ message: "you're logged in!", token: `${token}` });
+    const user = await getUser({username, password});
+    delete user.password
+    if (user) {
+      const token = jwt.sign({id: user.id, username: user.username}, JWT_SECRET, { expiresIn: '1y' });
+      res.send({ message: "you're logged in!", id: user.id, token: token, user: user });
     } else {
       next({
         name: "IncorrectCredentialsError",

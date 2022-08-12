@@ -54,21 +54,26 @@ async function createUser({
 }
 
 async function getUser({ username, password }) {
-  try {
-    const user = await getUserByUsername(username);
-    console.log(user, "USER");
-    const hashedPassword = user.password;
+  const user = await getUserByUsername(username);
+  console.log(user, "USER");
+  const hashedPassword = user.password;
 
-    const isValid = await bcrypt.compare(password, hashedPassword);
+  const isValid = await bcrypt.compare(password, hashedPassword);
 
-    if (isValid) {
-      delete user.password;
+  if (isValid) {
+    try {
+      const { rows: [user] } = await client.query(
+        `
+      SELECT id, username
+      FROM users
+      WHERE username=$1 AND password=$2;
+      `,
+        [username, hashedPassword]
+      );
       return user;
-    } else {
-      return null;
+    } catch (error) {
+      alert(error);
     }
-  } catch (error) {
-    return error;
   }
 }
 
@@ -100,7 +105,6 @@ async function getUserByUsername(username) {
       `,
       [username]
     );
-
     return user;
   } catch (error) {
     console.error("Error getting user by username! db/users.js");

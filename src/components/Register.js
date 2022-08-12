@@ -116,6 +116,7 @@ const Register = ({
         <button className="RegisterButton" type="submit">
           Register
         </button>
+      </form>
         {hidePassword ? (
           <button
             id="RegisterButton"
@@ -133,7 +134,6 @@ const Register = ({
             Hide Password
           </button>
         )}
-      </form>
     </motion.div>
   );
 };
