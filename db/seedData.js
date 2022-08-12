@@ -40,18 +40,21 @@ async function createTables() {
     await client.query(`
     CREATE TABLE products (
       id SERIAL PRIMARY KEY,
+      gender VARCHAR (255) NOT NULL,
       product_name VARCHAR (255) NOT NULL,
       description VARCHAR (255),
+      size VARCHAR (255) NOT NULL,
       price VARCHAR (9) NOT NULL,
       availability BOOLEAN DEFAULT true,
       quantity_instock INTEGER
   );`);
-    await client.query(`
+    /*    await client.query(`
     CREATE TABLE product_sizes (
       id SERIAL PRIMARY KEY,
       size VARCHAR (2),
       product_id INTEGER REFERENCES products(id)
   );`);
+ */
     await client.query(` 
     CREATE TABLE carts (
       id SERIAL PRIMARY KEY,
@@ -141,6 +144,8 @@ async function createInitialProducts() {
       {
         product_name: 'Shorline Short Sleeves',
         description: 'Fly Away Top',
+        gender: "Men's",
+        size: 'Small',
         price: 30.0,
         availability: true,
         quantity_instock: 11,
@@ -148,6 +153,8 @@ async function createInitialProducts() {
       {
         product_name: 'Laguna Long Sleeves',
         description: 'Seamless Tiny Top',
+        gender: "Women's",
+        size: 'Medium',
         price: 45.0,
         availability: true,
         quantity_instock: 23,
@@ -155,6 +162,8 @@ async function createInitialProducts() {
       {
         product_name: 'Boardwalk Button Downs',
         description: 'Long Sleeve Oversized Shirt',
+        gender: "Men's",
+        size: 'Large',
         price: 50.0,
         availability: true,
         quantity_instock: 6,
@@ -162,6 +171,8 @@ async function createInitialProducts() {
       {
         product_name: 'Hidden Hills Hoodies',
         description: 'Stone Washed Hoodie Sweatshirt',
+        gender: "Women's",
+        size: 'Xtra-Large',
         price: 75.0,
         availability: true,
         quantity_instock: 9,
@@ -178,6 +189,7 @@ async function createInitialProducts() {
   }
 }
 
+/*
 async function createInitialProduct_Sizes() {
   try {
     console.log('Starting to Create Product Sizes...');
@@ -211,6 +223,7 @@ async function createInitialProduct_Sizes() {
     throw error;
   }
 }
+*/
 
 async function rebuildDB() {
   try {
@@ -218,7 +231,7 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    await createInitialProduct_Sizes();
+    //   await createInitialProduct_Sizes();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -230,5 +243,5 @@ module.exports = {
   createTables,
   createInitialUsers,
   createInitialProducts,
-  createInitialProduct_Sizes,
+  //  createInitialProduct_Sizes,
 };

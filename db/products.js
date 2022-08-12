@@ -1,8 +1,10 @@
 const client = require('./client');
 
 async function createProduct({
+  gender,
   product_name,
   description,
+  size,
   price,
   availability,
   quantity_instock,
@@ -14,15 +16,25 @@ async function createProduct({
     } = await client.query(
       `
         INSERT INTO products(
+            gender,
             product_name,
             description,
+            size,
             price,
             availability,
             quantity_instock) 
-        VALUES($1, $2, $3, $4, $5) 
+        VALUES($1, $2, $3, $4, $5, $6, $7) 
         RETURNING *;
       `,
-      [product_name, description, price, availability, quantity_instock]
+      [
+        gender,
+        product_name,
+        description,
+        size,
+        price,
+        availability,
+        quantity_instock,
+      ]
     );
 
     console.log('User created: ..');
