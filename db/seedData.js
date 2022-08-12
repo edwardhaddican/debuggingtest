@@ -1,5 +1,5 @@
 // thurs class most updated
-const { createUser } = require('./users');
+const { createUser, createProduct, createProduct_Sizes } = require('./users');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -10,7 +10,7 @@ async function dropTables() {
     DROP TABLE IF EXISTS addresses;
     DROP TABLE IF EXISTS cart_products;
     DROP TABLE IF EXISTS carts;
-    DROP TABLE IF EXISTS product_categories;
+    DROP TABLE IF EXISTS product_sizes;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
     `);
@@ -41,14 +41,14 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       name VARCHAR (255) NOT NULL,
       description VARCHAR (255),
-      price INTEGER NOT NULL,
+      price VARCHAR (9) NOT NULL,
       availability BOOLEAN DEFAULT true,
       quantity_instock INTEGER
   );`);
     await client.query(`
-    CREATE TABLE product_categories (
+    CREATE TABLE product_sizes (
       id SERIAL PRIMARY KEY,
-      name VARCHAR (255) NOT NULL,
+      sizes VARCHAR (2) NOT NULL,
       product_id INTEGER REFERENCES products(id)
   );`);
     await client.query(` 
@@ -63,7 +63,7 @@ async function createTables() {
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
       quantity INTEGER NOT NULL,
-      total_price INTEGER NOT NULL
+      total_price VARCHAR (10) NOT NULL
   );`);
     await client.query(`  
   CREATE TABLE addresses (
@@ -82,6 +82,7 @@ CREATE TABLE orders (
   cart_id INTEGER REFERENCES carts(id),
   shipped BOOLEAN default false
   );`);
+
     console.log('Finished building tables!');
   } catch (error) {
     console.error('Error building tables!');
@@ -132,28 +133,80 @@ async function createInitialUsers() {
   }
 }
 
-async function createInitialProduct_Categories() {
+async function createInitialProducts() {
   try {
-    console.log('Starting to Create Product Categories...');
-    const product_categoriesToCreate = [
+    console.log('Starting to create products...');
+    const productsToCreate = [
       {
-        name: "Women's Clothing",
+        name: "Shorline Short Sleeves'",
+        description: 'Fly Away Top',
+        price: 30.0,
+        availability: true,
+        quantity_instock: 11,
+      },
+      {
+        name: "Laguna Long Sleeves'",
+        description: 'Seamless Tiny Top',
+        price: 45.0,
+        availability: true,
+        quantity_instock: 23,
+      },
+      {
+        name: 'Boardwalk Button Downs',
+        description: 'Long Sleeve Oversized Shirt',
+        price: 50.0,
+        availability: true,
+        quantity_instock: 6,
+      },
+      {
+        name: 'Hidden Hills Hoodies',
+        description: 'Stone Washed Hoodie Sweatshirt',
+        price: 75.0,
+        availability: true,
+        quantity_instock: 9,
+      },
+    ];
+    const products = await Promise.all(productsToCreate.map(createProduct));
+
+    console.log('Products Created:');
+    console.log(products);
+    console.log('Finished Creating Products!');
+  } catch (error) {
+    console.error('Error Creating Products! db/seedData.js');
+    throw error;
+  }
+}
+
+async function createInitialProduct_Sizes() {
+  try {
+    console.log('Starting to Create Product Sizes...');
+    const product_sizesToCreate = [
+      {
+        name: 'Small',
         product_id: 1,
       },
       {
-        name: "Men's Clothing ",
+        name: 'Medium',
         product_id: 2,
       },
+      {
+        name: 'Large',
+        product_id: 3,
+      },
+      {
+        name: 'Xtra-Large',
+        product_id: 4,
+      },
     ];
-    const product_categories = await Promise.all(
-      product_categoriesToCreate.map(createProduct_Categories)
+    const product_sizes = await Promise.all(
+      product_sizesToCreate.map(createProduct_Size)
     );
 
-    console.log('Product Categories Created:');
-    console.log(product_categories);
-    console.log('Finished Creating Product Categories!');
+    console.log('Product Sizes Created:');
+    console.log(product_sizes);
+    console.log('Finished Creating Product Sizes!');
   } catch (error) {
-    console.error('Error Creating Product Categories! db/seedData.js');
+    console.error('Error Creating Product Sizes! db/seedData.js');
     throw error;
   }
 }
@@ -164,7 +217,7 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    await createInitialProduct_Categories();
+    await createInitialProduct_Sizes();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -175,6 +228,6 @@ module.exports = {
   dropTables,
   createTables,
   createInitialUsers,
-  createProducts,
-  createProduct_Categories,
+  createInitialProducts,
+  createInitialProduct_Sizes,
 };
