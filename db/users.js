@@ -1,5 +1,5 @@
-const client = require('./client');
-const bcrypt = require('bcrypt');
+const client = require("./client");
+const bcrypt = require("bcrypt");
 
 async function createUser({
   email,
@@ -10,7 +10,7 @@ async function createUser({
   user_active,
   admin_active,
 }) {
-  console.log('Starting to create user! db/users.js');
+  console.log("Starting to create user! db/users.js");
   const SALT_COUNT = 10;
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
   try {
@@ -18,13 +18,16 @@ async function createUser({
       rows: [user],
     } = await client.query(
       `
-        INSERT INTO users(email,
+        INSERT INTO users
+        (
+          email,
           password,
           first_name,
           last_name,
           username,
           user_active,
-          admin_active) 
+          admin_active
+        )
         VALUES($1, $2, $3, $4, $5, $6, $7) 
         ON CONFLICT (username) DO NOTHING 
         RETURNING *;
@@ -40,12 +43,12 @@ async function createUser({
       ]
     );
 
-    console.log('User created: ..');
+    console.log("User created: ..");
     console.log(user);
-    console.log('Finished Creating user! users.js');
+    console.log("Finished Creating user! users.js");
     return user;
   } catch (error) {
-    console.error('Error Creating User! users.js');
+    console.error("Error Creating User! users.js");
     throw error;
   }
 }
@@ -53,7 +56,7 @@ async function createUser({
 async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername(username);
-    console.log(user, 'USER');
+    console.log(user, "USER");
     const hashedPassword = user.password;
 
     const isValid = await bcrypt.compare(password, hashedPassword);
@@ -80,7 +83,7 @@ async function getUserById(user_Id) {
     `);
     return user;
   } catch (error) {
-    console.error('Error getting user by id! db/users.js');
+    console.error("Error getting user by id! db/users.js");
     throw error;
   }
 }
@@ -100,7 +103,7 @@ async function getUserByUsername(username) {
 
     return user;
   } catch (error) {
-    console.error('Error getting user by username! db/users.js');
+    console.error("Error getting user by username! db/users.js");
     throw error;
   }
 }
@@ -117,7 +120,7 @@ async function getAllUsers() {
 async function updateUser(id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
+    .join(", ");
 
   if (setString.length === 0) {
     return;

@@ -35,7 +35,6 @@ async function createTables() {
       username VARCHAR (255) UNIQUE NOT NULL,
       user_active BOOLEAN DEFAULT true,
       admin_active BOOLEAN DEFAULT false
-      
  );`);
     await client.query(`
     CREATE TABLE products (

@@ -1,6 +1,6 @@
-const BASE = 'localhost:3001'
+const BASE = 'http://localhost:3001'
 
-export async function registerPerson(username, password) {
+export async function registerPerson(username, password, email, first_name, last_name) {
     try {
       const response = await fetch(`${BASE}/api/users/register`, {
         method: "POST",
@@ -10,6 +10,11 @@ export async function registerPerson(username, password) {
         body: JSON.stringify({
           username: username,
           password: password,
+          email: email,
+          first_name: first_name,
+          last_name: last_name,
+          user_active: true,
+          admin_active: false
         }),
       });
       const result = await response.json();

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "../style/Register.css";
+import { registerPerson } from "../api";
 
 const Register = ({
   username,
@@ -20,7 +21,12 @@ const Register = ({
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      console.log("REPLACE ME WITH REGISTERPERSON API CALL");
+      const registeredPerson = await registerPerson(username, password, email, firstName, lastName)
+      if (registeredPerson) {
+        setUsername("");
+        setPassword("");
+        navigate("/login");
+      }
     } catch (error) {
       alert(error.message);
     }
