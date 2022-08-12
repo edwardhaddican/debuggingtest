@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import WhiteSearchIcon from './Photo/WhiteSearchIcon.png'
 import GreySearchIcon from './Photo/GreySearchIcon.png'
+import MenuIcon from './Photo/HeaderMenuIcon.png'
+import CancelMenuIcon from './Photo/CancelMenuIcon.png'
+import CartMenuIcon from './Photo/CartMenuIcon.png'
 import "../style/Header.css";
 
 const Header = () => {
@@ -72,25 +75,22 @@ const Header = () => {
             </div>
           </>
         )}
+        <NavLink to="/cartpage" className="MenuIcon"><img src={CartMenuIcon} /></NavLink>
       <div className="Container">
         {hideMenu ? (
           <button
-            className="hamburger"
-            data-hamburger-button
-            ref={ref}
+            className="MenuIcon"
             onClick={menuShowFunc}
           >
-            <div className="bar"></div>
+            <img src={MenuIcon} />
           </button>
         ) : (
           <>
             <button
-              className="hamburger"
-              data-hamburger-button
-              ref={ref}
+              className="MenuIcon"
               onClick={menuHideFunc}
             >
-              <div className="bar"></div>
+              <img src={CancelMenuIcon} />
             </button>
             <motion.div
               className="ContainerMenu"

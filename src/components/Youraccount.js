@@ -7,9 +7,9 @@ const Youraccount = () => {
     return (
         <motion.div
         className="YourAccContainer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.9 }}
-        transition={{ duration: 0.3 }}
+        initial={{opacity: 0}}
+        animate={{opacity: 0.9}}
+        transition={{duration: 0.5}}
       >
         <div>
           <NavLink to="/myorders">My Orders</NavLink>

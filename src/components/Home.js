@@ -6,7 +6,7 @@ const Home = () => {
         <motion.div className='ShowcaseHome'
         initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 0.3}}
+        transition={{duration: 0.5}}
         >
             <h2>THE ONLY SUMMER CLOTHING BRAND</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 

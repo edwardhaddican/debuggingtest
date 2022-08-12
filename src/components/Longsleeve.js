@@ -8,7 +8,7 @@ const Longsleeve = () => {
     <motion.div className="LongSleeveGrid"
     initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 0.3}}
+        transition={{duration: 0.5}}
     >
       <div className="LongSleeveContainer">
         <div>Name of Product</div>
@@ -24,25 +24,7 @@ const Longsleeve = () => {
                 Price: N/A
             </div>
             <div>
-                About:
-            </div>
-            <p className="LongSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="LongSleeveButton">Add to Cart</button>
-        </div>
-      </div>
-      <div className="LongSleeveContainer">
-        <div>Name of Product</div>
-        <img className="LongSleeveImage" src={LongSleeve} />
-        <div className="LongSleeveInfoContainer">
-            <div>
-                Color: N/A
-            </div>
-            <div>
-                Size: N/A
-            </div>
-            <div>
-                Price: N/A
+                InStock:  N/A
             </div>
             <div>
                 About:
@@ -66,6 +48,9 @@ const Longsleeve = () => {
                 Price: N/A
             </div>
             <div>
+                InStock:  N/A
+            </div>
+            <div>
                 About:
             </div>
             <p className="LongSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
@@ -85,6 +70,33 @@ const Longsleeve = () => {
             </div>
             <div>
                 Price: N/A
+            </div>
+            <div>
+                InStock:  N/A
+            </div>
+            <div>
+                About:
+            </div>
+            <p className="LongSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+                tempor incididunt ut labore et dolore magna aliqua.</p>
+                <button className="LongSleeveButton">Add to Cart</button>
+        </div>
+      </div>
+      <div className="LongSleeveContainer">
+        <div>Name of Product</div>
+        <img className="LongSleeveImage" src={LongSleeve} />
+        <div className="LongSleeveInfoContainer">
+            <div>
+                Color: N/A
+            </div>
+            <div>
+                Size: N/A
+            </div>
+            <div>
+                Price: N/A
+            </div>
+            <div>
+                InStock:  N/A
             </div>
             <div>
                 About:

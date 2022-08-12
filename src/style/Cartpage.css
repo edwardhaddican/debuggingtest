@@ -1,4 +1,4 @@
-.MyOrdersContainer {
+.CartContainer {
     background-color: white;
     text-align: center;
     padding: .75rem;
@@ -14,7 +14,7 @@
     z-index: 650;
 }
 
-.MyOrdersHeader {
+.CartHeader {
     color: grey;
     font-size: 30px;
     font-weight: bolder;
@@ -22,7 +22,7 @@
     text-align: center;
 }
 
-.MyOrdersContainerLeft {
+.CartContainerLeft {
     background-color: lightgray;
     text-align: center;
     padding: .75rem;
@@ -38,12 +38,12 @@
     z-index: 650;
 }
 
-.MyOrdersPic {
+.CartPic {
     width: 200px;
     height: 300px;
 }
 
-.MyOrdersContainerRight {
+.CartContainerRight {
     position: absolute;
     background-color: lightgray;
     text-align: center;
@@ -59,20 +59,9 @@
     width: 55%;
     height: 30rem;
     z-index: 650;
-    overflow: scroll;
-    overflow-x: hidden;
 }
 
-.MyOrdersContainerRight::-webkit-scrollbar {
-    width: 10px;
-}
-
-.MyOrdersContainerRight::-webkit-scrollbar-thumb {
-    background: grey;
-    border-radius: 10px;
-}
-
-.SingleOrderContainer {
+.CartOrderContainer {
     background-color: white;
     text-align: center;
     padding: .75rem;
@@ -84,29 +73,29 @@
     margin-left: 3%;
     margin-top: 1.5%;
     width: 33.5rem;
-    height: 10rem;
+    height: 26rem;
     z-index: 700;
     overflow: scroll;
 }
 
-.SingleOrderContainer::-webkit-scrollbar {
+.CartOrderContainer::-webkit-scrollbar {
     width: 10px;
 }
 
-.SingleOrderContainer::-webkit-scrollbar-thumb {
+.CartOrderContainer::-webkit-scrollbar-thumb {
     background: grey;
     border-radius: 10px;
 }
 
-.OrderDetails {
+.CartOrderDetails {
     position: absolute;
-    right: 3.5rem;
+    right: 3.8rem;
     margin-top: 1rem;
     z-index: 800;
     
 }
 
-.ProductContainer {
+.CartProductContainer {
     background-color: lightgray;
     text-align: center;
     /* padding: .75rem; */
@@ -122,25 +111,35 @@
     z-index: 700;
 }
 
-.ProductImages {
+.CartImages {
     width: 180px;
     height: 120px;
     margin-top: 0.5rem;
     margin-right: 8rem;
 }
 
-.ProductInfo {
+.CartInfo {
     position: relative;
     font-size: 20px;
     margin-left: 11.5rem;
     bottom: 7.5rem;
 }
 
-.ProductText {
+.CartText {
     padding: 0.4rem;
 }
 
-.OrderDetailsInfo {
+.CartOrderDetailsInfo {
     font-size: 15px;
-    padding: 0.3rem;
+    padding: 1rem;
+}
+
+.CartPageButton {
+    position: relative;
+    width: 10rem;
+    height: 3rem;
+    font-size: 20px;
+    font-weight: bolder;
+    color: grey;
+    text-shadow: lightblue 0.1em 0.1em 0.2em;
 }

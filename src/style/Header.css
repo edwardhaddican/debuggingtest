@@ -52,45 +52,16 @@
     color: grey;
 }
 
-.Container > .hamburger.is-active + .ContainerMenu {
-    opacity: 0.9;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.hamburger {
-    position: relative;
-    display: block;
+.MenuIcon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
     width: 35px;
     height: 35px;
-    cursor: pointer;
-    appearance: none;
-    background: none;
-    outline: none;
-    border: none;
 }
 
-.hamburger .bar, .hamburger:after, .hamburger:before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 5px;
-    background-color: #fff;
-    margin: 4px;
-    transition: 0.4s;
-    box-shadow: lightgrey 0.1em 0.1em 0.2em;
-}
-
-.hamburger.is-active:before {
-    transform: rotate(-45deg) translate(-7px, 6px);
-}
-
-.hamburger.is-active .bar {
-    opacity: 0;
-}
-
-.hamburger.is-active:after {
-    transform: rotate(45deg) translate(-6.5px, -6px);
+.MenuIcon:hover {
+    opacity: 0.5;
 }
 
 .searchDiv {

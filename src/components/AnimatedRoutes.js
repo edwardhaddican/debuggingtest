@@ -14,6 +14,7 @@ import {
   Youraccount,
   Accountsettings,
   Myorders,
+  Cartpage
 } from "./";
 
 import { AnimatePresence } from "framer-motion";
@@ -71,6 +72,7 @@ const AnimatedRoutes = () => {
         <Route path="/youraccount" element={<Youraccount />} />
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
+        <Route path="/cartpage" element={<Cartpage />} />
       </Routes>
     </AnimatePresence>
   );

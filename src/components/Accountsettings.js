@@ -8,7 +8,7 @@ const Accountsettings = () => {
         <motion.div className="AccSettingsContainer"
         initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 0.3}}
+        transition={{duration: 0.5}}
         >
             <div className="AccSettingsHeader">
             Account Settings
@@ -17,7 +17,7 @@ const Accountsettings = () => {
                 <div>
                     First & Last Name
                 </div>
-                <img className="AccSettngsPic" src={ProfileIconAccPage}/>
+                <img className="AccSettingsPic" src={ProfileIconAccPage}/>
             </div>
             <div className="AccSettingsContainerRight">
                 <div className="AccSettingsOptions">
