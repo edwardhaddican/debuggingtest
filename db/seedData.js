@@ -42,7 +42,7 @@ async function createTables() {
       name VARCHAR (255) NOT NULL,
       description VARCHAR (255),
       price INTEGER NOT NULL,
-      product_active BOOLEAN DEFAULT true,
+      availability BOOLEAN DEFAULT true,
       quantity_instock INTEGER
   );`);
     await client.query(`
@@ -132,11 +132,39 @@ async function createInitialUsers() {
   }
 }
 
+async function createInitialProduct_Categories() {
+  try {
+    console.log('Starting to Create Product Categories...');
+    const product_categoriesToCreate = [
+      {
+        name: "Women's Clothing",
+        product_id: 1,
+      },
+      {
+        name: "Men's Clothing ",
+        product_id: 2,
+      },
+    ];
+    const product_categories = await Promise.all(
+      product_categoriesToCreate.map(createProduct_Categories)
+    );
+
+    console.log('Product Categories Created:');
+    console.log(product_categories);
+    console.log('Finished Creating Product Categories!');
+  } catch (error) {
+    console.error('Error Creating Product Categories! db/seedData.js');
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialProducts();
+    await createInitialProduct_Categories();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -147,4 +175,6 @@ module.exports = {
   dropTables,
   createTables,
   createInitialUsers,
+  createProducts,
+  createProduct_Categories,
 };
