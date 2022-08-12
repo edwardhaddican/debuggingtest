@@ -1,8 +1,6 @@
 const client = require('./client');
 const bcrypt = require('bcrypt');
 
-//potential deleteUser
-
 async function createUser({
   email,
   password,
@@ -165,6 +163,8 @@ async function getUserByEmail(email) {
   }
 }
 */
+
+//potential deleteUser
 
 module.exports = {
   createUser,

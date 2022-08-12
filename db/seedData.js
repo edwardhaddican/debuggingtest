@@ -50,7 +50,7 @@ async function createTables() {
     await client.query(`
     CREATE TABLE product_sizes (
       id SERIAL PRIMARY KEY,
-      sizes VARCHAR (2) NOT NULL,
+      product_size VARCHAR (10) NOT NULL,
       product_id INTEGER REFERENCES products(id)
   );`);
     await client.query(` 
@@ -184,19 +184,19 @@ async function createInitialProduct_Sizes() {
     console.log('Starting to Create Product Sizes...');
     const product_sizesToCreate = [
       {
-        product_size_name: 'Small',
+        product_size: 'Large',
         product_id: 1,
       },
       {
-        product_size_name: 'Medium',
+        product_size: 'Small',
         product_id: 2,
       },
       {
-        product_size_name: 'Large',
+        product_size: 'Xtra_Large',
         product_id: 3,
       },
       {
-        product_size_name: 'Xtra-Large',
+        product_size: 'Xtra-Large',
         product_id: 4,
       },
     ];
