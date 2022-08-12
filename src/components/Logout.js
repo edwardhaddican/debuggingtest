@@ -1,28 +1,43 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "../style/Logout.css";
 
-const Logout = () => {
-    return (
-        <motion.div 
-        className="LogoutContainer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.9 }}
-        transition={{ duration: 0.5 }}
-        >
-            <div className="LogoutHeader">
-            Are You Sure You Want To Logout?
-            </div>
-            <div className="LogoutButtonContainer">
-                <button className="LogoutButtons">
-                    Yes
-                </button>
-                <button className="LogoutButtons">
-                    No
-                </button>
-            </div>
-        </motion.div>
-    )
-}
+const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
+    const navigate = useNavigate()
 
-export default Logout
+    async function handleYes (event) {
+        event.preventDefault();
+        setIsLoggedIn(false)
+        localStorage.removeItem('id')
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        navigate('/')
+    }
+
+    async function handleNo (event) {
+        event.preventDefault();
+        navigate('/youraccount')
+    }
+
+  return (
+    <motion.div
+      className="LogoutContainer"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.9 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="LogoutHeader">Are You Sure You Want To Logout?</div>
+      <div className="LogoutButtonContainer">
+        <form onSubmit={handleYes}>
+          <button className="LogoutButtons" type='submit'>Yes</button>
+        </form>
+        <form onSubmit={handleNo}>
+          <button className="LogoutButtons" type='submit'>No</button>
+        </form>
+      </div>
+    </motion.div>
+  );
+};
+
+export default Logout;

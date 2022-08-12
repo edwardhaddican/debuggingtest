@@ -1,18 +1,18 @@
 import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import WhiteSearchIcon from './Photo/WhiteSearchIcon.png'
-import GreySearchIcon from './Photo/GreySearchIcon.png'
-import MenuIcon from './Photo/HeaderMenuIcon.png'
-import CancelMenuIcon from './Photo/CancelMenuIcon.png'
-import CartMenuIcon from './Photo/CartMenuIcon.png'
+import WhiteSearchIcon from "./Photo/WhiteSearchIcon.png";
+import GreySearchIcon from "./Photo/GreySearchIcon.png";
+import MenuIcon from "./Photo/HeaderMenuIcon.png";
+import CancelMenuIcon from "./Photo/CancelMenuIcon.png";
+import CartMenuIcon from "./Photo/CartMenuIcon.png";
 import "../style/Header.css";
 
-const Header = () => {
+const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const ref = useRef(null);
-  const reftwo = useRef(null)
+  const reftwo = useRef(null);
   const [hideMenu, setHideMenu] = useState(true);
-  const [hideAccountMenu, setHideAccountMenu] = useState(true)
+  const [hideAccountMenu, setHideAccountMenu] = useState(true);
   const [hideSearch, setHideSearch] = useState(false);
 
   //   window.onload = function () {
@@ -51,45 +51,42 @@ const Header = () => {
   return (
     <div className="Header">
       <div className="HeaderTitle">TOP SECRET SHIRTS LA</div>
-        {!hideSearch ? (
-          <img
-            src={WhiteSearchIcon}
-            id="WhiteMagnifyingGlass"
-            onClick={showMagGlass}
-          />
-        ) : (
-          <>
-            <div className="searchDiv">
-              <input type="search" id="searchBar" placeholder="Search inventory..." />
-              <label for="search">
-                <img
-                  src={GreySearchIcon}
-                  id="GreyMagnifyingGlass"
-                />
-                <img
-                  src="https://cdn-icons.flaticon.com/png/512/2997/premium/2997911.png?token=exp=1660229420~hmac=c55efdbb55bb38520c1e0bcd5d56dfff"
-                  id="xIconSearch"
-                  onClick={hideMagGlass}
-                />
-              </label>
-            </div>
-          </>
-        )}
-        <NavLink to="/cartpage" className="MenuIcon"><img src={CartMenuIcon} /></NavLink>
+      {!hideSearch ? (
+        <img
+          src={WhiteSearchIcon}
+          id="WhiteMagnifyingGlass"
+          onClick={showMagGlass}
+        />
+      ) : (
+        <>
+          <div className="searchDiv">
+            <input
+              type="search"
+              id="searchBar"
+              placeholder="Search inventory..."
+            />
+            <label for="search">
+              <img src={GreySearchIcon} id="GreyMagnifyingGlass" />
+              <img
+                src="https://cdn-icons.flaticon.com/png/512/2997/premium/2997911.png?token=exp=1660229420~hmac=c55efdbb55bb38520c1e0bcd5d56dfff"
+                id="xIconSearch"
+                onClick={hideMagGlass}
+              />
+            </label>
+          </div>
+        </>
+      )}
+      <NavLink to="/cartpage" className="MenuIcon">
+        <img src={CartMenuIcon} />
+      </NavLink>
       <div className="Container">
         {hideMenu ? (
-          <button
-            className="MenuIcon"
-            onClick={menuShowFunc}
-          >
+          <button className="MenuIcon" onClick={menuShowFunc}>
             <img src={MenuIcon} />
           </button>
         ) : (
           <>
-            <button
-              className="MenuIcon"
-              onClick={menuHideFunc}
-            >
+            <button className="MenuIcon" onClick={menuHideFunc}>
               <img src={CancelMenuIcon} />
             </button>
             <motion.div
@@ -98,24 +95,40 @@ const Header = () => {
               animate={{ opacity: 0.9 }}
               transition={{ duration: 0.3 }}
             >
-              <div>
-                <NavLink to="/login">Login</NavLink>
-              </div>
-              <div>
-                <NavLink to="/register">Register</NavLink>
-              </div>
-              <div>
-                <NavLink to="/">Home</NavLink>
-              </div>
-              <div>
-                <NavLink to="/shop">Shop</NavLink>
-              </div>
-              <div>
-                <NavLink to="/about">About</NavLink>
-              </div>
-              <div>
-                <NavLink to="/youraccount">Your Account</NavLink>
-              </div>
+              {!isLoggedIn ? (
+                <>
+                  <div>
+                    <NavLink to="/login">Login</NavLink>
+                  </div>
+                  <div>
+                    <NavLink to="/register">Register</NavLink>
+                  </div>
+                  <div>
+                    <NavLink to="/">Home</NavLink>
+                  </div>
+                  <div>
+                    <NavLink to="/shop">Shop</NavLink>
+                  </div>
+                  <div>
+                    <NavLink to="/about">About</NavLink>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <NavLink to="/">Home</NavLink>
+                  </div>
+                  <div>
+                    <NavLink to="/shop">Shop</NavLink>
+                  </div>
+                  <div>
+                    <NavLink to="/about">About</NavLink>
+                  </div>
+                  <div>
+                    <NavLink to="/youraccount">Your Account</NavLink>
+                  </div>
+                </>
+              )}
             </motion.div>
           </>
         )}
