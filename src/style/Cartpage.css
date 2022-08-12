@@ -44,7 +44,7 @@
 }
 
 .CartContainerRight {
-    position: absolute;
+    position: fixed;
     background-color: lightgray;
     text-align: center;
     font-size: 30px;
@@ -88,7 +88,7 @@
 }
 
 .CartOrderDetails {
-    position: absolute;
+    position: fixed;
     right: 3.8rem;
     margin-top: 1rem;
     z-index: 800;
