@@ -1,7 +1,7 @@
 // thurs class most updated
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
-const { createProduct_Sizes } = require('./product_sizes');
+const { createProduct_Size } = require('./product_sizes');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -50,7 +50,7 @@ async function createTables() {
     await client.query(`
     CREATE TABLE product_sizes (
       id SERIAL PRIMARY KEY,
-      product_size VARCHAR (10) NOT NULL,
+      size VARCHAR (10),
       product_id INTEGER REFERENCES products(id)
   );`);
     await client.query(` 
@@ -184,24 +184,24 @@ async function createInitialProduct_Sizes() {
     console.log('Starting to Create Product Sizes...');
     const product_sizesToCreate = [
       {
-        product_size: 'Large',
+        size: 'M',
         product_id: 1,
       },
       {
-        product_size: 'Small',
-        product_id: 2,
+        size: 'S',
+        product_id: 1,
       },
       {
-        product_size: 'Xtra_Large',
+        size: 'XL',
         product_id: 3,
       },
       {
-        product_size: 'Xtra-Large',
+        size: 'XL',
         product_id: 4,
       },
     ];
     const product_sizes = await Promise.all(
-      product_sizesToCreate.map(createProduct_Sizes)
+      product_sizesToCreate.map(createProduct_Size)
     );
 
     console.log('Product Sizes Created:');
