@@ -1,6 +1,6 @@
 const { createUser } = require('./users');
-const { createProduct } = require('./products');
-const { createProduct_Size } = require('./product_sizes');
+const { createProduct, getProduct } = require('./products');
+//const { createProduct_Size } = require('./product_sizes');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -181,7 +181,7 @@ async function createInitialProducts() {
 
     console.log('Products Created:');
     console.log(products);
-    console.log('Finished Creating Products!');
+    console.log('Finished Creating Products! db/seedData.js');
   } catch (error) {
     console.error('Error Creating Products! db/seedData.js');
     throw error;

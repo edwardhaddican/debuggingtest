@@ -39,30 +39,31 @@ async function createProduct({
 
     console.log('User created: ..');
     console.log(product);
-    console.log('Finished Creating user! products.js');
+    console.log('Finished Creating Product! products.js');
     return product;
   } catch (error) {
-    console.error('Error Creating User! products.js');
+    console.error('Error Creating Product! products.js');
+    throw error;
+  }
+}
+
+async function getProduct() {
+  try {
+    const {
+      rows: [],
+    } = await client.query(`
+        SELECT *
+        FROM products
+        `);
+    console.log('Finished Getting Product! products.js');
+    return product;
+  } catch (error) {
+    console.error('Error Getting Product! products.js');
     throw error;
   }
 }
 
 /*
-async function getProduct() {
-    try {
-        const {
-            rows: [],
-        } = await client.query(`
-        SELECT *
-        FROM
-        WHERE
-        `);
-        return ;
-    } catch (error) {
-        console.error("Error")
-        throw error;
-    }
-}
 async function updateProduct() {
     try {
         const {
@@ -78,7 +79,7 @@ async function updateProduct() {
         throw error;
     }
 }
-async function destoryProduct() {
+async function deleteProduct() {
     try {
         const {
             rows: [],
@@ -112,4 +113,5 @@ async function () {
 
 module.exports = {
   createProduct,
+  getProduct,
 };
