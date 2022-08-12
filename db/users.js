@@ -4,13 +4,13 @@ const bcrypt = require('bcrypt');
 //potential deleteUser
 
 async function createUser({
-  admin,
-  username,
+  email,
   password,
   first_name,
   last_name,
-  email,
-  active,
+  username,
+  user_active,
+  admin_active,
 }) {
   console.log('Starting to create user! db/users.js');
   const SALT_COUNT = 10;
@@ -20,12 +20,26 @@ async function createUser({
       rows: [user],
     } = await client.query(
       `
-        INSERT INTO users(admin, username, password, first_name, last_name, email, active) 
+        INSERT INTO users(email,
+          password,
+          first_name,
+          last_name,
+          username,
+          user_active,
+          admin_active) 
         VALUES($1, $2, $3, $4, $5, $6, $7) 
         ON CONFLICT (username) DO NOTHING 
         RETURNING *;
       `,
-      [admin, username, hashedPassword, first_name, last_name, email, active]
+      [
+        email,
+        hashedPassword,
+        first_name,
+        last_name,
+        username,
+        user_active,
+        admin_active,
+      ]
     );
 
     console.log('User created: ..');

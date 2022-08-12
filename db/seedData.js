@@ -5,9 +5,12 @@ async function dropTables() {
   try {
     console.log('Starting To Drop Tables...');
     await client.query(`
+    
     DROP TABLE IF EXISTS orders;
+    DROP TABLE IF EXISTS addresses;
     DROP TABLE IF EXISTS cart_products;
     DROP TABLE IF EXISTS carts;
+    DROP TABLE IF EXISTS product_categories;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
     `);
@@ -24,40 +27,60 @@ async function createTables() {
     await client.query(`
     CREATE TABLE users (
       id SERIAL PRIMARY KEY,
-      admin BOOLEAN,
-      username VARCHAR (255) UNIQUE NOT NULL,
+      email VARCHAR (255) UNIQUE NOT NULL,
       password VARCHAR (255) NOT NULL,
       first_name VARCHAR (255) NOT NULL,
       last_name VARCHAR (255) NOT NULL,
-      email VARCHAR (255) NOT NULL,
-      active BOOLEAN
+      username VARCHAR (255) UNIQUE NOT NULL,
+      user_active BOOLEAN DEFAULT true,
+      admin_active BOOLEAN DEFAULT false
+      
  );`);
     await client.query(`
- CREATE TABLE products (
+    CREATE TABLE products (
       id SERIAL PRIMARY KEY,
-      creator VARCHAR (255) NOT NULL,
       name VARCHAR (255) NOT NULL,
-      price INTEGER,
-      status BOOLEAN
-      );`);
-    await client.query(`     
- CREATE TABLE carts (
-  id SERIAL PRIMARY KEY,
-  "isOrdered" BOOLEAN,
-  user_id INTEGER REFERENCES users(id)
+      description VARCHAR (255),
+      price INTEGER NOT NULL,
+      product_active BOOLEAN DEFAULT true,
+      quantity_instock INTEGER
+  );`);
+    await client.query(`
+    CREATE TABLE product_categories (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR (255) NOT NULL,
+      product_id INTEGER REFERENCES products(id)
+  );`);
+    await client.query(` 
+    CREATE TABLE carts (
+      id SERIAL PRIMARY KEY,
+      purchased BOOLEAN DEFAULT false,
+      user_id INTEGER REFERENCES users(id)
   );`);
     await client.query(`  
-CREATE TABLE cart_products (
-  id SERIAL PRIMARY KEY,
-  cart_id INTEGER REFERENCES carts(id),
-  product_id INTEGER REFERENCES products(id),
-  quantity INTEGER
+    CREATE TABLE cart_products (
+      id SERIAL PRIMARY KEY,
+      cart_id INTEGER REFERENCES carts(id),
+      product_id INTEGER REFERENCES products(id),
+      quantity INTEGER NOT NULL,
+      total_price INTEGER NOT NULL
+  );`);
+    await client.query(`  
+  CREATE TABLE addresses (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    phone_number VARCHAR (10),
+    street01 VARCHAR (255) NOT NULL,
+    street02 VARCHAR (255),
+    city VARCHAR (255),
+    state VARCHAR (2),
+    zipcode VARCHAR (10)
   );`);
     await client.query(`  
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   cart_id INTEGER REFERENCES carts(id),
-  status VARCHAR (255) NOT NULL
+  shipped BOOLEAN default false
   );`);
     console.log('Finished building tables!');
   } catch (error) {
@@ -71,31 +94,31 @@ async function createInitialUsers() {
     console.log('Starting to create users...');
     const usersToCreate = [
       {
-        admin: true,
-        username: 'aliataha',
+        email: 'aliataha2206@gmail.com',
         password: 'zuzu',
         first_name: 'Alia',
         last_name: 'Taha',
-        email: 'aliataha2206@gmail.com',
-        active: true,
+        username: 'aliataha',
+        user_active: true,
+        admin_active: true,
       },
       {
-        admin: true,
-        username: 'tannerazm',
+        email: 'tannermonaco2206@gmail.com',
         password: '418argyle',
         first_name: 'Tanner',
         last_name: 'Monaco',
-        email: 'tannermonaco2206@gmail.com',
-        active: true,
+        username: 'tannerazm',
+        user_active: true,
+        admin_active: true,
       },
       {
-        admin: true,
-        username: 'lmaul',
+        email: 'lucasmaul2206@gmail.com',
         password: 'starfox',
         first_name: 'Lucas',
         last_name: 'Maul',
-        email: 'lucasmaul2206@gmail.com',
-        active: true,
+        username: 'lmaul',
+        user_active: true,
+        admin_active: true,
       },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));
@@ -104,7 +127,7 @@ async function createInitialUsers() {
     console.log(users);
     console.log('Finished creating users!');
   } catch (error) {
-    console.error('Error creating users seed.js!');
+    console.error('Error creating users seedData.js!');
     throw error;
   }
 }
