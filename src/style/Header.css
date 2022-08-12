@@ -52,45 +52,16 @@
     color: grey;
 }
 
-.Container > .hamburger.is-active + .ContainerMenu {
-    opacity: 0.9;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.hamburger {
-    position: relative;
-    display: block;
+.MenuIcon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
     width: 35px;
     height: 35px;
-    cursor: pointer;
-    appearance: none;
-    background: none;
-    outline: none;
-    border: none;
 }
 
-.hamburger .bar, .hamburger:after, .hamburger:before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 5px;
-    background-color: #fff;
-    margin: 4px;
-    transition: 0.4s;
-    box-shadow: lightgrey 0.1em 0.1em 0.2em;
-}
-
-.hamburger.is-active:before {
-    transform: rotate(-45deg) translate(-7px, 6px);
-}
-
-.hamburger.is-active .bar {
-    opacity: 0;
-}
-
-.hamburger.is-active:after {
-    transform: rotate(45deg) translate(-6.5px, -6px);
+.MenuIcon:hover {
+    opacity: 0.5;
 }
 
 .searchDiv {
@@ -100,13 +71,22 @@
     border-radius: 15px;
     height: 30px;
     width: 50%;
+    opacity: 0.7;
 }
 
-#magnifyingGlass {
-    height: 1.5rem;
-    width: 1.5rem;
-    margin-right: 10px;
-    margin-top: 3px;
+#WhiteMagnifyingGlass {
+    height: 2rem;
+    width: 2rem;
+    margin-left: 51rem;
+    margin-top: 0.225rem;
+    font-weight: bolder;
+}
+
+#GreyMagnifyingGlass {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-top: -0.3rem;
+    margin-right: -1.4rem;
 }
 
 #xIconSearch {
@@ -116,7 +96,7 @@
     margin-bottom: 3px;
 }
 
-#magnifyingGlass:hover, #xIconSearch:hover {
+#WhiteMagnifyingGlass:hover, #xIconSearch:hover {
     opacity: 0.75;
 }
 
@@ -126,4 +106,6 @@
     margin-left: 10px;
     margin-top: 3px;
     font-size: 1rem;
+    border: none;
+    outline: none;
 }

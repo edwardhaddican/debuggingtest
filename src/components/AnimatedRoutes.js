@@ -1,7 +1,21 @@
 import React, { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Home, Login, Register, About, PrivacyAndLegal, Shop } from "./";
-// import SunnyDays from "./video/SunnyDays.mp4";
+import {
+  Home,
+  Login,
+  Register,
+  About,
+  PrivacyAndLegal,
+  Shop,
+  Shortsleeve,
+  Longsleeve,
+  Hoodie,
+  Sweater,
+  Youraccount,
+  Accountsettings,
+  Myorders,
+  Cartpage
+} from "./";
 
 import { AnimatePresence } from "framer-motion";
 
@@ -51,6 +65,14 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/privacy_legal" element={<PrivacyAndLegal />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/shortsleeve" element={<Shortsleeve />} />
+        <Route path="/longsleeve" element={<Longsleeve />} />
+        <Route path="/hoodie" element={<Hoodie />} />
+        <Route path="/sweater" element={<Sweater />} />
+        <Route path="/youraccount" element={<Youraccount />} />
+        <Route path="/accountsettings" element={<Accountsettings />} />
+        <Route path="/myorders" element={<Myorders />} />
+        <Route path="/cartpage" element={<Cartpage />} />
       </Routes>
     </AnimatePresence>
   );

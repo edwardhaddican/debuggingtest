@@ -13,7 +13,7 @@ const Shop = () => {
         <motion.div className="ShopGrid"
         initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 1}}
+        transition={{duration: 0.5}}
         >
                 <NavLink to="/shortsleeve">
                     <div className="ShopContainer">

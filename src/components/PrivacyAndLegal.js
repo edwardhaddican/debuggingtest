@@ -7,7 +7,7 @@ const PrivacyAndLegal = () => {
     <motion.div className="PrivacyAndLegalContainer"
     initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 1}}
+        transition={{duration: 0.5}}
     >
       <h1>Top Secret Shirts LA Group Privacy Notice</h1>
       <h4>Customer commitment to data protection and privacy</h4>

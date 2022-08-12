@@ -40,7 +40,7 @@ const Login = ({
     <motion.div className="LoginContainer"
     initial={{opacity: 0}}
         animate={{opacity: 0.9}}
-        transition={{duration: 1}}
+        transition={{duration: 0.5}}
     >
       <div>
         <h1 className="LoginHeader">Login</h1>
