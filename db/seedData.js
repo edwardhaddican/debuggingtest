@@ -1,4 +1,3 @@
-// thurs class most updated
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const { createProduct_Size } = require('./product_sizes');
@@ -50,7 +49,7 @@ async function createTables() {
     await client.query(`
     CREATE TABLE product_sizes (
       id SERIAL PRIMARY KEY,
-      size VARCHAR (10),
+      size VARCHAR (2),
       product_id INTEGER REFERENCES products(id)
   );`);
     await client.query(` 

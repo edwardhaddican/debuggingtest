@@ -35,6 +35,69 @@ async function createProduct({
   }
 }
 
+/*
+async function getProduct() {
+    try {
+        const {
+            rows: [],
+        } = await client.query(`
+        SELECT *
+        FROM
+        WHERE
+        `);
+        return ;
+    } catch (error) {
+        console.error("Error")
+        throw error;
+    }
+}
+async function updateProduct() {
+    try {
+        const {
+            rows: [],
+        } = await client.query(`
+        SELECT *
+        FROM
+        WHERE
+        `);
+        return ;
+    } catch (error) {
+        console.error("Error")
+        throw error;
+    }
+}
+async function destoryProduct() {
+    try {
+        const {
+            rows: [],
+        } = await client.query(`
+        SELECT *
+        FROM
+        WHERE
+        `);
+        return ;
+    } catch (error) {
+        console.error("Error")
+        throw error;
+    }
+}
+async function () {
+    try {
+        const {
+            rows: [],
+        } = await client.query(`
+        SELECT *
+        FROM
+        WHERE
+        `);
+        return ;
+    } catch (error) {
+        console.error("Error")
+        throw error;
+    }
+}
+*/
+
 module.exports = {
   createProduct,
 };

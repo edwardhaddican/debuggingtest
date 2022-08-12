@@ -162,9 +162,24 @@ async function getUserByEmail(email) {
     throw error;
   }
 }
-*/
 
-//potential deleteUser
+async function destoryProduct() {
+  try {
+      const {
+          rows: [],
+      } = await client.query(`
+      SELECT *
+      FROM
+      WHERE
+      `);
+      return ;
+  } catch (error) {
+      console.error("Error")
+      throw error;
+  }
+}
+
+*/
 
 module.exports = {
   createUser,
