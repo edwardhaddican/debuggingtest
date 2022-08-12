@@ -1,8 +1,25 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "../style/Logout.css";
 
-const Logout = () => {
+const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
+    const navigate = useNavigate()
+
+    async function handleYes (event) {
+        event.preventDefault();
+        setIsLoggedIn(false)
+        localStorage.removeItem('id')
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        navigate('/')
+    }
+
+    async function handleNo (event) {
+        event.preventDefault();
+        navigate('/youraccount')
+    }
+
   return (
     <motion.div
       className="LogoutContainer"
@@ -12,8 +29,12 @@ const Logout = () => {
     >
       <div className="LogoutHeader">Are You Sure You Want To Logout?</div>
       <div className="LogoutButtonContainer">
-        <button className="LogoutButtons">Yes</button>
-        <button className="LogoutButtons">No</button>
+        <form onSubmit={handleYes}>
+          <button className="LogoutButtons" type='submit'>Yes</button>
+        </form>
+        <form onSubmit={handleNo}>
+          <button className="LogoutButtons" type='submit'>No</button>
+        </form>
       </div>
     </motion.div>
   );

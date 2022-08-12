@@ -73,7 +73,7 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
         <Route path="/cartpage" element={<Cartpage />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
       </Routes>
     </AnimatePresence>
   );

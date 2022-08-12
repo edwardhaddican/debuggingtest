@@ -95,7 +95,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               animate={{ opacity: 0.9 }}
               transition={{ duration: 0.3 }}
             >
-              {isLoggedIn ? (
+              {!isLoggedIn ? (
                 <>
                   <div>
                     <NavLink to="/login">Login</NavLink>
