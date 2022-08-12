@@ -139,14 +139,14 @@ async function createInitialProducts() {
     console.log('Starting to create products...');
     const productsToCreate = [
       {
-        product_name: "Shorline Short Sleeves'",
+        product_name: 'Shorline Short Sleeves',
         description: 'Fly Away Top',
         price: 30.0,
         availability: true,
         quantity_instock: 11,
       },
       {
-        product_name: "Laguna Long Sleeves'",
+        product_name: 'Laguna Long Sleeves',
         description: 'Seamless Tiny Top',
         price: 45.0,
         availability: true,
@@ -183,15 +183,15 @@ async function createInitialProduct_Sizes() {
     console.log('Starting to Create Product Sizes...');
     const product_sizesToCreate = [
       {
-        size: 'M',
-        product_id: 1,
-      },
-      {
         size: 'S',
         product_id: 1,
       },
       {
-        size: 'XL',
+        size: 'M',
+        product_id: 2,
+      },
+      {
+        size: 'L',
         product_id: 3,
       },
       {
