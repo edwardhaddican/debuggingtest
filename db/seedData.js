@@ -1,5 +1,7 @@
 // thurs class most updated
-const { createUser, createProduct, createProduct_Sizes } = require('./users');
+const { createUser } = require('./users');
+const { createProduct } = require('./products');
+const { createProduct_Sizes } = require('./product_sizes');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -39,7 +41,7 @@ async function createTables() {
     await client.query(`
     CREATE TABLE products (
       id SERIAL PRIMARY KEY,
-      name VARCHAR (255) NOT NULL,
+      product_name VARCHAR (255) NOT NULL,
       description VARCHAR (255),
       price VARCHAR (9) NOT NULL,
       availability BOOLEAN DEFAULT true,
@@ -138,28 +140,28 @@ async function createInitialProducts() {
     console.log('Starting to create products...');
     const productsToCreate = [
       {
-        name: "Shorline Short Sleeves'",
+        product_name: "Shorline Short Sleeves'",
         description: 'Fly Away Top',
         price: 30.0,
         availability: true,
         quantity_instock: 11,
       },
       {
-        name: "Laguna Long Sleeves'",
+        product_name: "Laguna Long Sleeves'",
         description: 'Seamless Tiny Top',
         price: 45.0,
         availability: true,
         quantity_instock: 23,
       },
       {
-        name: 'Boardwalk Button Downs',
+        product_name: 'Boardwalk Button Downs',
         description: 'Long Sleeve Oversized Shirt',
         price: 50.0,
         availability: true,
         quantity_instock: 6,
       },
       {
-        name: 'Hidden Hills Hoodies',
+        product_name: 'Hidden Hills Hoodies',
         description: 'Stone Washed Hoodie Sweatshirt',
         price: 75.0,
         availability: true,
@@ -182,24 +184,24 @@ async function createInitialProduct_Sizes() {
     console.log('Starting to Create Product Sizes...');
     const product_sizesToCreate = [
       {
-        name: 'Small',
+        product_size_name: 'Small',
         product_id: 1,
       },
       {
-        name: 'Medium',
+        product_size_name: 'Medium',
         product_id: 2,
       },
       {
-        name: 'Large',
+        product_size_name: 'Large',
         product_id: 3,
       },
       {
-        name: 'Xtra-Large',
+        product_size_name: 'Xtra-Large',
         product_id: 4,
       },
     ];
     const product_sizes = await Promise.all(
-      product_sizesToCreate.map(createProduct_Size)
+      product_sizesToCreate.map(createProduct_Sizes)
     );
 
     console.log('Product Sizes Created:');
