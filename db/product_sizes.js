@@ -1,3 +1,4 @@
+/*
 const client = require('./client');
 
 async function createProduct_Size({ size, product_id }) {
@@ -27,3 +28,5 @@ async function createProduct_Size({ size, product_id }) {
 module.exports = {
   createProduct_Size,
 };
+
+*/
