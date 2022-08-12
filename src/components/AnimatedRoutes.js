@@ -19,8 +19,7 @@ import {
 
 import { AnimatePresence } from "framer-motion";
 
-const AnimatedRoutes = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");

@@ -82,8 +82,8 @@ router.post("/login", async (req, res, next) => {
 
   try {
     const user = await getUser({username, password});
-    delete user.password
     if (user) {
+      delete user.password
       const token = jwt.sign({id: user.id, username: user.username}, JWT_SECRET, { expiresIn: '1y' });
       res.send({ message: "you're logged in!", id: user.id, token: token, user: user });
     } else {
