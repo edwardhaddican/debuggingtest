@@ -1,3 +1,4 @@
+// thurs class most updated
 const { createUser } = require('./users');
 const client = require('./client');
 async function dropTables() {
@@ -16,55 +17,47 @@ async function dropTables() {
     throw error;
   }
 }
-
+//DROP TABLE IF EXISTS users;
 async function createTables() {
-  console.log('Starting to build tables...');
   try {
+    console.log('Starting to build tables...');
     await client.query(`
     CREATE TABLE users (
       id SERIAL PRIMARY KEY,
-      email VARCHAR (255) UNIQUE NOT NULL,
+      admin BOOLEAN,
+      username VARCHAR (255) UNIQUE NOT NULL,
       password VARCHAR (255) NOT NULL,
       first_name VARCHAR (255) NOT NULL,
       last_name VARCHAR (255) NOT NULL,
-      username VARCHAR (255) UNIQUE NOT NULL,
-      admin BOOLEAN DEFAULT false,
-      active BOOLEAN DEFAULT true
+      email VARCHAR (255) NOT NULL,
+      active BOOLEAN
  );`);
     await client.query(`
-    CREATE TABLE products (
+ CREATE TABLE products (
       id SERIAL PRIMARY KEY,
+      creator VARCHAR (255) NOT NULL,
       name VARCHAR (255) NOT NULL,
-      description VARCHAR (255) NOT NULL,
-      price INTEGER NOT NULL,
-      in_stock BOOLEAN 
-      active BOOLEAN DEFAULT true
-  );`);
-    await client.query(`
-    CREATE TABLE product_categories (
-      id SERIAL PRIMARY KEY
-      name VARCHAR (255) NOT NULL
-      product_id INTEGER REFERENCES product(id)
-  );`);
-    await client.query(` 
-    CREATE TABLE carts (
-      id SERIAL PRIMARY KEY,
-      purchased BOOLEAN DEFAULT false,
-      user_id INTEGER REFERENCES users(id)
+      price INTEGER,
+      status BOOLEAN
+      );`);
+    await client.query(`     
+ CREATE TABLE carts (
+  id SERIAL PRIMARY KEY,
+  "isOrdered" BOOLEAN,
+  user_id INTEGER REFERENCES users(id)
   );`);
     await client.query(`  
-    CREATE TABLE cart_products (
-      id SERIAL PRIMARY KEY,
-      cart_id INTEGER REFERENCES carts(id),
-      product_id INTEGER REFERENCES products(id),
-      quantity INTEGER NOT NULL,
-      total_price INTEGER NOT NULL
+CREATE TABLE cart_products (
+  id SERIAL PRIMARY KEY,
+  cart_id INTEGER REFERENCES carts(id),
+  product_id INTEGER REFERENCES products(id),
+  quantity INTEGER
   );`);
     await client.query(`  
-    CREATE TABLE orders (
-      id SERIAL PRIMARY KEY,
-      cart_id INTEGER REFERENCES carts(id),
-      shipped BOOLEAN default false
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  cart_id INTEGER REFERENCES carts(id),
+  status VARCHAR (255) NOT NULL
   );`);
     console.log('Finished building tables!');
   } catch (error) {
