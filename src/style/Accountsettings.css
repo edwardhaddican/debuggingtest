@@ -62,7 +62,7 @@
 }
 
 .AccSettingsOptions {
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .AccSettingsChangeBar {
@@ -70,4 +70,15 @@
     width: 20rem;
     text-indent: 0.5rem;
     border-radius: 25px;
+}
+
+.updateUserButton {
+    position: relative;
+    bottom: 1rem;
+    width: 10rem;
+    height: 3rem;
+    font-size: 20px;
+    font-weight: bolder;
+    color: grey;
+    text-shadow: lightblue 0.1em 0.1em 0.2em;
 }
