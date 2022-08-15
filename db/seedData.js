@@ -44,9 +44,9 @@ async function createTables() {
       product_name VARCHAR (255) NOT NULL,
       description VARCHAR (255),
       size VARCHAR (255) NOT NULL,
-      price VARCHAR (9) NOT NULL,
+      price DECIMAL NOT NULL,
       availability BOOLEAN DEFAULT true,
-      quantity_instock INTEGER
+      quantity_instock SMALLINT
   );`);
     /*    await client.query(`
     CREATE TABLE product_sizes (
@@ -144,7 +144,7 @@ async function createInitialProducts() {
       {
         gender: "Men's",
         category: 'short_sleeve',
-        product_name: 'Shorline Short Sleeves',
+        product_name: 'Shoreline Short Sleeves',
         description: 'Fly Away Top',
         size: 'Small',
         price: 30.0,

@@ -1,6 +1,6 @@
-const client = require('./client');
+const client = require("./client");
 
-async function createProduct({
+async function createProduct(
   gender,
   category,
   product_name,
@@ -9,12 +9,15 @@ async function createProduct({
   price,
   availability,
   quantity_instock,
-}) {
-  console.log('Starting to create Product! db/products.js');
+) {
+  console.log("Starting to create Product! db/products.js");
   try {
-    const { rows } = await client.query(
+    const {
+      rows: [product],
+    } = await client.query(
       `
-        INSERT INTO products(
+        INSERT INTO products
+        (
             gender,
             category,
             product_name,
@@ -22,7 +25,8 @@ async function createProduct({
             size,
             price,
             availability,
-            quantity_instock) 
+            quantity_instock
+        ) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
         RETURNING *;
       `,
@@ -37,33 +41,32 @@ async function createProduct({
         quantity_instock,
       ]
     );
-
-    console.log('Finished Creating Product! products.js');
-    return rows[0];
+    console.log("Product created..");
+    console.log(product);
+    console.log("Finished Creating Product! products.js");
+    return product;
   } catch (error) {
-    console.error('Error Creating Product! products.js');
+    console.error("Error Creating Product! db/products.js");
     throw error;
   }
 }
 
 async function getAllProducts() {
   try {
-    const {
-      rows: [],
-    } = await client.query(`
+    const { rows: product } = await client.query(`
         SELECT *
         FROM products
         `);
-    console.log('Finished Getting Product! products.js');
+    console.log("Finished Getting Product! products.js");
     return product;
   } catch (error) {
-    console.error('Error Getting Product! products.js');
+    console.error("Error Getting Product! products.js");
     throw error;
   }
 }
 
 async function getProductById(product_id) {
-  console.log('Starting to get product by id... products.js');
+  console.log("Starting to get product by id... products.js");
   try {
     const {
       rows: [product],
@@ -72,10 +75,10 @@ async function getProductById(product_id) {
     FROM products
     WHERE id=${product_id};
     `);
-    console.log('Finished Getting Product By Id! products.js');
+    console.log("Finished Getting Product By Id! products.js");
     return product;
   } catch (error) {
-    console.error('Error Getting Product By Id! products.js');
+    console.error("Error Getting Product By Id! products.js");
     throw error;
   }
 }
@@ -83,7 +86,7 @@ async function getProductById(product_id) {
 async function updateProduct(product_id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
+    .join(", ");
   if (setString.length === 0) {
     return;
   }
@@ -99,26 +102,28 @@ async function updateProduct(product_id, fields = {}) {
       `,
       Object.values(fields)
     );
-    console.log('Finished Updating Product! products.js');
+    console.log("Product updated..")
+    console.log(product);
+    console.log("Finished Updating Product! products.js");
     return product;
   } catch (error) {
-    console.error('Error Updating Product! products.js');
+    console.error("Error Updating Product! products.js");
     throw error;
   }
 }
 
-async function deleteProduct() {
+async function deleteProduct(product_id) {
   try {
     const {
       rows: [product],
     } = await client.query(`
         DELETE FROM products
-        WHERE id=${user_Id};
-        RETURNING *
+        WHERE id=${product_id}
+        RETURNING *;
         `);
     return product;
   } catch (error) {
-    console.error('Error Deleting Product! db/products.js');
+    console.error("Error Deleting Product! db/products.js");
     throw error;
   }
 }

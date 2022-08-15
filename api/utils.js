@@ -1,5 +1,6 @@
 function requireUser(req, res, next) {
-  if (!req.user) {
+  const user = localStorage.getItem('username')
+  if (!user) {
     res.status(401);
     next({
       error: 'MissingUserError',
@@ -10,6 +11,21 @@ function requireUser(req, res, next) {
   next();
 }
 
+function requireAdmin(req, res, next) {
+  const admin = localStorage.getItem('admin')
+  if(!admin) {
+    res.status(401);
+    next ({
+      error: "MissingAdminError",
+      name: 'MissingAdminError',
+      message: "You must be an admin to perform this action",
+    })
+  }
+  next();
+}
+
 module.exports = {
   requireUser,
+  requireAdmin
 };
+
