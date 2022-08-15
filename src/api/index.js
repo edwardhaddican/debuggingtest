@@ -68,3 +68,24 @@ export async function registerPerson(username, password, email, first_name, last
       throw error;
     }
   }
+  
+  export async function updatePerson (token, newUsername, newPassword, newEmail, id) {
+    try {
+      const response = await fetch (`${BASE}/api/users/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          username: newUsername,
+          password: newPassword,
+          email: newEmail
+        })
+      })
+      const result = await response.json()
+      return result
+    } catch (error) {
+      throw error
+    }
+  }

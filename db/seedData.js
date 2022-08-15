@@ -40,13 +40,13 @@ async function createTables() {
     CREATE TABLE products (
       id SERIAL PRIMARY KEY,
       gender VARCHAR (255) NOT NULL,
+      category VARCHAR (255) NOT NULL,
       product_name VARCHAR (255) NOT NULL,
       description VARCHAR (255),
       size VARCHAR (255) NOT NULL,
       price VARCHAR (9) NOT NULL,
       availability BOOLEAN DEFAULT true,
-      quantity_instock INTEGER,
-      admin_active BOOLEAN DEFAULT false
+      quantity_instock INTEGER
   );`);
     /*    await client.query(`
     CREATE TABLE product_sizes (
@@ -142,44 +142,44 @@ async function createInitialProducts() {
     console.log('Starting to create products...');
     const productsToCreate = [
       {
+        gender: "Men's",
+        category: 'short_sleeve',
         product_name: 'Shorline Short Sleeves',
         description: 'Fly Away Top',
-        gender: "Men's",
         size: 'Small',
         price: 30.0,
         availability: true,
         quantity_instock: 11,
-        admin_active: true,
       },
       {
+        gender: "Women's",
+        category: 'long_sleeve',
         product_name: 'Laguna Long Sleeves',
         description: 'Seamless Tiny Top',
-        gender: "Women's",
         size: 'Medium',
         price: 45.0,
         availability: true,
         quantity_instock: 23,
-        admin_active: true,
       },
       {
-        product_name: 'Boardwalk Button Downs',
-        description: 'Long Sleeve Oversized Shirt',
         gender: "Men's",
+        category: 'sweater',
+        product_name: 'Boardwalk Sweater',
+        description: 'Long Sleeve Oversized Sweater',
         size: 'Large',
         price: 50.0,
         availability: true,
         quantity_instock: 6,
-        admin_active: true,
       },
       {
+        gender: "Women's",
+        category: 'hoodie',
         product_name: 'Hidden Hills Hoodies',
         description: 'Stone Washed Hoodie Sweatshirt',
-        gender: "Women's",
         size: 'Xtra-Large',
         price: 75.0,
         availability: true,
         quantity_instock: 9,
-        admin_active: true,
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));

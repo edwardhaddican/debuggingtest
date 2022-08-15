@@ -9,6 +9,7 @@ const {
   getUserByUsername,
   getAllUsers,
   updateUser,
+  getUserByEmail,
 } = require("../db");
 const { requireUser } = require("./utils");
 
@@ -98,12 +99,15 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.patch("/:userId", async (req, res, next) => {
-  const { username, password, email } = req.body;
+  const { username, email, password } = req.body;
 
   try {
     const { userId } = req.params;
     const user = await getUserById(userId);
-    if (!user.active && user.id == userId) {
+    const existingEmail = await getUserByEmail(email)
+    const existingUsername = await getUserByUsername(username)
+
+    if (!user.active && user.id == userId && !existingUsername && !existingEmail) {
       const updatedUser = updateUser(userId, {
         username: username,
         password: password,

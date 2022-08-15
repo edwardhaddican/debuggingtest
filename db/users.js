@@ -149,7 +149,7 @@ async function updateUser(id, fields = {}) {
   }
 }
 
-/*
+
 async function getUserByEmail(email) {
   try {
     const {
@@ -170,6 +170,7 @@ async function getUserByEmail(email) {
   }
 }
 
+/*
 async function destoryProduct() {
   try {
       const {
@@ -195,6 +196,7 @@ module.exports = {
   getUserByUsername,
   getAllUsers,
   updateUser,
+  getUserByEmail,
 };
 
 /*

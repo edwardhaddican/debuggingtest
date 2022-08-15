@@ -2,13 +2,13 @@ const client = require('./client');
 
 async function createProduct({
   gender,
+  category,
   product_name,
   description,
   size,
   price,
   availability,
   quantity_instock,
-  admin_active,
 }) {
   console.log('Starting to create Product! db/products.js');
   try {
@@ -16,25 +16,25 @@ async function createProduct({
       `
         INSERT INTO products(
             gender,
+            category,
             product_name,
             description,
             size,
             price,
             availability,
-            quantity_instock,
-            admin_active) 
+            quantity_instock) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
         RETURNING *;
       `,
       [
         gender,
+        category,
         product_name,
         description,
         size,
         price,
         availability,
         quantity_instock,
-        admin_active,
       ]
     );
 
@@ -75,7 +75,7 @@ async function getProductById(product_id) {
     console.log('Finished Getting Product By Id! products.js');
     return product;
   } catch (error) {
-    console.error('Error Getting Producty By Id! products.js');
+    console.error('Error Getting Product By Id! products.js');
     throw error;
   }
 }
