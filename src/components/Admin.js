@@ -7,14 +7,10 @@ import AdminSettingsIcon from "./Photo/AdminSettingsIcon.png"
 import "../style/Admin.css";
 
 const Admin = () => {
-  const [adminHome, setAdminHome] = useState(false)
-  const [adminAdd, setAdminAdd] = useState(false)
-  const [adminUpdate, setAdminUpdate] = useState(false)
-  const [adminSettings, setAdminSettings] = useState(false)
-
-  // function adminHomeShowFunc() {
-  //   setAdminHome(true)
-  // }
+  const [adminHome, setAdminHome] = useState(true)
+  const [adminAdd, setAdminAdd] = useState(true)
+  const [adminUpdate, setAdminUpdate] = useState(true)
+  const [adminSettings, setAdminSettings] = useState(true)
 
   function adminHomeHideFunc() {
     setAdminHome(false)
@@ -23,35 +19,23 @@ const Admin = () => {
     setAdminUpdate(true)
   }
 
-  // function adminAddShowFunc() {
-  //   setAdminAdd(true)
-  // }
-
   function adminAddHideFunc() {
+    setAdminAdd(false)
     setAdminHome(true)
     setAdminSettings(true)
-    setAdminAdd(false)
     setAdminUpdate(true)
   }
 
-  // function adminUpdateShowFunc() {
-  //   setAdminUpdate(true)
-  // }
-
   function adminUpdateHideFunc() {
+    setAdminUpdate(false)
     setAdminHome(true)
     setAdminSettings(true)
     setAdminAdd(true)
-    setAdminUpdate(false)
   }
 
-  // function adminSettingsShowFunc() {
-  //   setAdminSettings(true)
-  // }
-
   function adminSettingsHideFunc() {
-    setAdminHome(true)
     setAdminSettings(false)
+    setAdminHome(true)
     setAdminAdd(true)
     setAdminUpdate(true)
   }
@@ -78,19 +62,19 @@ const Admin = () => {
         id="AdminSettingsIcon"
         onClick={adminSettingsHideFunc}
         />
-      {adminHome ? (
+      {!adminHome ? (
         <Adminhome />
       ) : null
       }
-      {adminAdd ? (
+      {!adminAdd ? (
         <Adminadd />
       ) : null
       }
-      {adminUpdate ? (
+      {!adminUpdate ? (
         <Adminupdate />
       ) : null
       }
-      {adminSettings ? (
+      {!adminSettings ? (
         <Adminsettings />
       ) : null
       }

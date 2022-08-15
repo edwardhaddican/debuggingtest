@@ -4,7 +4,7 @@ import "../style/Adminadd.css";
 const Adminadd = () => {
     return(
         <div className="AdminAddContainer">
-            Hello World
+            ADMIN ADD
         </div>
     )
 }

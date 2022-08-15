@@ -85,7 +85,7 @@ router.delete("/:productId", async (req, res, next) => {
   const { productId } = req.params;
   try {
       const deletedProduct = await deleteProduct(productId);
-      res.send(deletedProduct);
+      res.send({message: "Product has been deleted!", deletedProduct: deletedProduct});
   } catch (error) {
     next(error);
   }

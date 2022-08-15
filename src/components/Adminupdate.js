@@ -4,7 +4,7 @@ import "../style/Adminupdate.css";
 const Adminupdate = () => {
     return(
         <div className="AdminUpdateContainer">
-            Hello World
+            ADMIN UPDATE
         </div>
     )
 }

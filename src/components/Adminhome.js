@@ -4,7 +4,7 @@ import "../style/Adminhome.css";
 const Adminhome = () => {
     return(
         <div className="AdminHomeContainer">
-            Hello World
+            ADMIN HOME
         </div>
     )
 }

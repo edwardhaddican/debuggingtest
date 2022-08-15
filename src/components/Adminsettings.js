@@ -4,7 +4,7 @@ import "../style/Adminsettings.css";
 const Adminsettings = () => {
     return(
         <div className="AdminSettingsContainer">
-            Hello World
+            ADMIN SETTINGS
         </div>
     )
 }
