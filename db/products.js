@@ -80,23 +80,32 @@ async function getProductById(product_id) {
   }
 }
 
-/*
-async function updateProduct() {
+async function updateProduct(product_id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(', ');
+  if (setString.length === 0) {
+    return;
+  }
   try {
     const {
-      rows: [],
-    } = await client.query(`
-        SELECT *
-        FROM
-        WHERE
-        `);
-    return;
+      rows: [product],
+    } = await client.query(
+      `
+        UPDATE products
+        SET ${setString}
+        WHERE id=${product_id}
+        RETURNING *;
+      `,
+      Object.values(fields)
+    );
+    console.log('Finished Updating Product! products.js');
+    return product;
   } catch (error) {
-    console.error('Error');
+    onsole.error('Error Updating Product! products.js');
     throw error;
   }
 }
-*/
 
 async function deleteProduct() {
   try {
@@ -119,4 +128,5 @@ module.exports = {
   getAllProducts,
   deleteProduct,
   getProductById,
+  updateProduct,
 };
