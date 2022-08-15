@@ -15,12 +15,13 @@ import {
   Accountsettings,
   Myorders,
   Cartpage,
-  Logout
+  Logout,
+  Admin
 } from "./";
 
 import { AnimatePresence } from "framer-motion";
 
-const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
+const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -69,11 +70,12 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/longsleeve" element={<Longsleeve />} />
         <Route path="/hoodie" element={<Hoodie />} />
         <Route path="/sweater" element={<Sweater />} />
-        <Route path="/youraccount" element={<Youraccount />} />
+        <Route path="/youraccount" element={<Youraccount isAdmin={isAdmin} setIsAdmin={setIsAdmin} />} />
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
         <Route path="/cartpage" element={<Cartpage />} />
         <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/admin" element={<Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />} />
       </Routes>
     </AnimatePresence>
   );

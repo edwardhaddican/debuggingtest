@@ -64,7 +64,7 @@ async function getUser({ username, password }) {
     try {
       const { rows: [user] } = await client.query(
         `
-      SELECT id, username
+      SELECT id, username, admin_active, first_name, last_name, email
       FROM users
       WHERE username=$1 AND password=$2;
       `,

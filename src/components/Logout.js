@@ -12,6 +12,10 @@ const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
         localStorage.removeItem('id')
         localStorage.removeItem('token')
         localStorage.removeItem('username')
+        localStorage.removeItem('email')
+        localStorage.removeItem('first_name')
+        localStorage.removeItem('last_name')
+        localStorage.removeItem('admin')
         navigate('/')
     }
 

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import "../style/Youraccount.css";
 
 const Youraccount = () => {
+  const admin = localStorage.getItem('admin')
+  
     return (
         <motion.div
         className="YourAccContainer"
@@ -20,6 +22,14 @@ const Youraccount = () => {
         <div>
           <NavLink to="/logout">Logout</NavLink>
         </div>
+        {
+        admin === 'true' ?
+        <div>
+          <NavLink to="/admin">Admin</NavLink>
+        </div>
+        :
+        null
+        }
       </motion.div>
     )
 }
