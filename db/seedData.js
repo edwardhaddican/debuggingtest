@@ -46,6 +46,7 @@ async function createTables() {
       price VARCHAR (9) NOT NULL,
       availability BOOLEAN DEFAULT true,
       quantity_instock INTEGER
+      admin_active BOOLEAN DEFAULT false
   );`);
     /*    await client.query(`
     CREATE TABLE product_sizes (

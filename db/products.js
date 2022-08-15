@@ -47,7 +47,7 @@ async function createProduct({
   }
 }
 
-async function getProduct() {
+async function getAllProducts() {
   try {
     const {
       rows: [],
@@ -63,22 +63,22 @@ async function getProduct() {
   }
 }
 
-/*
 async function updateProduct() {
-    try {
-        const {
-            rows: [],
-        } = await client.query(`
+  try {
+    const {
+      rows: [],
+    } = await client.query(`
         SELECT *
         FROM
         WHERE
         `);
-        return ;
-    } catch (error) {
-        console.error("Error")
-        throw error;
-    }
+    return;
+  } catch (error) {
+    console.error('Error');
+    throw error;
+  }
 }
+/*
 async function deleteProduct() {
     try {
         const {
@@ -109,9 +109,11 @@ async function () {
         throw error;
     }
 }
+
 */
 
 module.exports = {
   createProduct,
-  getProduct,
+  getAllProducts,
+  updateProduct,
 };
