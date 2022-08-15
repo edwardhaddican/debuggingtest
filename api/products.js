@@ -24,7 +24,7 @@ router.post("/", async (req, res, next) => {
   } = req.body;
   
   try {
-    const newProduct = await createProduct(
+    const newProduct = await createProduct({
       gender,
       category,
       product_name,
@@ -33,14 +33,14 @@ router.post("/", async (req, res, next) => {
       price,
       availability,
       quantity_instock
-    );
+  });
       res.send({ message: "New Product Created!", newProduct: newProduct });
   } catch (error) {
     next({error});
   }
 });
 
-router.patch("/:productId", requireAdmin, async (req, res, next) => {
+router.patch("/:productId", async (req, res, next) => {
   const {
     gender,
     category,

@@ -1,6 +1,6 @@
 const client = require("./client");
 
-async function createProduct(
+async function createProduct({
   gender,
   category,
   product_name,
@@ -9,7 +9,7 @@ async function createProduct(
   price,
   availability,
   quantity_instock,
-) {
+}) {
   console.log("Starting to create Product! db/products.js");
   try {
     const {
