@@ -45,7 +45,7 @@ async function createTables() {
       size VARCHAR (255) NOT NULL,
       price VARCHAR (9) NOT NULL,
       availability BOOLEAN DEFAULT true,
-      quantity_instock INTEGER
+      quantity_instock INTEGER,
       admin_active BOOLEAN DEFAULT false
   );`);
     /*    await client.query(`
@@ -149,6 +149,7 @@ async function createInitialProducts() {
         price: 30.0,
         availability: true,
         quantity_instock: 11,
+        admin_active: true,
       },
       {
         product_name: 'Laguna Long Sleeves',
@@ -158,6 +159,7 @@ async function createInitialProducts() {
         price: 45.0,
         availability: true,
         quantity_instock: 23,
+        admin_active: true,
       },
       {
         product_name: 'Boardwalk Button Downs',
@@ -167,6 +169,7 @@ async function createInitialProducts() {
         price: 50.0,
         availability: true,
         quantity_instock: 6,
+        admin_active: true,
       },
       {
         product_name: 'Hidden Hills Hoodies',
@@ -176,6 +179,7 @@ async function createInitialProducts() {
         price: 75.0,
         availability: true,
         quantity_instock: 9,
+        admin_active: true,
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
