@@ -49,11 +49,19 @@ export async function registerPerson(username, password, email, first_name, last
       }
       const token = result.token;
       const id = result.id;
+      const admin = result.user.admin_active;
+      const email = result.user.email;
+      const first_name = result.user.first_name;
+      const last_name = result.user.last_name;
   
       if (token) {
         localStorage.setItem("token", token);
         localStorage.setItem("username", username);
         localStorage.setItem("id", id);
+        localStorage.setItem("admin", admin)
+        localStorage.setItem("email", email)
+        localStorage.setItem("first_name", first_name)
+        localStorage.setItem("last_name", last_name)
         return result;
       }
     } catch (error) {

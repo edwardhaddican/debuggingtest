@@ -24,6 +24,8 @@ const App = () => {
   //   getAPIStatus();
   // }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   return (
     <div className="Showcase">
       <video muted loop autoPlay>
@@ -36,7 +38,7 @@ const App = () => {
       <div className="ShowcaseFooter">
         <Footer />
       </div>
-      <AnimatedRoutes isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+      <AnimatedRoutes isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
     </div>
   );
 };

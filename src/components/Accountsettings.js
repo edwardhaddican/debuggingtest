@@ -4,6 +4,10 @@ import { motion } from "framer-motion";
 import "../style/Accountsettings.css";
 
 const Accountsettings = () => {
+    const username = localStorage.getItem('username')
+    const first_name = localStorage.getItem('first_name')
+    const last_name = localStorage.getItem('last_name')
+    const email = localStorage.getItem('email')
     return (
         <motion.div className="AccSettingsContainer"
         initial={{opacity: 0}}
@@ -15,13 +19,13 @@ const Accountsettings = () => {
             </div>
             <div className="AccSettingsContainerLeft">
                 <div>
-                    First & Last Name
+                    {first_name} {last_name}
                 </div>
                 <img className="AccSettingsPic" src={ProfileIconAccPage}/>
             </div>
             <div className="AccSettingsContainerRight">
                 <div className="AccSettingsOptions">
-                    Username:  Current Username
+                    Username:  {username}
                     <br></br>
                     <br></br>
                     <div>
@@ -47,7 +51,7 @@ const Accountsettings = () => {
                     </div>
                 </div>
                 <div className="AccSettingsOptions">
-                    E-mail:  Current E-mail
+                    E-mail:  {email}
                     <br></br>
                     <br></br>
                     <div>
