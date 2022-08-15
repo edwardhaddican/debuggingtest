@@ -102,7 +102,7 @@ async function updateProduct(product_id, fields = {}) {
     console.log('Finished Updating Product! products.js');
     return product;
   } catch (error) {
-    onsole.error('Error Updating Product! products.js');
+    console.error('Error Updating Product! products.js');
     throw error;
   }
 }
