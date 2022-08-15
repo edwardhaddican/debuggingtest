@@ -62,6 +62,24 @@ async function getAllProducts() {
   }
 }
 
+async function getProductById(product_id) {
+  console.log('Starting to get product by id... products.js');
+  try {
+    const {
+      rows: [product],
+    } = await client.query(`
+    SELECT *   
+    FROM products
+    WHERE id=${product_id};
+    `);
+    console.log('Finished Getting Product By Id! products.js');
+    return product;
+  } catch (error) {
+    console.error('Error Getting Producty By Id! products.js');
+    throw error;
+  }
+}
+
 /*
 async function updateProduct() {
   try {
@@ -100,4 +118,5 @@ module.exports = {
   createProduct,
   getAllProducts,
   deleteProduct,
+  getProductById,
 };
