@@ -15,15 +15,13 @@ async function createCart({
     } = await client.query(
       `
           INSERT INTO carts
-          (
-            product_id,
+          (product_id,
             user_id,
             product_name,
             cart_product_quantity,
             price_each,
-            purchased
-          ) 
-          VALUES($1, $2, $3, $4, $5, $6) 
+            purchased) 
+          VALUES($1, $2, $3, $4, $5, $6)
           RETURNING *;
         `,
       [
@@ -45,6 +43,18 @@ async function createCart({
   }
 }
 
+async function getCurrentCart ({user_id}) {
+    try {
+        const {rows: [cart]} = await client.query(`
+            SELECT * FROM carts,
+            WHERE carts.user_id = $1,
+            AND purchased = false,
+            `,
+            []);
+    }
+}
+
 module.exports = {
   createCart,
+  getCurrentCart,
 };
