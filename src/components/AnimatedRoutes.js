@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import {
   Home,
@@ -17,10 +17,6 @@ import {
   Cartpage,
   Logout,
   Admin,
-  Adminshortsleeve,
-  Adminlongsleeve,
-  Adminhoodie,
-  Adminsweater
 } from "./";
 
 import { AnimatePresence } from "framer-motion";
@@ -31,10 +27,7 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [shortSleeveProducts, setShortSleeveProducts] = useState([]);
-  const [longSleeveProducts, setLongSleeveProducts] = useState([]);
-  const [sweaterProducts, setSweaterProducts] = useState([]);
-  const [hoodieProducts, setHoodieProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const location = useLocation();
 
   return (
@@ -89,27 +82,8 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
             <Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           }
         />
-        <Route
-          path="/admin"
-          element={
-            <Admin
-              shortSleeveProducts={shortSleeveProducts}
-              setShortSleeveProducts={setShortSleeveProducts}
-              longSleeveProducts={longSleeveProducts}
-              setLongSleeveProducts={setLongSleeveProducts}
-              sweaterProducts={sweaterProducts}
-              setSweaterProducts={setSweaterProducts}
-              hoodieProducts={hoodieProducts}
-              setHoodieProducts={setHoodieProducts}
-            />
-          }
-        />
         <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/Short_Sleeve" element={<Adminshortsleeve />} />
-        <Route path="/admin/Long_Sleeve" element={<Adminlongsleeve />} />
-        <Route path="/admin/Hoodie" element={<Adminhoodie />} />
-        <Route path="/admin/Sweater" element={<Adminsweater />} />
+        <Route path="/admin" element={<Admin allProducts={allProducts} setAllProducts={setAllProducts} />} />
       </Routes>
     </AnimatePresence>
   );

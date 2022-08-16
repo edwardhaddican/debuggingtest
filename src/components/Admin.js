@@ -6,16 +6,7 @@ import AdminUpdateIcon from "./Photo/AdminUpdateIcon.png";
 import AdminSettingsIcon from "./Photo/AdminSettingsIcon.png";
 import "../style/Admin.css";
 
-const Admin = ({
-  shortSleeveProducts,
-  setShortSleeveProducts,
-  longSleeveProducts,
-  setLongSleeveProducts,
-  sweaterProducts,
-  setSweaterProducts,
-  hoodieProducts,
-  setHoodieProducts,
-}) => {
+const Admin = ({ allProducts, setAllProducts }) => {
   const [adminHome, setAdminHome] = useState(true);
   const [adminAdd, setAdminAdd] = useState(true);
   const [adminUpdate, setAdminUpdate] = useState(true);
@@ -66,16 +57,7 @@ const Admin = ({
       {!adminHome ? <Adminhome /> : null}
       {!adminAdd ? <Adminadd /> : null}
       {!adminUpdate ? (
-        <Adminupdate
-          shortSleeveProducts={shortSleeveProducts}
-          setShortSleeveProducts={setShortSleeveProducts}
-          longSleeveProducts={longSleeveProducts}
-          setLongSleeveProducts={setLongSleeveProducts}
-          sweaterProducts={sweaterProducts}
-          setSweaterProducts={setSweaterProducts}
-          hoodieProducts={hoodieProducts}
-          setHoodieProducts={setHoodieProducts}
-        />
+        <Adminupdate allProducts={allProducts} setAllProducts={setAllProducts} />
       ) : null}
       {!adminSettings ? <Adminsettings /> : null}
     </div>

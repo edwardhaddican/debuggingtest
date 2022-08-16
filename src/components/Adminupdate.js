@@ -1,91 +1,234 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import ShortSleeve from "./Photo/ShortSleeveImage.jpg"
-import LongSleeve from "./Photo/LongSleeveImage.jpg"
-import Hoodie from "./Photo/HoodieImage.jpg"
-import Sweater from "./Photo/SweaterImage.jpg"
+import { deleteProduct, getAllProducts } from "../api";
+import UpdateProductForm from "./UpdateProductForm";
+
 import "../style/Adminupdate.css";
 
-const Adminupdate = ({
-  shortSleeveProducts,
-  setShortSleeveProducts,
-  longSleeveProducts,
-  setLongSleeveProducts,
-  sweaterProducts,
-  setSweaterProducts,
-  hoodieProducts,
-  setHoodieProducts,
-}) => {
-  
-  const [shortSleeveProductFilteredData, setShortSleeveProductFilteredData] = useState([]);
-  const [longSleeveProductFilteredData, setLongSleeveProductFilteredData] = useState([]);
-  const [sweaterProductFilteredData, setSweaterProductFilteredData] = useState([]);
-  const [hoodieProductFilteredData, setHoodieProductFilteredData] = useState([]);
-  
-  const [searchShortSleeveProducts, setSearchShortSleeveProducts] = useState("");
-  const [searchLongSleeveProducts, setSearchLongSleeveProducts] = useState("");
-  const [searchSweaterProducts, setSearchSweaterProducts] = useState("");
-  const [searchHoodieProducts, setSearchHoodieProducts] = useState("");
+const Adminupdate = ({ allProducts, setAllProducts }) => {
+  const [productFilteredData, setProductFilteredData] = useState([]);
+  const [searchProducts, setSearchProducts] = useState("");
+  const [showUpdateAllProductsForm, setShowUpdateAllProductsForm] =
+    useState(null);
+  const [showUpdateFilteredProductsForm, setShowUpdateFilteredProductsForm] =
+    useState(null);
 
-  function searchShortSleeveItems(searchValue) {
+  function searchYourProducts(searchValue) {
     if (searchValue.length) {
-      const data = shortSleeveProducts.filter((item) => {
-        return item.creatorName
-          .toLowerCase()
-          .includes(searchValue.toLowerCase()) ||
-          item.goal.toLowerCase().includes(searchValue.toLowerCase()) ||
-          item.name.toLowerCase().includes(searchValue.toLowerCase())
+      const data = allProducts.filter((item) => {
+        return item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.category.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.product_name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.size.toLowerCase().includes(searchValue.toLowerCase())
           ? true
           : false;
       });
 
       data.length > 0
-        ? setShortSleeveProductFilteredData(data)
-        : setShortSleeveProductFilteredData([]);
+        ? setProductFilteredData(data)
+        : setProductFilteredData([]);
     }
   }
 
   useEffect(() => {
-    searchShortSleeveItems(searchShortSleeveProducts);
-  }, [searchShortSleeveProducts]);
+    searchYourProducts(searchProducts);
+  }, [searchProducts]);
 
-//   useEffect(() => {
-//     getShortSleeveProducts(token)
-//       .then((object) => {
-//         setYourRoutines(object);
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//       });
-//   }, [yourRoutines]);
+  useEffect(() => {
+    async function getTheProducts() {
+      try {
+        const result = await getAllProducts();
+        const products = result.products;
+        setAllProducts(products);
+      } catch (error) {
+        throw error;
+      }
+    }
+    getTheProducts();
+  }, []);
+
+  //   async function handleDelete (event) {
+  //     event.preventDefault();
+  //     try {
+  //         console.log(element.id)
+  //         await deleteProduct(element.id)
+  //     } catch (error) {
+  //         throw error
+  //     }
+  //   }
 
   return (
     <div className="AdminUpdateContainer">
-      <div className="UpdateRoutesGrid">
-      <NavLink to="/admin/Short_Sleeve">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={ShortSleeve} />
-                    <div className="HeaderCenter">Short Sleeve</div>
+      <input
+        id="searchYourProductsInput"
+        name="search-products"
+        type="text"
+        value={searchProducts}
+        placeholder="Search Your Products..."
+        onChange={(event) => {
+          setSearchProducts(event.target.value);
+        }}
+      />
+      <div>
+        {productFilteredData.length > 0
+          ? productFilteredData.map((element, idx) => {
+              return (
+                <div className="UpdateMapContainer" key={`Filtered ${idx}`}>
+                  <div>
+                    <div>
+                      <b>Gender: </b>
+                      {element.gender}
                     </div>
-                </NavLink>
-                <NavLink to="/admin/Long_Sleeve">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={LongSleeve} />
-                    <div className="HeaderCenter">Long Sleeve</div>
+                    <div>
+                      <b>Category: </b>
+                      {element.category}
                     </div>
-                </NavLink>
-                <NavLink to="/admin/Hoodie">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={Hoodie} />
-                    <div className="HeaderCenter">Hoodie</div>
+                    <div>
+                      <b>Product_Name: </b> {element.product_name}
                     </div>
-                </NavLink>
-                <NavLink to="/admin/Sweater">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={Sweater} />
-                    <div className="HeaderCenter">Sweater</div>
+                    <div>
+                      <b>Description: </b> {element.description}
                     </div>
-                </NavLink>
+                    <div>
+                      <b>Size: </b> {element.size}
+                    </div>
+                    <div>
+                      <b>Price: </b> {element.price}
+                    </div>
+                    {element.availability ? (
+                      <div>
+                        <b>Availability:</b> True{" "}
+                      </div>
+                    ) : (
+                      <div>
+                        <b>Availability:</b> False{" "}
+                      </div>
+                    )}
+                    <div>
+                      <b>Quantity_InStock: </b>
+                      {element.quantity_instock}
+                    </div>
+                  </div>
+                  <br></br>
+                  <br></br>
+                  <div>
+                    {showUpdateFilteredProductsForm != element.id ? (
+                      <>
+                        <button
+                          onClick={() => {
+                            setShowUpdateFilteredProductsForm(element.id);
+                          }}
+                        >
+                          Update
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <UpdateProductForm element={element} />
+                        <button
+                          onClick={() => {
+                            setShowUpdateFilteredProductsForm(null);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  <br></br>
+                  <br></br>
+                  <form
+                    onSubmit={async (event) => {
+                      event.preventDefault();
+                      await deleteProduct(element.id);
+                    }}
+                  >
+                    <button type="submit">Delete Product</button>
+                  </form>
+                  <br></br>
+                  <br></br>
+                </div>
+              );
+            })
+          : allProducts.map((element, idx) => {
+              return (
+                <div className="UpdateMapContainer" key={`Products ${idx}`}>
+                  <div>
+                    <div>
+                      <b>Gender: </b>
+                      {element.gender}
+                    </div>
+                    <div>
+                      <b>Category: </b>
+                      {element.category}
+                    </div>
+                    <div>
+                      <b>Product_Name: </b> {element.product_name}
+                    </div>
+                    <div>
+                      <b>Description: </b> {element.description}
+                    </div>
+                    <div>
+                      <b>Size: </b> {element.size}
+                    </div>
+                    <div>
+                      <b>Price: </b> {element.price}
+                    </div>
+
+                    {element.availability ? (
+                      <div>
+                        <b>Availability:</b> True{" "}
+                      </div>
+                    ) : (
+                      <div>
+                        <b>Availability:</b> False{" "}
+                      </div>
+                    )}
+
+                    <div>
+                      <b>Quantity_InStock: </b>
+                      {element.quantity_instock}
+                    </div>
+                  </div>
+                  <div>
+                    {showUpdateAllProductsForm != element.id ? (
+                      <>
+                        <button
+                          onClick={() => {
+                            setShowUpdateAllProductsForm(element.id);
+                          }}
+                        >
+                          Update
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <UpdateProductForm element={element} />
+                        <button
+                          onClick={() => {
+                            setShowUpdateAllProductsForm(null);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  <br></br>
+                  <br></br>
+                  <form
+                    onSubmit={async (event) => {
+                      event.preventDefault();
+                      await deleteProduct(element.id);
+                    }}
+                  >
+                    <button type="submit">Delete Product</button>
+                  </form>
+                  <br></br>
+                  <br></br>
+                </div>
+              );
+            })}
       </div>
     </div>
   );

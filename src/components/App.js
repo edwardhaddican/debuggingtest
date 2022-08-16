@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -24,6 +24,13 @@ const App = () => {
   //   getAPIStatus();
   // }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      setIsLoggedIn(true)
+    }
+  }, [])
 
   return (
     <div className="Showcase">
