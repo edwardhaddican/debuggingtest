@@ -17,13 +17,10 @@ import {
   Cartpage,
   Logout,
   Admin,
-<<<<<<< HEAD
-=======
   Adminshortsleeve,
   Adminlongsleeve,
   Adminhoodie,
   Adminsweater
->>>>>>> main
 } from "./";
 
 import { AnimatePresence } from "framer-motion";
@@ -85,7 +82,7 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
         <Route path="/cartpage" element={<Cartpage />} />
-<<<<<<< HEAD
+
         <Route
           path="/logout"
           element={
@@ -107,14 +104,12 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           }
         />
-=======
         <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/admin" element={<Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/admin/Short_Sleeve" element={<Adminshortsleeve />} />
         <Route path="/admin/Long_Sleeve" element={<Adminlongsleeve />} />
         <Route path="/admin/Hoodie" element={<Adminhoodie />} />
         <Route path="/admin/Sweater" element={<Adminsweater />} />
->>>>>>> main
       </Routes>
     </AnimatePresence>
   );

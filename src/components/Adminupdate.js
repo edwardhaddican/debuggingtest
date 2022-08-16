@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
-=======
-import React from "react";
 import { NavLink } from "react-router-dom";
 import ShortSleeve from "./Photo/ShortSleeveImage.jpg"
 import LongSleeve from "./Photo/LongSleeveImage.jpg"
 import Hoodie from "./Photo/HoodieImage.jpg"
 import Sweater from "./Photo/SweaterImage.jpg"
->>>>>>> main
 import "../style/Adminupdate.css";
 
 const Adminupdate = ({
@@ -49,12 +45,12 @@ const Adminupdate = ({
     }
   }
 
-//   useEffect(() => {
-//     searchYourItems(searchShortSleeveProducts);
-//   }, [searchShortSleeveProducts]);
+  useEffect(() => {
+    searchShortSleeveItems(searchShortSleeveProducts);
+  }, [searchShortSleeveProducts]);
 
 //   useEffect(() => {
-//     userRoutines(token)
+//     getShortSleeveProducts(token)
 //       .then((object) => {
 //         setYourRoutines(object);
 //       })
@@ -65,31 +61,17 @@ const Adminupdate = ({
 
   return (
     <div className="AdminUpdateContainer">
-      <div className="UpdateRoutesGrid">
-      <NavLink to="/admin/Short_Sleeve">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={ShortSleeve} />
-                    <div className="HeaderCenter">Short Sleeve</div>
-                    </div>
-                </NavLink>
-                <NavLink to="/admin/Long_Sleeve">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={LongSleeve} />
-                    <div className="HeaderCenter">Long Sleeve</div>
-                    </div>
-                </NavLink>
-                <NavLink to="/admin/Hoodie">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={Hoodie} />
-                    <div className="HeaderCenter">Hoodie</div>
-                    </div>
-                </NavLink>
-                <NavLink to="/admin/Sweater">
-                    <div className="UpdateRoutesContainer">
-                    <img className="Image" src={Sweater} />
-                    <div className="HeaderCenter">Sweater</div>
-                    </div>
-                </NavLink>
+      <div className="updateShortSleeve">
+        <div>Short Sleeve</div>
+      </div>
+      <div className="updateLongSleeve">
+        <div>Long Sleeve</div>
+      </div>
+      <div className="updateSweaters">
+        <div>Sweaters</div>
+      </div>
+      <div className="updateHoodies">
+        <div>Hoodies</div>
       </div>
     </div>
   );
