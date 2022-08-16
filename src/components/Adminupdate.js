@@ -5,6 +5,7 @@ import UpdateProductForm from "./UpdateProductForm";
 import "../style/Adminupdate.css";
 
 const Adminupdate = ({ allProducts, setAllProducts }) => {
+  console.log(allProducts, "IS THIS BROKEN?")
   const [productFilteredData, setProductFilteredData] = useState([]);
   const [searchProducts, setSearchProducts] = useState("");
   const [showUpdateAllProductsForm, setShowUpdateAllProductsForm] =
@@ -39,6 +40,7 @@ const Adminupdate = ({ allProducts, setAllProducts }) => {
       try {
         const result = await getAllProducts();
         const products = result.products;
+        console.log(products, "HERE BE THE PRODUCTS")
         setAllProducts(products);
       } catch (error) {
         throw error;

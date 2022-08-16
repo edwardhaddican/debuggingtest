@@ -12,7 +12,7 @@ async function createProduct({
 }) {
   console.log('Starting to create Product! db/products.js');
   try {
-    const { rows } = await client.query(
+    const { rows: [product] } = await client.query(
       `
         INSERT INTO products(
             gender,
@@ -38,8 +38,10 @@ async function createProduct({
       ]
     );
 
+    console.log("Product created..");
+    console.log(product);
     console.log('Finished Creating Product! products.js');
-    return rows[0];
+    return product;
   } catch (error) {
     console.error('Error Creating Product! products.js');
     throw error;
@@ -49,7 +51,7 @@ async function createProduct({
 async function getAllProducts() {
   try {
     const {
-      rows: [],
+      rows: product
     } = await client.query(`
         SELECT *
         FROM products
@@ -120,18 +122,18 @@ async function updateProduct(product_id, fields = {}) {
     console.log('Finished Updating Product! products.js');
     return product;
   } catch (error) {
-    onsole.error('Error Updating Product! products.js');
+    console.error('Error Updating Product! products.js');
     throw error;
   }
 }
 
-async function deleteProduct() {
+async function deleteProduct(product_id) {
   try {
     const {
       rows: [product],
     } = await client.query(`
         DELETE FROM products
-        WHERE id=${user_Id};
+        WHERE id=${product_id};
         RETURNING *
         `);
     return product;
