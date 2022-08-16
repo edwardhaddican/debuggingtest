@@ -80,6 +80,24 @@ async function getProductById(product_id) {
   }
 }
 
+async function getProductByCategory(category) {
+  console.log("Starting to get product by category... products.js");
+  try {
+    const {
+      rows: [product],
+    } = await client.query(`
+    SELECT *   
+    FROM products
+    WHERE category=${category};
+    `);
+    console.log("Finished Getting Product By Category! products.js");
+    return product;
+  } catch (error) {
+    console.error("Error Getting Product By Category! products.js");
+    throw error;
+  }
+}
+
 async function updateProduct(product_id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
@@ -128,5 +146,6 @@ module.exports = {
   getAllProducts,
   deleteProduct,
   getProductById,
+  getProductByCategory,
   updateProduct,
 };

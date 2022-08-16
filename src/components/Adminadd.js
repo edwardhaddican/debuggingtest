@@ -4,11 +4,11 @@ import AddImageIcon from "./Photo/AddImageIcon.png";
 import "../style/Adminadd.css";
 
 const Adminadd = () => {
-  const [gender, setGender] = useState("");
-  const [category, setCategory] = useState("");
+  const [gender, setGender] = useState("Male");
+  const [category, setCategory] = useState("Short_Sleeve");
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState("Small");
   const [price, setPrice] = useState(0);
   const [quantityInStock, setQuantityInStock] = useState(0);
 

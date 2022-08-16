@@ -1,10 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct } = require("../db");
+const { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getProductByCategory } = require("../db");
 const { requireUser, requireAdmin } = require("./utils");
 
 router.get("/", async (req, res) => {
   const products = await getAllProducts();
+
+  res.send({
+    products,
+  });
+});
+
+router.get("/admin/:category", async (req, res) => {
+  const { category } = req.params
+  const products = await getProductByCategory(category);
 
   res.send({
     products,
