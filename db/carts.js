@@ -52,7 +52,7 @@ async function getCurrentCart ({user_id}) {
             `,
             []);
     }
-}
+} // 
 
 module.exports = {
   createCart,
