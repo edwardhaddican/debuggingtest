@@ -108,6 +108,20 @@ export async function updatePerson(
 
 // PRODUCTS API CALLS BELOW
 
+export async function getAllProducts() {
+  try {
+  const response = await fetch(`${BASE}/api/products`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const result = await response.json();
+  return result;
+} catch (error) {
+  next (error)
+}
+}
+
 export async function createProduct(
   gender,
   category,
@@ -115,7 +129,6 @@ export async function createProduct(
   description,
   size,
   price,
-  availability,
   quantity_instock
 ) {
   try {
@@ -131,7 +144,7 @@ export async function createProduct(
         description: description,
         size: size,
         price: price,
-        availability: availability,
+        availability: true,
         quantity_instock: quantity_instock,
       }),
     });
