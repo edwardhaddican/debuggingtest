@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createProduct } from "../api";
+import AddImageIcon from "./Photo/AddImageIcon.png";
 import "../style/Adminadd.css";
 
 const Adminadd = () => {
@@ -33,11 +34,13 @@ const Adminadd = () => {
 
   return (
     <div className="AdminAddContainer">
-      <span>ADMIN ADD <img className="AddProductImage" src="https://sm.ign.com/ign_ap/screenshot/default/ashwins_78um.jpg" /> </span>
+      <span className="AddImageHeader">ADD IMAGE<img className="AddProductImage" src={AddImageIcon} /> </span>
       <br></br>
       <br></br>
       <div>
+        <div className="AddProductHeader">
         Add Product BELOW
+        </div>
         <br></br>
         <br></br>
         <form onSubmit={handleSubmit}>
@@ -144,7 +147,7 @@ const Adminadd = () => {
           </label>
           <br></br>
           <br></br>
-          <button type="submit">Add Product</button>
+          <button type="submit" className="AddProductButton">Add Product</button>
         </form>
       </div>
     </div>
