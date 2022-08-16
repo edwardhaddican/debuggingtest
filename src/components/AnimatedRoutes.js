@@ -16,17 +16,21 @@ import {
   Myorders,
   Cartpage,
   Logout,
-  Admin
+  Admin,
 } from "./";
 
 import { AnimatePresence } from "framer-motion";
 
-const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin }) => {
+const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [shortSleeveProducts, setShortSleeveProducts] = useState([]);
+  const [longSleeveProducts, setLongSleeveProducts] = useState([]);
+  const [sweaterProducts, setSweaterProducts] = useState([]);
+  const [hoodieProducts, setHoodieProducts] = useState([]);
   const location = useLocation();
 
   return (
@@ -70,12 +74,31 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin }) => {
         <Route path="/longsleeve" element={<Longsleeve />} />
         <Route path="/hoodie" element={<Hoodie />} />
         <Route path="/sweater" element={<Sweater />} />
-        <Route path="/youraccount" element={<Youraccount isAdmin={isAdmin} setIsAdmin={setIsAdmin} />} />
+        <Route path="/youraccount" element={<Youraccount />} />
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
         <Route path="/cartpage" element={<Cartpage />} />
-        <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/admin" element={<Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />} />
+        <Route
+          path="/logout"
+          element={
+            <Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <Admin
+              shortSleeveProducts={shortSleeveProducts}
+              setShortSleeveProducts={setShortSleeveProducts}
+              longSleeveProducts={longSleeveProducts}
+              setLongSleeveProducts={setLongSleeveProducts}
+              sweaterProducts={sweaterProducts}
+              setSweaterProducts={setSweaterProducts}
+              hoodieProducts={hoodieProducts}
+              setHoodieProducts={setHoodieProducts}
+            />
+          }
+        />
       </Routes>
     </AnimatePresence>
   );

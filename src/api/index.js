@@ -122,6 +122,24 @@ export async function getAllProducts() {
 }
 }
 
+// API CALLS SPECIFICALLY FOR EACH TYPE OF PRODUCT WE ARE TRYING TO SEARCH FOR BASED ON CATEGORY
+
+export async function apiGetProductsByCategory(category) {
+  try {
+  const response = await fetch(`${BASE}/api/products/admin/${category}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const result = await response.json();
+  return result;
+} catch (error) {
+  next (error)
+}
+}
+
+// END OF API CALLS SPECIFICALLY FOR EACH TYPE OF PRODUCT WE ARE TRYING TO SEARCH FOR BASED ON CATEGORY
+
 export async function createProduct(
   gender,
   category,
