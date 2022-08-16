@@ -16,3 +16,8 @@
     height: 43rem;
     z-index: 650;
 }
+
+.AddProductImage {
+    width: 40rem;
+    height: 40rem;
+}
