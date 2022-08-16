@@ -1,6 +1,6 @@
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
-//const { createProduct_Size } = require('./product_sizes');
+const { createCart } = require('./carts');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -58,16 +58,21 @@ async function createTables() {
     await client.query(` 
     CREATE TABLE carts (
       id SERIAL PRIMARY KEY,
-      purchased BOOLEAN DEFAULT false,
-      user_id INTEGER REFERENCES users(id)
+      product_id INTEGER REFERENCES products(id),
+      user_id INTEGER REFERENCES users(id),
+      product_name VARCHAR (64) NOT NULL,
+      cart_product_quantity INTEGER NOT NULL,
+      price_each VARCHAR (10) NOT NULL,
+      purchased BOOLEAN DEFAULT false
+      
   );`);
     await client.query(`  
     CREATE TABLE cart_products (
       id SERIAL PRIMARY KEY,
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
-      quantity INTEGER NOT NULL,
-      total_price VARCHAR (10) NOT NULL
+      cart_product_quantity INTEGER NOT NULL,
+      price_each VARCHAR (10) NOT NULL
   );`);
     await client.query(`  
   CREATE TABLE addresses (
@@ -142,41 +147,41 @@ async function createInitialProducts() {
     console.log('Starting to create products...');
     const productsToCreate = [
       {
-        gender: "Mens",
-        category: "short_sleeve",
-        product_name: "Short Sleeve",
-        description: "Fly Away Top",
-        size: "Small",
+        gender: 'Mens',
+        category: 'short_sleeve',
+        product_name: 'Short Sleeve',
+        description: 'Fly Away Top',
+        size: 'Small',
         price: 30.0,
         availability: true,
         quantity_instock: 11,
       },
       {
-        gender: "Womens",
-        category: "long_sleeve",
-        product_name: "Long Sleeve",
-        description: "Seamless Tiny Top",
-        size: "Medium",
+        gender: 'Womens',
+        category: 'long_sleeve',
+        product_name: 'Long Sleeve',
+        description: 'Seamless Tiny Top',
+        size: 'Medium',
         price: 45.0,
         availability: true,
         quantity_instock: 23,
       },
       {
-        gender: "Mens",
-        category: "sweater",
-        product_name: "Sweater",
-        description: "Long Sleeve Oversized Sweater",
-        size: "Large",
+        gender: 'Mens',
+        category: 'sweater',
+        product_name: 'Sweater',
+        description: 'Long Sleeve Oversized Sweater',
+        size: 'Large',
         price: 50.0,
         availability: true,
         quantity_instock: 6,
       },
       {
-        gender: "Womens",
-        category: "hoodie",
-        product_name: "Hoodie",
-        description: "Stone Washed Hoodie Sweatshirt",
-        size: "Xtra-Large",
+        gender: 'Womens',
+        category: 'hoodie',
+        product_name: 'Hoodie',
+        description: 'Stone Washed Hoodie Sweatshirt',
+        size: 'Xtra-Large',
         price: 75.0,
         availability: true,
         quantity_instock: 9,
@@ -193,41 +198,48 @@ async function createInitialProducts() {
   }
 }
 
-/*
-async function createInitialProduct_Sizes() {
+async function createInitialCarts() {
   try {
-    console.log('Starting to Create Product Sizes...');
-    const product_sizesToCreate = [
+    console.log('Starting to Create Initial Carts...');
+    const cartsToCreate = [
       {
-        size: 'S',
-        product_id: 1,
-      },
-      {
-        size: 'M',
-        product_id: 2,
-      },
-      {
-        size: 'L',
-        product_id: 3,
-      },
-      {
-        size: 'XL',
+        cart_id: 111,
         product_id: 4,
+        user_id: 1,
+        product_name: 'Hoodie',
+        cart_product_quantity: 1,
+        price_each: 59.0,
+        purchased: false,
+      },
+      {
+        cart_id: 222,
+        product_id: 3,
+        user_id: 2,
+        product_name: 'Sweater',
+        cart_product_quantity: 1,
+        price_each: 59.0,
+        purchased: false,
+      },
+      {
+        cart_id: 333,
+        product_id: 2,
+        user_id: 3,
+        product_name: 'Long Sleeve',
+        cart_product_quantity: 1,
+        price_each: 59.0,
+        purchased: true,
       },
     ];
-    const product_sizes = await Promise.all(
-      product_sizesToCreate.map(createProduct_Size)
-    );
+    const carts = await Promise.all(cartsToCreate.map(createCart));
 
-    console.log('Product Sizes Created:');
-    console.log(product_sizes);
-    console.log('Finished Creating Product Sizes!');
+    console.log('Carts Created:');
+    console.log(carts);
+    console.log('Finished Creating Carts!');
   } catch (error) {
-    console.error('Error Creating Product Sizes! db/seedData.js');
+    console.error('Error Creating Initial Carts! db/seedData.js');
     throw error;
   }
 }
-*/
 
 async function rebuildDB() {
   try {
@@ -235,6 +247,7 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
+    await createInitialCarts();
     //   await createInitialProduct_Sizes();
   } catch (error) {
     console.error('Error during rebuild DB!!');
@@ -247,5 +260,6 @@ module.exports = {
   createTables,
   createInitialUsers,
   createInitialProducts,
+  createInitialCarts,
   //  createInitialProduct_Sizes,
 };
