@@ -51,6 +51,8 @@ async function getCurrentCart ({user_id}) {
             AND purchased = false,
             `,
             []);
+    } catch (error) {
+      throw error;
     }
 }
 
