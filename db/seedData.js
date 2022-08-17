@@ -148,7 +148,7 @@ async function createInitialProducts() {
     const productsToCreate = [
       {
         gender: 'Mens',
-        category: 'short_sleeve',
+        category: 'Short_Sleeve',
         product_name: 'Short Sleeve',
         description: 'Fly Away Top',
         size: 'Small',
@@ -158,7 +158,7 @@ async function createInitialProducts() {
       },
       {
         gender: 'Womens',
-        category: 'long_sleeve',
+        category: 'Long_Sleeve',
         product_name: 'Long Sleeve',
         description: 'Seamless Tiny Top',
         size: 'Medium',
@@ -178,10 +178,10 @@ async function createInitialProducts() {
       },
       {
         gender: 'Womens',
-        category: 'hoodie',
+        category: 'Hoodie',
         product_name: 'Hoodie',
         description: 'Stone Washed Hoodie Sweatshirt',
-        size: 'Xtra-Large',
+        size: 'Extra Large',
         price: 75.0,
         availability: true,
         quantity_instock: 9,

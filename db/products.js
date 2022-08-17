@@ -86,7 +86,7 @@ async function getProductByCategory(category) {
   console.log("Starting to get product by category... products.js");
   try {
     const {
-      rows: [products],
+      rows: products,
     } = await client.query(`
     SELECT *   
     FROM products
@@ -99,6 +99,7 @@ async function getProductByCategory(category) {
     throw error;
   }
 }
+
 
 async function updateProduct(product_id, fields = {}) {
   const setString = Object.keys(fields)

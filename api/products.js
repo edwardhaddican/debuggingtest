@@ -4,21 +4,31 @@ const { getAllProducts, getProductById, createProduct, updateProduct, deleteProd
 const { requireUser, requireAdmin } = require("./utils");
 
 router.get("/", async (req, res) => {
-  const products = await getAllProducts();
+  try {
+    const products = await getAllProducts();
 
-  res.send({
-    products,
-  });
+    res.send({
+      products,
+    });
+  } catch (error) {
+    throw error;
+  }
 });
+
 
 router.get("/:category", async (req, res) => {
-  const { category } = req.params
-  const products = await getProductByCategory(category);
+  try {
+    const { category } = req.params;
+    const products = await getProductByCategory(category);
 
-  res.send({
-    products,
-  });
+    res.send({
+      products,
+    });
+  } catch (error) {
+    throw error;
+  }
 });
+
 
 router.post("/", async (req, res, next) => {
   const {
