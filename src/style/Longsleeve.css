@@ -2,7 +2,7 @@
     position: relative;
     margin-top: 17.5%;
     margin-left: 42.5%;
-    width: 400px;
+    width: 425px;
     height: 245px;
     background-color: white;
     padding: .75rem;
@@ -12,6 +12,17 @@
     transform: translateY(-10px);
     transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
     z-index: 601;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.LongSleeveContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+.LongSleeveContainer::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 10px;
 }
 
 .LongSleeveImage {
@@ -27,14 +38,15 @@
 }
 
 .LongSleeveAbout {
+    margin-top: 0.5rem;
     font-size: 15px;
     width: 10rem;
 }
 
 .LongSleeveButton {
     position: relative;
-    right: 13.4rem;
-    bottom: 2.3rem;
+    right: 0rem;
+    top: 1rem;
     width: 10rem;
     height: 3rem;
     font-size: 20px;

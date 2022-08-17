@@ -124,7 +124,7 @@ export async function getAllProducts() {
 
 export async function getAllProductsByCategory (category) {
   try {
-    const response = await fetch(`${BASE}/api/products/${category}`, {
+    const response = await fetch(`${BASE}/api/products/category/${category}`, {
       headers: {
         "Content-Type": "application/json",
       },
