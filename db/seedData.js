@@ -168,7 +168,7 @@ async function createInitialProducts() {
       },
       {
         gender: 'Mens',
-        category: 'sweater',
+        category: 'Sweater',
         product_name: 'Sweater',
         description: 'Long Sleeve Oversized Sweater',
         size: 'Large',
