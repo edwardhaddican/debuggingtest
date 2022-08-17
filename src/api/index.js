@@ -124,7 +124,37 @@ export async function getAllProducts() {
 
 export async function getAllProductsByCategory (category) {
   try {
-    const response = await fetch(`${BASE}/api/products/${category}`, {
+    const response = await fetch(`${BASE}/api/products/category/${category}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result, "API RESULT")
+    return result;
+  } catch (error) {
+    throw (error)
+  }
+}
+
+export async function getAllProductsByPrice (price) {
+  try {
+    const response = await fetch(`${BASE}/api/products/price/${price}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result, "API RESULT")
+    return result;
+  } catch (error) {
+    throw (error)
+  }
+}
+
+export async function getProductBySize(size) {
+  try {
+    const response = await fetch(`${BASE}/api/products/size/${size}`, {
       headers: {
         "Content-Type": "application/json",
       },

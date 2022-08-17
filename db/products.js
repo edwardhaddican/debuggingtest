@@ -100,6 +100,42 @@ async function getProductByCategory(category) {
   }
 }
 
+async function getProductByPrice(price) {
+  console.log("Starting to get product by category... products.js");
+  try {
+    const {
+      rows: products,
+    } = await client.query(`
+    SELECT *   
+    FROM products
+    WHERE "price"=$1;
+    `, [price]);
+    console.log("Finished Getting Product By Category! products.js");
+    return products;
+  } catch (error) {
+    console.error("Error Getting Product By Category! products.js");
+    throw error;
+  }
+}
+
+async function getProductBySize(size) {
+  console.log("Starting to get product by category... products.js");
+  try {
+    const {
+      rows: products,
+    } = await client.query(`
+    SELECT *   
+    FROM products
+    WHERE "size"=$1;
+    `, [size]);
+    console.log("Finished Getting Product By Category! products.js");
+    return products;
+  } catch (error) {
+    console.error("Error Getting Product By Category! products.js");
+    throw error;
+  }
+}
+
 
 async function updateProduct(product_id, fields = {}) {
   const setString = Object.keys(fields)
@@ -150,5 +186,7 @@ module.exports = {
   deleteProduct,
   getProductById,
   getProductByCategory,
+  getProductByPrice,
+  getProductBySize,
   updateProduct,
 };

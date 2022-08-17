@@ -116,7 +116,7 @@ const Adminadd = () => {
               <option>Small</option>
               <option>Medium</option>
               <option>Large</option>
-              <option>Extra Large</option>
+              <option>Extra_Large</option>
             </select>
           </label>
           <br></br>

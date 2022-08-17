@@ -181,7 +181,7 @@ async function createInitialProducts() {
         category: 'Hoodie',
         product_name: 'Hoodie',
         description: 'Stone Washed Hoodie Sweatshirt',
-        size: 'Extra Large',
+        size: 'Extra_Large',
         price: 75.0,
         availability: true,
         quantity_instock: 9,
