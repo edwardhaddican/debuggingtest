@@ -28,6 +28,7 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [allProducts, setAllProducts] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const location = useLocation();
 
   return (
@@ -67,16 +68,70 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/about" element={<About />} />
         <Route path="/privacy_legal" element={<PrivacyAndLegal />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/shortsleeve" element={<Shortsleeve allProducts={allProducts} setAllProducts={setAllProducts}/>} />
-        <Route path="/longsleeve" element={<Longsleeve allProducts={allProducts} setAllProducts={setAllProducts}/>} />
-        <Route path="/hoodie" element={<Hoodie allProducts={allProducts} setAllProducts={setAllProducts} />} />
-        <Route path="/sweater" element={<Sweater allProducts={allProducts} setAllProducts={setAllProducts} />} />
+        <Route
+          path="/shortsleeve"
+          element={
+            <Shortsleeve
+              allProducts={allProducts}
+              setAllProducts={setAllProducts}
+            />
+          }
+        />
+        <Route
+          path="/longsleeve"
+          element={
+            <Longsleeve
+              allProducts={allProducts}
+              setAllProducts={setAllProducts}
+            />
+          }
+        />
+        <Route
+          path="/hoodie"
+          element={
+            <Hoodie allProducts={allProducts} setAllProducts={setAllProducts} />
+          }
+        />
+        <Route
+          path="/sweater"
+          element={
+            <Sweater
+              allProducts={allProducts}
+              setAllProducts={setAllProducts}
+            />
+          }
+        />
         <Route path="/youraccount" element={<Youraccount />} />
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
         <Route path="/cartpage" element={<Cartpage />} />
-        <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/admin" element={<Admin allProducts={allProducts} setAllProducts={setAllProducts} />} />
+        <Route
+          path="/logout"
+          element={
+            <Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <Admin
+              allProducts={allProducts}
+              setAllProducts={setAllProducts}
+              allUsers={allUsers}
+              setAllUsers={setAllUsers}
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+              firstName={firstName}
+              setFirstName={setFirstName}
+              lastName={lastName}
+              setLastName={setLastName}
+              email={email}
+              setEmail={setEmail}
+            />
+          }
+        />
       </Routes>
     </AnimatePresence>
   );

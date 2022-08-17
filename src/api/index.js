@@ -2,6 +2,20 @@ const BASE = "http://localhost:3001";
 
 // USERS API CALLS BELOW
 
+export async function getAllUsers() {
+  try {
+  const response = await fetch(`${BASE}/api/users`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const result = await response.json();
+  return result;
+} catch (error) {
+  throw (error)
+}
+}
+
 export async function registerPerson(
   username,
   password,
@@ -96,6 +110,74 @@ export async function updatePerson(
         password: newPassword,
         email: newEmail,
       }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+export async function adminUpdatePerson(
+  id,
+  firstName,
+  lastName,
+  username,
+  password,
+  email,
+  userActive,
+  adminActive
+) {
+  try {
+    const response = await fetch(`${BASE}/api/users/admin/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+        username: username,
+        password: password,
+        email: email,
+        user_active: userActive,
+        admin_active: adminActive
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteUser(
+  userId
+) {
+  try {
+    const response = await fetch(`${BASE}/api/users/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function adminDeleteUser(
+  userId
+) {
+  try {
+    const response = await fetch(`${BASE}/api/users/admin/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
     });
     const result = await response.json();
     return result;

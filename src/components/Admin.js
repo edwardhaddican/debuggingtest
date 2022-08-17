@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Adminhome, Adminadd, Adminupdateproduct, Adminsettings, Adminupdateusers } from "./";
+import {
+  Adminhome,
+  Adminadd,
+  Adminupdateproduct,
+  Adminsettings,
+  Adminupdateusers,
+} from "./";
 import AdminAddIcon from "./Photo/AdminAddIcon.png";
 import AdminHomeIcon from "./Photo/AdminHomeIcon.png";
 import AdminUpdateProductIcon from "./Photo/AdminUpdateProductIcon.png";
@@ -7,7 +13,22 @@ import AdminUpdateUserIcon from "./Photo/AdminUpdateUserIcon.png";
 import AdminSettingsIcon from "./Photo/AdminSettingsIcon.png";
 import "../style/Admin.css";
 
-const Admin = ({ allProducts, setAllProducts }) => {
+const Admin = ({
+  allProducts,
+  setAllProducts,
+  allUsers,
+  setAllUsers,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  email,
+  setEmail,
+}) => {
   const [adminHome, setAdminHome] = useState(true);
   const [adminAdd, setAdminAdd] = useState(true);
   const [adminUpdateProduct, setAdminUpdateProduct] = useState(true);
@@ -76,10 +97,26 @@ const Admin = ({ allProducts, setAllProducts }) => {
       {!adminHome ? <Adminhome /> : null}
       {!adminAdd ? <Adminadd /> : null}
       {!adminUpdateProduct ? (
-        <Adminupdateproduct allProducts={allProducts} setAllProducts={setAllProducts} />
+        <Adminupdateproduct
+          allProducts={allProducts}
+          setAllProducts={setAllProducts}
+        />
       ) : null}
       {!adminUpdateUsers ? (
-        <Adminupdateusers />
+        <Adminupdateusers
+          allUsers={allUsers}
+          setAllUsers={setAllUsers}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          lastName={lastName}
+          setLastName={setLastName}
+          email={email}
+          setEmail={setEmail}
+        />
       ) : null}
       {!adminSettings ? <Adminsettings /> : null}
     </div>

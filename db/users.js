@@ -82,7 +82,7 @@ async function getUserById(user_Id) {
     const {
       rows: [user],
     } = await client.query(`
-    SELECT id, username     
+    SELECT id, username, admin_active    
     FROM users
     WHERE id=${user_Id};
     `);
@@ -170,24 +170,21 @@ async function getUserByEmail(email) {
   }
 }
 
-/*
-async function destoryProduct() {
+async function deleteUser(user_id) {
   try {
-      const {
-          rows: [],
-      } = await client.query(`
-      SELECT *
-      FROM
-      WHERE
-      `);
-      return ;
+    const {
+      rows: [user],
+    } = await client.query(`
+        DELETE FROM users
+        WHERE id=${user_id}
+        RETURNING *;
+        `);
+    return user;
   } catch (error) {
-      console.error("Error")
-      throw error;
+    console.error('Error Deleting User! db/users.js');
+    throw error;
   }
 }
-
-*/
 
 module.exports = {
   createUser,
@@ -197,6 +194,7 @@ module.exports = {
   getAllUsers,
   updateUser,
   getUserByEmail,
+  deleteUser,
 };
 
 /*
