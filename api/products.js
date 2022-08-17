@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 router.get("/:category", async (req, res) => {
   try {
     const { category } = req.params;
@@ -34,6 +35,7 @@ router.get("/:category", async (req, res) => {
     throw error;
   }
 });
+
 
 router.post("/", async (req, res, next) => {
   const {

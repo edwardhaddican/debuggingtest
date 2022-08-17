@@ -100,6 +100,7 @@ async function getProductByCategory(category) {
   }
 }
 
+
 async function updateProduct(product_id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
