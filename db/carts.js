@@ -51,7 +51,7 @@ async function updateCartPurchasedStatus({ user_id }) {
       `
         UPDATE carts
         SET purchased = true
-        WHERE id=${cart_id}
+        WHERE carts.user_id=${cart_id}
         RETURNING *;
       `,
       [user_id]
@@ -63,23 +63,45 @@ async function updateCartPurchasedStatus({ user_id }) {
   }
 }
 
+// ** unsure of id's identified
 async function deleteCurrentCart({ user_id }) {
   await client.query(
     `
-    DELETE FROM cart_products
-    WHERE "cart_id"=${id}
+    DELETE FROM carts
+    WHERE cart.user_id=${cart_id}
     `
   );
   await client.query(
     `
-    DELETE FROM carts
-    WHERE id=${user_id}
+    DELETE FROM cart_products
+    WHERE id=${cart_product_id}
     `
   );
 }
+
+async function getPurchaseHistoryByUser({ user_id }) {
+  // select and return an array of all routines
+  try {
+    const { rows } = await client.query(
+      `
+        SELECT carts.*, users.username AS "creatorName" 
+        FROM routines
+        JOIN users ON routines."creatorId" = users.id AND users.username = $1;
+      `,
+      [user_id]
+    );
+
+    return attachProductsToCarts(rows);
+  } catch (error) {
+    console.error('Error getting Purchase History by User!');
+    throw error;
+  }
+}
+
 module.exports = {
   createCart,
   getCurrentCart,
   updateCartPurchasedStatus,
   deleteCurrentCart,
+  getPurchaseHistoryByUser,
 };
