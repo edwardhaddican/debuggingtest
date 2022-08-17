@@ -52,6 +52,7 @@ async function attachCartProductsToCart(carts) {
   const cartsToReturn = [...carts];
   const binds = carts.map((_, index) => `$${index + 1}`).join(', ');
   const cart_id = carts.map((cart) => cart.id);
+  if (!cart_id?.length) return [];
 }
 
 async function deleteProductFromCart(cart_product_id) {
