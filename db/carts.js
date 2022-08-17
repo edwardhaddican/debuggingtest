@@ -43,7 +43,7 @@ async function getCurrentCart({ user_id }) {
   }
 }
 
-async function updateCartPurchasedStatus({ user_id }) {
+async function updateCartPurchaseStatus({ user_id }) {
   try {
     const {
       rows: [cart],
@@ -58,26 +58,31 @@ async function updateCartPurchasedStatus({ user_id }) {
     );
     return cart;
   } catch (error) {
-    console.error('Error Updating Cart Purchased Status! db/carts.js');
+    console.error('Error Updating Cart Purchase Status! db/carts.js');
     throw error;
   }
 }
 
 // **
 async function deleteCurrentCart({ user_id }) {
-  await client.query(
-    `
+  try {
+    await client.query(
+      `
     DELETE FROM carts.*
     WHERE cart.user_id=${cart_id}
     AND purchased = false;
     `[user_id]
-  );
-  await client.query(
-    `
+    );
+    await client.query(
+      `
     DELETE FROM cart_products.*
     WHERE cart_products.cart_id=${cart_product_id}
     `
-  );
+    );
+  } catch (error) {
+    console.error('Error Deleting Current Cart!');
+    throw error;
+  }
 }
 
 async function getPurchaseHistoryByUser({ user_id }) {
@@ -99,7 +104,7 @@ async function getPurchaseHistoryByUser({ user_id }) {
 module.exports = {
   createCart,
   getCurrentCart,
-  updateCartPurchasedStatus,
+  updateCartPurchaseStatus,
   deleteCurrentCart,
   getPurchaseHistoryByUser,
 };
