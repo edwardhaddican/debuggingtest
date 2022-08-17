@@ -1,4 +1,5 @@
 .AdminUpdateContainer {
+  position: absolute;
     background-color: gray;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -10,11 +11,12 @@
     opacity: 0.9;
     transform: translateY(-10px);
     transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-    margin-left: 10rem;
+    margin-left: 4rem;
     margin-top: 1.5rem;
-    width: 90%;
+    width: 95%;
     height: 43rem;
     z-index: 650;
+    overflow: scroll;
 }
 
 .Image {
@@ -79,9 +81,27 @@
     background-color: white;
     padding: 1rem;
     border: black 1px solid;
+    width: 31rem;
+    text-align: left;
   }
 
   #searchYourProductsInput {
+    position: absolute;
     width: 200px;
     height: 50px;
+  }
+
+  .UpdateGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-left: 13rem;
+  }
+
+  .SearchContainer {
+    position: absolute;
+  }
+
+  .TextPadding {
+    padding: 2px;
   }

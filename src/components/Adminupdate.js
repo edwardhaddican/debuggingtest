@@ -61,6 +61,7 @@ const Adminupdate = ({ allProducts, setAllProducts }) => {
 
   return (
     <div className="AdminUpdateContainer">
+      <div className="SearchContainer">
       <input
         id="searchYourProductsInput"
         name="search-products"
@@ -71,42 +72,43 @@ const Adminupdate = ({ allProducts, setAllProducts }) => {
           setSearchProducts(event.target.value);
         }}
       />
-      <div>
+      </div>
+      <div className="UpdateGrid">
         {productFilteredData.length > 0
           ? productFilteredData.map((element, idx) => {
               return (
                 <div className="UpdateMapContainer" key={`Filtered ${idx}`}>
                   <div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Gender: </b>
                       {element.gender}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Category: </b>
                       {element.category}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Product_Name: </b> {element.product_name}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Description: </b> {element.description}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Size: </b> {element.size}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Price: </b> {element.price}
                     </div>
                     {element.availability ? (
-                      <div>
+                      <div className="TextPadding">
                         <b>Availability:</b> True{" "}
                       </div>
                     ) : (
-                      <div>
+                      <div className="TextPadding">
                         <b>Availability:</b> False{" "}
                       </div>
                     )}
-                    <div>
+                    <div className="TextPadding">
                       <b>Quantity_InStock: </b>
                       {element.quantity_instock}
                     </div>
@@ -156,38 +158,38 @@ const Adminupdate = ({ allProducts, setAllProducts }) => {
               return (
                 <div className="UpdateMapContainer" key={`Products ${idx}`}>
                   <div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Gender: </b>
                       {element.gender}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Category: </b>
                       {element.category}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Product_Name: </b> {element.product_name}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Description: </b> {element.description}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Size: </b> {element.size}
                     </div>
-                    <div>
+                    <div className="TextPadding">
                       <b>Price: </b> {element.price}
                     </div>
 
                     {element.availability ? (
-                      <div>
+                      <div className="TextPadding">
                         <b>Availability:</b> True{" "}
                       </div>
                     ) : (
-                      <div>
+                      <div className="TextPadding">
                         <b>Availability:</b> False{" "}
                       </div>
                     )}
 
-                    <div>
+                    <div className="TextPadding">
                       <b>Quantity_InStock: </b>
                       {element.quantity_instock}
                     </div>
