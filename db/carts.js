@@ -67,14 +67,15 @@ async function updateCartPurchasedStatus({ user_id }) {
 async function deleteCurrentCart({ user_id }) {
   await client.query(
     `
-    DELETE FROM carts
+    DELETE FROM carts.*
     WHERE cart.user_id=${cart_id}
-    `
+    AND purchased = false;
+    `[user_id]
   );
   await client.query(
     `
-    DELETE FROM cart_products
-    WHERE id=${cart_product_id}
+    DELETE FROM cart_products.*
+    WHERE cart_products.=${cart_product_id}
     `
   );
 }
