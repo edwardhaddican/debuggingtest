@@ -33,13 +33,12 @@ async function addCartProductToCart({
 
 async function deleteProductFromCart(cart_product_id) {
   try {
-    const {
-      rows: [cart_product],
-    } = await client.query(`
-          DELETE FROM cart_products
-          WHERE id=${cart_product_id}
-          `);
-    return cart_product_id;
+    await client.query(
+      `
+        DELETE FROM cart_products
+        WHERE id=${cart_product_id}
+        `
+    );
   } catch (error) {
     console.error('Error Removing cart_product from Cart! db/products.js');
     throw error;
