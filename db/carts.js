@@ -51,7 +51,7 @@ async function updateCartPurchasedStatus({ user_id }) {
       `
         UPDATE carts
         SET purchased = true
-        WHERE cart.user_id=${id}
+        WHERE id=${cart_id}
         RETURNING *;
       `,
       [user_id]

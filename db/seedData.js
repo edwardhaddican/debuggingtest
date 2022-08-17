@@ -202,18 +202,18 @@ async function createInitialCarts() {
     console.log('Starting to Create Initial Carts...');
     const cartsToCreate = [
       {
-        cart_id: 111,
+        cart_id: 1,
+        user_id: 3,
+        purchased: false,
+      },
+      {
+        cart_id: 2,
         user_id: 1,
         purchased: false,
       },
       {
-        cart_id: 222,
+        cart_id: 3,
         user_id: 2,
-        purchased: false,
-      },
-      {
-        cart_id: 333,
-        user_id: 3,
         purchased: true,
       },
     ];
