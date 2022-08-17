@@ -50,17 +50,17 @@ const Sweater = ({ allProducts, setAllProducts }) => {
       {allProducts.map((element, idx) => {
         return (
           <div className="SweaterContainer" key={`Sweater ${idx}`}>
-            <div>{element.product_name}</div>
+            <div><b>{element.product_name}</b></div>
             <img className="SweaterImage" src={SweaterImage} />
             <div className="SweaterInfoContainer">
               <div>
-                <div>Gender: {element.gender}</div>
-                <div>Category: {element.category}</div>
-                <div>Size: {element.size}</div>
-                <div>Price: {element.price}</div>
-                <div>In Stock? {element.quantity_instock}</div>
+                <div><b>Gender: </b>{element.gender}</div>
+                <div><b>Category: </b>{element.category}</div>
+                <div><b>Size: </b>{element.size}</div>
+                <div><b>Price: </b>{element.price}</div>
+                <div><b>In Stock? </b>{element.quantity_instock}</div>
                 <p className="SweaterAbout">
-                  Description: {element.description}
+                  <b>Description: </b>{element.description}
                 </p>
                     <button className="SweaterButton">Add to Cart</button>
               </div>

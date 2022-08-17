@@ -50,19 +50,21 @@ const Hoodie = ({ allProducts, setAllProducts }) => {
       {allProducts.map((element, idx) => {
         return (
           <div className="HoodieContainer" key={`Hoodie ${idx}`}>
-            <div>{element.product_name}</div>
+            <div><b>{element.product_name}</b></div>
             <img className="HoodieImage" src={HoodieImage} />
             <div className="HoodieInfoContainer">
               <div>
-                <div>Gender: {element.gender}</div>
-                <div>Category: {element.category}</div>
-                <div>Size: {element.size}</div>
-                <div>Price: {element.price}</div>
-                <div>In Stock? {element.quantity_instock}</div>
+                <div><b>Gender: </b>{element.gender}</div>
+                <div><b>Category: </b>{element.category}</div>
+                <div><b>Size: </b>{element.size}</div>
+                <div><b>Price: </b>{element.price}</div>
+                <div><b>In Stock? </b>{element.quantity_instock}</div>
                 <p className="HoodieAbout">
-                  Description: {element.description}
+                  <b>Description: </b>{element.description}
                 </p>
-                    <button className="HoodieButton">Add to Cart</button>
+                <form>
+                <button className="HoodieButton">Add to Cart</button>
+                </form>
               </div>
             </div>
           </div>
