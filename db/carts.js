@@ -1,4 +1,5 @@
 const client = require('./client');
+const { attachProductsToCarts } = require('./cart_products');
 
 async function createCart({ user_id, purchased }) {
   console.log('Starting to create Cart.. db/carts.js');

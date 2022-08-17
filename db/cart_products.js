@@ -64,8 +64,8 @@ async function deleteProductFromCart(cart_product_id) {
 
 module.exports = {
   addCartProductToCart,
-  deleteProductFromCart,
   editCartProductQuantity,
+  deleteProductFromCart,
 };
 
 /*
