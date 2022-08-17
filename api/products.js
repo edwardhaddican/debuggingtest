@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
   });
 });
 
-router.get("/admin/:category", async (req, res) => {
+router.get("/:category", async (req, res) => {
   const { category } = req.params
   const products = await getProductByCategory(category);
 

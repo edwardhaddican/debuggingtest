@@ -5,7 +5,6 @@ import UpdateProductForm from "./UpdateProductForm";
 import "../style/Adminupdate.css";
 
 const Adminupdate = ({ allProducts, setAllProducts }) => {
-  console.log(allProducts, "IS THIS BROKEN?")
   const [productFilteredData, setProductFilteredData] = useState([]);
   const [searchProducts, setSearchProducts] = useState("");
   const [showUpdateAllProductsForm, setShowUpdateAllProductsForm] =
