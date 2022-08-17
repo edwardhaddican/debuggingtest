@@ -118,8 +118,22 @@ export async function getAllProducts() {
   const result = await response.json();
   return result;
 } catch (error) {
-  next (error)
+  throw (error)
 }
+}
+
+export async function getAllProductsByCategory (category) {
+  try {
+    const response = await fetch(`${BASE}/api/products/${category}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw (error)
+  }
 }
 
 export async function createProduct(

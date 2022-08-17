@@ -23,11 +23,11 @@ const Adminadd = () => {
       price,
       quantityInStock
     );
-    setGender("")
-    setCategory("")
+    setGender("Male")
+    setCategory("Short_Sleeve")
     setProductName("")
     setDescription("")
-    setSize("")
+    setSize("Small")
     setPrice(0)
     setQuantityInStock(0)
   }

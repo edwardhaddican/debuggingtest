@@ -86,14 +86,14 @@ async function getProductByCategory(category) {
   console.log("Starting to get product by category... products.js");
   try {
     const {
-      rows: [product],
+      rows: [products],
     } = await client.query(`
     SELECT *   
     FROM products
-    WHERE category=${category};
-    `);
+    WHERE "category"=$1;
+    `, [category]);
     console.log("Finished Getting Product By Category! products.js");
-    return product;
+    return products;
   } catch (error) {
     console.error("Error Getting Product By Category! products.js");
     throw error;
@@ -133,8 +133,8 @@ async function deleteProduct(product_id) {
       rows: [product],
     } = await client.query(`
         DELETE FROM products
-        WHERE id=${product_id};
-        RETURNING *
+        WHERE id=${product_id}
+        RETURNING *;
         `);
     return product;
   } catch (error) {

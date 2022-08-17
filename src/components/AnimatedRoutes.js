@@ -69,7 +69,7 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/shortsleeve" element={<Shortsleeve />} />
         <Route path="/longsleeve" element={<Longsleeve />} />
-        <Route path="/hoodie" element={<Hoodie />} />
+        <Route path="/hoodie" element={<Hoodie allProducts={allProducts} setAllProducts={setAllProducts} />} />
         <Route path="/sweater" element={<Sweater />} />
         <Route path="/youraccount" element={<Youraccount />} />
         <Route path="/accountsettings" element={<Accountsettings />} />
