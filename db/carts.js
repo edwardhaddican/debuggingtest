@@ -1,13 +1,6 @@
 const client = require('./client');
 
-async function createCart({
-  product_id,
-  user_id,
-  product_name,
-  cart_product_quantity,
-  price_each,
-  purchased,
-}) {
+async function createCart({ user_id, purchased }) {
   console.log('Starting to create Cart.. db/carts.js');
   try {
     const {
@@ -15,23 +8,11 @@ async function createCart({
     } = await client.query(
       `
           INSERT INTO carts
-          (product_id,
-            user_id,
-            product_name,
-            cart_product_quantity,
-            price_each,
-            purchased) 
-          VALUES($1, $2, $3, $4, $5, $6)
+          (user_id, purchased) 
+          VALUES($1, $2)
           RETURNING *;
         `,
-      [
-        product_id,
-        user_id,
-        product_name,
-        cart_product_quantity,
-        price_each,
-        purchased,
-      ]
+      [user_id, purchased]
     );
     console.log('Cart created..');
     console.log(cart);
@@ -58,24 +39,6 @@ async function getCurrentCart({ user_id }) {
     return cart;
   } catch (error) {
     console.error('Error Getting Current Cart! db/carts.js');
-    throw error;
-  }
-}
-
-async function getAllCartsByUser({ user_id }) {
-  try {
-    const { rows: carts } = await client.query(
-      `
-        SELECT carts.*,
-        FROM carts
-        carts.user_id = $1;
-      `,
-      [user_id]
-    );
-
-    return attachCartProducts(carts);
-  } catch (error) {
-    console.error('Error getting cart history by user id!');
     throw error;
   }
 }
@@ -117,7 +80,6 @@ async function deleteCurrentCart({ user_id }) {
 module.exports = {
   createCart,
   getCurrentCart,
-  getAllCartsByUser,
   updateCartPurchasedStatus,
   deleteCurrentCart,
 };

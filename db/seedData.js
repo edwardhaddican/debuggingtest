@@ -21,7 +21,6 @@ async function dropTables() {
     throw error;
   }
 }
-//DROP TABLE IF EXISTS users;
 async function createTables() {
   try {
     console.log('Starting to build tables...');
@@ -48,6 +47,7 @@ async function createTables() {
       availability BOOLEAN DEFAULT true,
       quantity_instock SMALLINT
   );`);
+
     /*    await client.query(`
     CREATE TABLE product_sizes (
       id SERIAL PRIMARY KEY,
@@ -55,24 +55,22 @@ async function createTables() {
       product_id INTEGER REFERENCES products(id)
   );`);
  */
+
     await client.query(` 
     CREATE TABLE carts (
       id SERIAL PRIMARY KEY,
-      product_id INTEGER REFERENCES products(id),
       user_id INTEGER REFERENCES users(id),
-      product_name VARCHAR (64) NOT NULL,
-      cart_product_quantity INTEGER NOT NULL,
-      price_each VARCHAR (10) NOT NULL,
       purchased BOOLEAN DEFAULT false
-      
   );`);
+
     await client.query(`  
     CREATE TABLE cart_products (
       id SERIAL PRIMARY KEY,
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
-      cart_product_quantity INTEGER NOT NULL,
+      quantity INTEGER NOT NULL,
       price_each VARCHAR (10) NOT NULL
+
   );`);
     await client.query(`  
   CREATE TABLE addresses (
@@ -248,7 +246,6 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    //   await createInitialProduct_Sizes();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -261,5 +258,4 @@ module.exports = {
   createInitialUsers,
   createInitialProducts,
   createInitialCarts,
-  //  createInitialProduct_Sizes,
 };
