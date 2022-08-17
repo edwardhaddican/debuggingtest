@@ -38,6 +38,7 @@ const Adminupdateusers = ({
   }, []);
 
   return (
+    <div className="AdminUpdateUserContainer">
     <div className="UpdateUserGrid">
       {allUsers.map((element, idx) => {
         return (
@@ -136,6 +137,7 @@ const Adminupdateusers = ({
           </div>
         );
       })}
+    </div>
     </div>
   );
 };
