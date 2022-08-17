@@ -1,111 +1,76 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ShortSleeve from "./Photo/ShortSleeveImage.jpg";
 import { motion } from "framer-motion";
+import { getAllProductsByCategory } from "../api";
 import "../style/Shortsleeve.css";
 
-const Shortsleeve = () => {
+const Shortsleeve = ({ allProducts, setAllProducts }) => {
+  // function searchHoodieProducts(searchValue) {
+  //     if (searchValue.length) {
+  //       const data = allProducts.filter((item) => {
+  //         return item.gender.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //           item.category.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //           item.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //           item.product_name.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //           item.size.toLowerCase().includes(searchValue.toLowerCase())
+  //           ? true
+  //           : false;
+  //       });
+
+  //       data.length > 0
+  //         ? setProductFilteredData(data)
+  //         : setProductFilteredData([]);
+  //     }
+  //   }
+
+  //   useEffect(() => {
+  //     searchHoodieProducts(searchProducts);
+  //   }, [searchProducts]);
+
+  useEffect(() => {
+    async function getShortSleeveProducts() {
+      try {
+        const result = await getAllProductsByCategory("Short_Sleeve");
+        console.log(result, "RESULT");
+        const products = result.products;
+        setAllProducts(products);
+      } catch (error) {
+        throw error;
+      }
+    }
+    getShortSleeveProducts();
+  }, []);
+
   return (
-    <motion.div className="ShortSleeveGrid"
-    initial={{opacity: 0}}
-        animate={{opacity: 0.9}}
-        transition={{duration: 0.5}}
+    <motion.div
+      className="ShortSleeveGrid"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.9 }}
+      transition={{ duration: 0.5 }}
     >
-      <div className="ShortSleeveContainer">
-        <div>Name of Product</div>
+        {
+            allProducts.map((element, idx) => {
+                return (
+                    <div key={`ShortSleeveContainer ${idx}`} className="ShortSleeveContainer">
+        <div><b>{element.product_name}</b></div>
         <img className="ShortSleeveImage" src={ShortSleeve} />
         <div className="ShortSleeveInfoContainer">
-            <div>
-                Color: N/A
-            </div>
-            <div>
-                Size: N/A
-            </div>
-            <div>
-                Price: N/A
-            </div>
-            <div>
-                InStock:  N/A
-            </div>
-            <div>
-                About:
-            </div>
-            <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">Add to Cart</button>
+                    <div><b>Gender: </b>{element.gender}</div>
+                    <div><b>Category: </b>{element.category}</div>
+                    <div><b>Size: </b>{element.size}</div>
+                    <div><b>Price: </b>{element.price}</div>
+                    <div><b>InStock?: </b>{element.quantity_instock}</div>
+                    <p className="ShortSleeveAbout">
+                    <div><b>Description: </b>{element.description}</div>
+                    </p>
+                    <form>
+                    <button type="Submit" className="ShortSleeveButton">Add to Cart</button>
+                    </form>
         </div>
       </div>
-      <div className="ShortSleeveContainer">
-        <div>Name of Product</div>
-        <img className="ShortSleeveImage" src={ShortSleeve} />
-        <div className="ShortSleeveInfoContainer">
-            <div>
-                Color: N/A
-            </div>
-            <div>
-                Size: N/A
-            </div>
-            <div>
-                Price: N/A
-            </div>
-            <div>
-                InStock:  N/A
-            </div>
-            <div>
-                About:
-            </div>
-            <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">Add to Cart</button>
-        </div>
-      </div>
-      <div className="ShortSleeveContainer">
-        <div>Name of Product</div>
-        <img className="ShortSleeveImage" src={ShortSleeve} />
-        <div className="ShortSleeveInfoContainer">
-            <div>
-                Color: N/A
-            </div>
-            <div>
-                Size: N/A
-            </div>
-            <div>
-                Price: N/A
-            </div>
-            <div>
-                InStock:  N/A
-            </div>
-            <div>
-                About:
-            </div>
-            <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">Add to Cart</button>
-        </div>
-      </div>
-      <div className="ShortSleeveContainer">
-        <div>Name of Product</div>
-        <img className="ShortSleeveImage" src={ShortSleeve} />
-        <div className="ShortSleeveInfoContainer">
-            <div>
-                Color: N/A
-            </div>
-            <div>
-                Size: N/A
-            </div>
-            <div>
-                Price: N/A
-            </div>
-            <div>
-                InStock:  N/A
-            </div>
-            <div>
-                About:
-            </div>
-            <p className="ShortSleeveAbout">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <button className="ShortSleeveButton">Add to Cart</button>
-        </div>
-      </div>
+                )
+            })
+        }
     </motion.div>
   );
 };

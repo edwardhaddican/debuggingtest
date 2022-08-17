@@ -118,8 +118,53 @@ export async function getAllProducts() {
   const result = await response.json();
   return result;
 } catch (error) {
-  next (error)
+  throw (error)
 }
+}
+
+export async function getAllProductsByCategory (category) {
+  try {
+    const response = await fetch(`${BASE}/api/products/category/${category}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result, "API RESULT")
+    return result;
+  } catch (error) {
+    throw (error)
+  }
+}
+
+export async function getAllProductsByPrice (price) {
+  try {
+    const response = await fetch(`${BASE}/api/products/price/${price}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result, "API RESULT")
+    return result;
+  } catch (error) {
+    throw (error)
+  }
+}
+
+export async function getProductBySize(size) {
+  try {
+    const response = await fetch(`${BASE}/api/products/size/${size}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result, "API RESULT")
+    return result;
+  } catch (error) {
+    throw (error)
+  }
 }
 
 export async function createProduct(
@@ -211,3 +256,9 @@ export async function deleteProduct(
 }
 
 // PRODUCTS API CALLS ABOVE
+
+// CART_PRODUCTS API CALLS BELOW
+
+
+
+// CART_PRODUCTS API CALLS ABOVE

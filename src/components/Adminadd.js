@@ -4,11 +4,11 @@ import AddImageIcon from "./Photo/AddImageIcon.png";
 import "../style/Adminadd.css";
 
 const Adminadd = () => {
-  const [gender, setGender] = useState("");
-  const [category, setCategory] = useState("");
+  const [gender, setGender] = useState("Male");
+  const [category, setCategory] = useState("Short_Sleeve");
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState("Small");
   const [price, setPrice] = useState(0);
   const [quantityInStock, setQuantityInStock] = useState(0);
 
@@ -23,11 +23,11 @@ const Adminadd = () => {
       price,
       quantityInStock
     );
-    setGender("")
-    setCategory("")
+    setGender("Male")
+    setCategory("Short_Sleeve")
     setProductName("")
     setDescription("")
-    setSize("")
+    setSize("Small")
     setPrice(0)
     setQuantityInStock(0)
   }
@@ -116,7 +116,7 @@ const Adminadd = () => {
               <option>Small</option>
               <option>Medium</option>
               <option>Large</option>
-              <option>Extra Large</option>
+              <option>Extra_Large</option>
             </select>
           </label>
           <br></br>
