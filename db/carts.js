@@ -63,7 +63,7 @@ async function updateCartPurchasedStatus({ user_id }) {
   }
 }
 
-// ** unsure of id's identified
+// **
 async function deleteCurrentCart({ user_id }) {
   await client.query(
     `
@@ -75,19 +75,16 @@ async function deleteCurrentCart({ user_id }) {
   await client.query(
     `
     DELETE FROM cart_products.*
-    WHERE cart_products.=${cart_product_id}
+    WHERE cart_products.cart_id=${cart_product_id}
     `
   );
 }
 
 async function getPurchaseHistoryByUser({ user_id }) {
-  // select and return an array of all routines
   try {
     const { rows } = await client.query(
       `
-        SELECT carts.*, users.username AS "creatorName" 
-        FROM routines
-        JOIN users ON routines."creatorId" = users.id AND users.username = $1;
+      
       `,
       [user_id]
     );
