@@ -14,7 +14,7 @@
     z-index: 650;
 }
 
-.adminUpdateContainer {
+.adminUpdateProductContainer {
     background-color: gray;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -51,19 +51,25 @@
     top: 9rem;
 }
 
-#AdminUpdateIcon {
+#AdminUpdateProductIcon {
     position: absolute;
     left: 1rem;
     top: 12rem;
 }
 
-#AdminSettingsIcon {
+#AdminUpdateUsersIcon {
     position: absolute;
     left: 1rem;
     top: 15rem;
 }
 
+#AdminSettingsIcon {
+    position: absolute;
+    left: 1rem;
+    top: 18rem;
+}
 
-#AdminHomeIcon:hover, #AdminAddIcon:hover, #AdminUpdateIcon:hover, #AdminSettingsIcon:hover {
+
+#AdminHomeIcon:hover, #AdminAddIcon:hover, #AdminUpdateProductIcon:hover, #AdminSettingsIcon:hover, #AdminUpdateUsersIcon:hover {
     opacity: 0.5;
 }

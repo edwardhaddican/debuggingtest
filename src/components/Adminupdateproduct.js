@@ -4,7 +4,7 @@ import UpdateProductForm from "./UpdateProductForm";
 
 import "../style/Adminupdateproduct.css";
 
-const Adminupdate = ({ allProducts, setAllProducts }) => {
+const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
   const [productFilteredData, setProductFilteredData] = useState([]);
   const [searchProducts, setSearchProducts] = useState("");
   const [showUpdateAllProductsForm, setShowUpdateAllProductsForm] =
@@ -237,4 +237,4 @@ const Adminupdate = ({ allProducts, setAllProducts }) => {
   );
 };
 
-export default Adminupdate;
+export default Adminupdateproduct;
