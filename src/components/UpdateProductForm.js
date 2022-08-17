@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { updateProduct } from "../api";
+import "../style/Updateproductform.css";
 
 
 const UpdateProductForm = ({ element }) => {
@@ -37,11 +38,11 @@ const UpdateProductForm = ({ element }) => {
       <div className="UpdateProductHeader">Update Product BELOW</div>
       <br></br>
       <br></br>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="UpdateForm">
         <label>
           Gender{" "}
           <select
-            className="select"
+            className="Updateselect"
             name="gender"
             id="select-gender"
             value={gender}
@@ -58,7 +59,7 @@ const UpdateProductForm = ({ element }) => {
         <label>
           Category{" "}
           <select
-            className="select"
+            className="Updateselect"
             name="category"
             id="select-category"
             value={category}
@@ -76,7 +77,7 @@ const UpdateProductForm = ({ element }) => {
           Product_Name{" "}
           <input
             type="text"
-            className="input"
+            className="Updateinput"
             name="name"
             id="input-name"
             value={productName}
@@ -89,7 +90,7 @@ const UpdateProductForm = ({ element }) => {
           Description{" "}
           <input
             type="text"
-            className="input"
+            className="Updateinput"
             name="description"
             id="input-description"
             value={description}
@@ -101,7 +102,7 @@ const UpdateProductForm = ({ element }) => {
         <label>
           Size{" "}
           <select
-            className="select"
+            className="Updateselect"
             name="size"
             id="select-size"
             value={size}
@@ -116,10 +117,10 @@ const UpdateProductForm = ({ element }) => {
         <br></br>
         <br></br>
         <label>
-          Price {" $"}
+          Price {" $ "}
           <input
             type="number"
-            className="select"
+            className="Updateselect"
             name="gender"
             id="input-price"
             value={price}
@@ -132,7 +133,7 @@ const UpdateProductForm = ({ element }) => {
           Quantity_InStock{" "}
           <input
             type="number"
-            className="select"
+            className="Updateselect"
             name="gender"
             id="input-quantity"
             value={quantityInStock}
@@ -144,7 +145,7 @@ const UpdateProductForm = ({ element }) => {
         <label>
           Available? {" "}
           <select
-            className="select"
+            className="Updateselect"
             name="size"
             id="select-size"
             value={availabilityStr}
@@ -165,7 +166,7 @@ const UpdateProductForm = ({ element }) => {
         </label>
         <br></br>
         <br></br>
-        <button type="submit" className="AddProductButton">
+        <button type="submit" className="UpdateProductButton">
           Update Product
         </button>
       </form>
