@@ -31,6 +31,23 @@ async function addCartProductToCart({
   }
 }
 
+async function editCartProductQuantity({ user_id, quantity }) {
+  try {
+    const result = await client.query(
+      `
+          UPDATE cart_products
+          SET quantity
+          WHERE cart_products.user_id=${cart_product_id}
+        `,
+      [user_id, quantity]
+    );
+    return result;
+  } catch (error) {
+    console.error('Error Editing Cart Product Quantity!');
+    throw error;
+  }
+}
+
 async function deleteProductFromCart(cart_product_id) {
   try {
     await client.query(
@@ -45,7 +62,11 @@ async function deleteProductFromCart(cart_product_id) {
   }
 }
 
-module.exports = { addCartProductToCart, deleteProductFromCart };
+module.exports = {
+  addCartProductToCart,
+  deleteProductFromCart,
+  editCartProductQuantity,
+};
 
 /*
 // **moving to different file
