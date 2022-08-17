@@ -1,6 +1,7 @@
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const { createCart } = require('./carts');
+const { createCartProduct } = require('./cart_products');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -202,29 +203,17 @@ async function createInitialCarts() {
     const cartsToCreate = [
       {
         cart_id: 111,
-        product_id: 4,
         user_id: 1,
-        product_name: 'Hoodie',
-        cart_product_quantity: 1,
-        price_each: 59.0,
         purchased: false,
       },
       {
         cart_id: 222,
-        product_id: 3,
         user_id: 2,
-        product_name: 'Sweater',
-        cart_product_quantity: 1,
-        price_each: 59.0,
         purchased: false,
       },
       {
         cart_id: 333,
-        product_id: 2,
         user_id: 3,
-        product_name: 'Long Sleeve',
-        cart_product_quantity: 1,
-        price_each: 59.0,
         purchased: true,
       },
     ];

@@ -47,3 +47,24 @@ async function removeCartProduct(cart_product_id) {
 }
 
 module.exports = { addCartPoductToCart, removeCartProduct };
+
+/*
+// **moving to different file
+async function getAllCartsByUser({ user_id }) {
+  try {
+    const { rows: carts } = await client.query(
+      `
+        SELECT carts.*,
+        FROM carts
+        carts.user_id = $1;
+      `,
+      [user_id]
+    );
+
+    return attachCartProducts(carts);
+  } catch (error) {
+    console.error('Error getting cart history by user id!');
+    throw error;
+  }
+}
+*/
