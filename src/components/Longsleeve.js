@@ -52,15 +52,17 @@ const Longsleeve = ({allProducts, setAllProducts}) => {
             allProducts.map((element, idx) => {
                 return(
                     <div className="LongSleeveContainer">
-        <div>{element.product_name}</div>
+        <div><b>{element.product_name}</b></div>
         <img className="LongSleeveImage" src={LongSleeve} />
         <div className="LongSleeveInfoContainer">
-                    <div>Gender: {element.gender}</div>
-                    <div>Category: {element.category}</div>
-                    <div>Size: {element.size}</div>
-                    <div>Price: {element.price}</div>
-                    <div>InStock?: {element.quantity_instock}</div>
-                    <div>Description: {element.description}</div>
+                    <div><b>Gender: </b>{element.gender}</div>
+                    <div><b>Category: </b>{element.category}</div>
+                    <div><b>Size: </b>{element.size}</div>
+                    <div><b>Price: </b>{element.price}</div>
+                    <div><b>InStock?: </b>{element.quantity_instock}</div>
+                    <p className="LongSleeveAbout">
+                    <div><b>Description: </b>{element.description}</div>
+                    </p>
                     <form>
                     <button type="Submit" className="LongSleeveButton">Add to Cart</button>
                     </form>
