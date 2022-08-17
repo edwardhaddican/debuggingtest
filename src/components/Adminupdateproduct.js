@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { deleteProduct, getAllProducts } from "../api";
 import UpdateProductForm from "./UpdateProductForm";
 
-import "../style/Adminupdate.css";
+import "../style/Adminupdateproduct.css";
 
 const Adminupdate = ({ allProducts, setAllProducts }) => {
   const [productFilteredData, setProductFilteredData] = useState([]);

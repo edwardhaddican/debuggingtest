@@ -7,6 +7,8 @@ const {
   updateProduct,
   deleteProduct,
   getProductByCategory,
+  getProductByPrice,
+  getProductBySize,
 } = require("../db");
 const { requireUser, requireAdmin } = require("./utils");
 
@@ -36,6 +38,31 @@ router.get("/category/:category", async (req, res) => {
   }
 });
 
+router.get("/price/:price", async (req, res) => {
+  try {
+    const { price } = req.params;
+    const products = await getProductByPrice(price);
+
+    res.send({
+      products,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
+
+router.get("/size/:size", async (req, res) => {
+  try {
+    const { size } = req.params;
+    const products = await getProductBySize(size);
+
+    res.send({
+      products,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
 
 router.post("/", async (req, res, next) => {
   const {

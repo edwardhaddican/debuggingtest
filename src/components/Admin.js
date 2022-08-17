@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Adminhome, Adminadd, Adminupdate, Adminsettings } from "./";
+import { Adminhome, Adminadd, Adminupdateproduct, Adminsettings } from "./";
 import AdminAddIcon from "./Photo/AdminAddIcon.png";
 import AdminHomeIcon from "./Photo/AdminHomeIcon.png";
 import AdminUpdateIcon from "./Photo/AdminUpdateIcon.png";
@@ -57,7 +57,7 @@ const Admin = ({ allProducts, setAllProducts }) => {
       {!adminHome ? <Adminhome /> : null}
       {!adminAdd ? <Adminadd /> : null}
       {!adminUpdate ? (
-        <Adminupdate allProducts={allProducts} setAllProducts={setAllProducts} />
+        <Adminupdateproduct allProducts={allProducts} setAllProducts={setAllProducts} />
       ) : null}
       {!adminSettings ? <Adminsettings /> : null}
     </div>
