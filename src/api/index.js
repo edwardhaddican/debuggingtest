@@ -130,6 +130,7 @@ export async function getAllProductsByCategory (category) {
       },
     });
     const result = await response.json();
+    console.log(result, "API RESULT")
     return result;
   } catch (error) {
     throw (error)
