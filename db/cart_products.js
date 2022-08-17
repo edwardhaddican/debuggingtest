@@ -48,6 +48,12 @@ async function editCartProductQuantity({ user_id, quantity }) {
   }
 }
 
+async function attachCartProductsToCart(carts) {
+  const cartsToReturn = [...carts];
+  const binds = carts.map((_, index) => `$${index + 1}`).join(', ');
+  const cart_id = carts.map((cart) => cart.id);
+}
+
 async function deleteProductFromCart(cart_product_id) {
   try {
     await client.query(
