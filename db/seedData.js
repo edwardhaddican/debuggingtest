@@ -62,7 +62,7 @@ async function createTables() {
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
       quantity INTEGER NOT NULL,
-      sum_product_price VARCHAR (255) NOT NULL
+      price VARCHAR (255) NOT NULL
 
   );`);
     await client.query(`  

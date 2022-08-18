@@ -62,10 +62,10 @@ try {
         products.category,
         products.product_name,
         products.description,
-        products.size,
         product.price,
-        
-
+        cart_products.cart_id,
+        cart_products.quantity,
+        cart_products.price
 
         `
     )
