@@ -1,6 +1,7 @@
 const client = require('./client');
 
 async function addCartProductToCart({
+user_id,
   cart_id,
   product_id,
   quantity,
@@ -12,16 +13,17 @@ async function addCartProductToCart({
     } = await client.query(
       `
           INSERT INTO cart_products(
-            cart_id,
-            product_id,
-            quantity,
-            sum_product_price
+            user_id
+            cart_id
+            product_id
+            quantity
+            price
             ) 
-          VALUES($1, $2, $3, $4) 
-          ON CONFLICT (product_id, cart_id) DO NOTHING
+          VALUES($1, $2, $3, $4, $5) 
+          ON CONFLICT (user_id, product_id) DO NOTHING
           RETURNING *;
         `,
-      [cart_id, product_id, quantity, sum_product_price]
+      [user_id, cart_id, product_id, quantity, sum_product_price]
     );
 
     return cart_product;
@@ -31,15 +33,15 @@ async function addCartProductToCart({
   }
 }
 
-async function editCartProductQuantity({ user_id, quantity }) {
+async function editCartProductQuantity({ id, quantity }) {
   try {
     const result = await client.query(
       `
           UPDATE cart_products
           SET quantity = $1
-          WHERE cart_products.user_id= $2
+          WHERE id= $2
         `,
-      [user_id, quantity]
+      [id, quantity]
     );
     return result;
   } catch (error) {
@@ -47,6 +49,20 @@ async function editCartProductQuantity({ user_id, quantity }) {
     throw error;
   }
 }
+
+async function deleteProductFromCart(id) {
+    try {
+      await client.query(
+        `
+          DELETE FROM cart_products
+          WHERE id=${id}
+          `
+      );
+    } catch (error) {
+      console.error('Error Removing cart_product from Cart! db/products.js');
+      throw error;
+    }
+  }
 
 async function attachCartProductsToCart(carts) {
   const cartsToReturn = [...carts];
@@ -62,35 +78,21 @@ try {
         products.category,
         products.product_name,
         products.description,
-        product.price,
-        cart_products.cart_id,
-        cart_products.quantity,
-        cart_products.price
+        cart_products.id,
+
 
         `
     )
 }
 }
 
-async function deleteProductFromCart(cart_product_id) {
-  try {
-    await client.query(
-      `
-        DELETE FROM cart_products
-        WHERE id=${cart_product_id}
-        `
-    );
-  } catch (error) {
-    console.error('Error Removing cart_product from Cart! db/products.js');
-    throw error;
-  }
-}
+
 
 module.exports = {
   addCartProductToCart,
   editCartProductQuantity,
-  attachCartProductsToCart,
   deleteProductFromCart,
+  attachCartProductsToCart,
 };
 
 /*

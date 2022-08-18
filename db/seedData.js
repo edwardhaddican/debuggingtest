@@ -59,6 +59,7 @@ async function createTables() {
     await client.query(`  
     CREATE TABLE cart_products (
       id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id),
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
       quantity INTEGER NOT NULL,
@@ -227,6 +228,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
+    await createInitialCartProducts();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -239,4 +241,5 @@ module.exports = {
   createInitialUsers,
   createInitialProducts,
   createInitialCarts,
+  createInitialCartProducts,
 };
