@@ -1,6 +1,7 @@
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const { createCart } = require('./carts');
+const { createCartProduct } = require('./cart_products');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -21,7 +22,6 @@ async function dropTables() {
     throw error;
   }
 }
-//DROP TABLE IF EXISTS users;
 async function createTables() {
   try {
     console.log('Starting to build tables...');
@@ -48,31 +48,23 @@ async function createTables() {
       availability BOOLEAN DEFAULT true,
       quantity_instock SMALLINT
   );`);
-    /*    await client.query(`
-    CREATE TABLE product_sizes (
-      id SERIAL PRIMARY KEY,
-      size VARCHAR (2),
-      product_id INTEGER REFERENCES products(id)
-  );`);
- */
+
     await client.query(` 
     CREATE TABLE carts (
       id SERIAL PRIMARY KEY,
-      product_id INTEGER REFERENCES products(id),
       user_id INTEGER REFERENCES users(id),
-      product_name VARCHAR (64) NOT NULL,
-      cart_product_quantity INTEGER NOT NULL,
-      price_each VARCHAR (10) NOT NULL,
       purchased BOOLEAN DEFAULT false
-      
   );`);
+
     await client.query(`  
     CREATE TABLE cart_products (
       id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id),
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
-      cart_product_quantity INTEGER NOT NULL,
-      price_each VARCHAR (10) NOT NULL
+      quantity INTEGER NOT NULL,
+      price VARCHAR (255) NOT NULL
+
   );`);
     await client.query(`  
   CREATE TABLE addresses (
@@ -203,30 +195,18 @@ async function createInitialCarts() {
     console.log('Starting to Create Initial Carts...');
     const cartsToCreate = [
       {
-        cart_id: 111,
-        product_id: 4,
-        user_id: 1,
-        product_name: 'Hoodie',
-        cart_product_quantity: 1,
-        price_each: 59.0,
-        purchased: false,
-      },
-      {
-        cart_id: 222,
-        product_id: 3,
-        user_id: 2,
-        product_name: 'Sweater',
-        cart_product_quantity: 1,
-        price_each: 59.0,
-        purchased: false,
-      },
-      {
-        cart_id: 333,
-        product_id: 2,
+        cart_id: 1,
         user_id: 3,
-        product_name: 'Long Sleeve',
-        cart_product_quantity: 1,
-        price_each: 59.0,
+        purchased: false,
+      },
+      {
+        cart_id: 2,
+        user_id: 1,
+        purchased: false,
+      },
+      {
+        cart_id: 3,
+        user_id: 2,
         purchased: true,
       },
     ];
@@ -248,7 +228,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    //   await createInitialProduct_Sizes();
+    await createInitialCartProducts();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -261,5 +241,5 @@ module.exports = {
   createInitialUsers,
   createInitialProducts,
   createInitialCarts,
-  //  createInitialProduct_Sizes,
+  createInitialCartProducts,
 };

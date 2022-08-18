@@ -1,13 +1,7 @@
 const client = require('./client');
+const { attachProductsToCarts } = require('./cart_products');
 
-async function createCart({
-  product_id,
-  user_id,
-  product_name,
-  cart_product_quantity,
-  price_each,
-  purchased,
-}) {
+async function createCart({ user_id, purchased }) {
   console.log('Starting to create Cart.. db/carts.js');
   try {
     const {
@@ -15,23 +9,11 @@ async function createCart({
     } = await client.query(
       `
           INSERT INTO carts
-          (product_id,
-            user_id,
-            product_name,
-            cart_product_quantity,
-            price_each,
-            purchased) 
-          VALUES($1, $2, $3, $4, $5, $6)
+          (user_id, purchased) 
+          VALUES($1, $2)
           RETURNING *;
         `,
-      [
-        product_id,
-        user_id,
-        product_name,
-        cart_product_quantity,
-        price_each,
-        purchased,
-      ]
+      [user_id, purchased]
     );
     console.log('Cart created..');
     console.log(cart);
@@ -62,25 +44,7 @@ async function getCurrentCart({ user_id }) {
   }
 }
 
-async function getAllCartsByUser({ user_id }) {
-  try {
-    const { rows: carts } = await client.query(
-      `
-        SELECT carts.*,
-        FROM carts
-        carts.user_id = $1;
-      `,
-      [user_id]
-    );
-
-    return attachCartProducts(carts);
-  } catch (error) {
-    console.error('Error getting cart history by user id!');
-    throw error;
-  }
-}
-
-async function updateCartPurchasedStatus({ user_id }) {
+async function updateCartPurchaseStatus({ user_id }) {
   try {
     const {
       rows: [cart],
@@ -88,36 +52,60 @@ async function updateCartPurchasedStatus({ user_id }) {
       `
         UPDATE carts
         SET purchased = true
-        WHERE cart_id=${id}
+        WHERE carts.user_id=${cart_id}
         RETURNING *;
       `,
       [user_id]
     );
     return cart;
   } catch (error) {
-    console.error('Error Updating Cart Purchased Status! db/carts.js');
+    console.error('Error Updating Cart Purchase Status! db/carts.js');
     throw error;
   }
 }
 
+// **
 async function deleteCurrentCart({ user_id }) {
-  await client.query(
+  try {
+    await client.query(
+      `
+    DELETE FROM carts.*
+    WHERE cart.user_id=${cart_id}
+    AND purchased = false;
+    `[user_id]
+    );
+    await client.query(
+      `
+    DELETE FROM cart_products.*
+    WHERE cart_products.cart_id=${cart_product_id}
     `
-    DELETE FROM cart_products
-    WHERE "cart_id"=${id}
-    `
-  );
-  await client.query(
-    `
-    DELETE FROM carts
-    WHERE id=${user_id}
-    `
-  );
+    );
+  } catch (error) {
+    console.error('Error Deleting Current Cart!');
+    throw error;
+  }
 }
+
+async function getPurchaseHistoryByUser({ user_id }) {
+  try {
+    const { rows } = await client.query(
+      `
+      
+      `,
+      [user_id]
+    );
+
+    return attachProductsToCarts(rows);
+  } catch (error) {
+    console.error('Error getting Purchase History by User!');
+    throw error;
+  }
+}
+
 module.exports = {
   createCart,
   getCurrentCart,
-  getAllCartsByUser,
-  updateCartPurchasedStatus,
+  updateCartPurchaseStatus,
   deleteCurrentCart,
+  getPurchaseHistoryByUser,
 };
