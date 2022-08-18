@@ -4,7 +4,7 @@ async function addCartProductToCart({
   cart_id,
   product_id,
   quantity,
-  price_each,
+  sum_product_price,
 }) {
   try {
     const {
@@ -15,13 +15,13 @@ async function addCartProductToCart({
             cart_id,
             product_id,
             quantity,
-            price_each
+            sum_product_price
             ) 
           VALUES($1, $2, $3, $4) 
           ON CONFLICT (product_id, cart_id) DO NOTHING
           RETURNING *;
         `,
-      [cart_id, product_id, quantity, price_each]
+      [cart_id, product_id, quantity, sum_product_price]
     );
 
     return cart_product;
@@ -36,8 +36,8 @@ async function editCartProductQuantity({ user_id, quantity }) {
     const result = await client.query(
       `
           UPDATE cart_products
-          SET quantity
-          WHERE cart_products.user_id=${cart_product_id}
+          SET quantity = $1
+          WHERE cart_products.user_id= $2
         `,
       [user_id, quantity]
     );
@@ -55,8 +55,19 @@ async function attachCartProductsToCart(carts) {
   if (!cart_ids?.length) return [];
 
 try {
-    const {rows: cart_products} = await client.query(
+    const {rows: products} = await client.query(
+        `
+        SELECT products.id,
+        products.gender,
+        products.category,
+        products.product_name,
+        products.description,
+        products.size,
+        product.price,
         
+
+
+        `
     )
 }
 }
@@ -78,6 +89,7 @@ async function deleteProductFromCart(cart_product_id) {
 module.exports = {
   addCartProductToCart,
   editCartProductQuantity,
+  attachCartProductsToCart,
   deleteProductFromCart,
 };
 

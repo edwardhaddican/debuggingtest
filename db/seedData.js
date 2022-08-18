@@ -49,14 +49,6 @@ async function createTables() {
       quantity_instock SMALLINT
   );`);
 
-    /*    await client.query(`
-    CREATE TABLE product_sizes (
-      id SERIAL PRIMARY KEY,
-      size VARCHAR (2),
-      product_id INTEGER REFERENCES products(id)
-  );`);
- */
-
     await client.query(` 
     CREATE TABLE carts (
       id SERIAL PRIMARY KEY,
@@ -70,7 +62,7 @@ async function createTables() {
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
       quantity INTEGER NOT NULL,
-      price_each VARCHAR (10) NOT NULL
+      sum_product_price VARCHAR (255) NOT NULL
 
   );`);
     await client.query(`  
