@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ShortSleeve from "./Photo/ShortSleeveImage.jpg";
 import { motion } from "framer-motion";
-import { getAllProductsByCategory } from "../api";
+import { createCart, createCartProducts, getAllProductsByCategory } from "../api";
 import "../style/Shortsleeve.css";
 
 const Shortsleeve = ({ allProducts, setAllProducts }) => {
@@ -63,7 +63,27 @@ const Shortsleeve = ({ allProducts, setAllProducts }) => {
                     <p className="ShortSleeveAbout">
                     <div><b>Description: </b>{element.description}</div>
                     </p>
-                    <form>
+                    <form onSubmit={async (event) => {
+                  event.preventDefault();
+                  try {
+                    const cart_id = localStorage.getItem("cartId")
+                    const userId = localStorage.getItem("id")
+                    const quantity = 1
+                    const newpurchased = false
+                    if (!cart_id) {
+                      const createdCart = await createCart(userId, newpurchased)
+                      localStorage.setItem("cartId", createdCart.newCart.id)
+                      localStorage.setItem("purchased", createdCart.newCart.purchased)
+                      const cartId = localStorage.getItem("cartId")
+                      await createCartProducts(userId, cartId, element.id, quantity, element.price)
+                    }
+                    else {
+                      await createCartProducts(userId, cart_id, element.id, quantity, element.price)
+                    }
+                  } catch (error) {
+                    throw error;
+                  }
+                }}>
                     <button type="Submit" className="ShortSleeveButton">Add to Cart</button>
                     </form>
         </div>

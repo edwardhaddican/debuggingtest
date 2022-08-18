@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllCartProducts, assignProductToCartProducts } = require("../db");
+const { getAllCartProducts, assignProductToCartProducts, getAllCartProductsById } = require("../db");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -8,6 +8,18 @@ router.get("/", async (req, res) => {
 
     res.send({
       cart_products,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
+
+router.get("/:cartId", async (req, res) => {
+  try {
+    const { cartId } = req.params
+    const cart_productsbyid = await getAllCartProductsById(cartId);
+    res.send({
+      cart_productsbyid,
     });
   } catch (error) {
     throw error;
