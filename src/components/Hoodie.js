@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HoodieImage from "./Photo/HoodieImage.jpg";
 import { motion } from "framer-motion";
 import "../style/Hoodie.css";
-import { getAllProductsByCategory } from "../api";
+import { createCart, createCartProducts, getAllProductsByCategory } from "../api";
 
 const Hoodie = ({ allProducts, setAllProducts }) => {
   // function searchHoodieProducts(searchValue) {
@@ -26,15 +26,6 @@ const Hoodie = ({ allProducts, setAllProducts }) => {
   //   useEffect(() => {
   //     searchHoodieProducts(searchProducts);
   //   }, [searchProducts]);
-
-  async function handleSubmit (event) {
-    event.preventDefault();
-    try {
-
-    } catch (error) {
-      throw error;
-    }
-  }
 
   useEffect(() => {
     async function getHoodieProducts() {
@@ -71,7 +62,30 @@ const Hoodie = ({ allProducts, setAllProducts }) => {
                 <p className="HoodieAbout">
                   <b>Description: </b>{element.description}
                 </p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={async (event) => {
+                  event.preventDefault();
+                  try {
+                    const cart_id = localStorage.getItem("cartId")
+                    const purchased = localStorage.getItem("purchased")
+                    const userId = localStorage.getItem("id")
+                    const quantity = 1
+                    const newpurchased = false
+                    if (!cart_id) {
+                      const createdCart = await createCart(userId, newpurchased)
+                      localStorage.setItem("cartId", createdCart.newCart.id)
+                      localStorage.setItem("purchased", createdCart.newCart.purchased)
+                      const cartId = localStorage.getItem("cartId")
+                      await createCartProducts(userId, cartId, element.id, quantity, element.price)
+                    }
+                    else {
+                      console.log("ARE WE IN THIS IF STATEMENT")
+                      await createCartProducts(userId, cart_id, element.id, quantity, element.price)
+                      console.log("DID WE MAKE IT OUT OF THE IF STATEMENT")
+                    }
+                  } catch (error) {
+                    throw error;
+                  }
+                }}>
                 <button className="HoodieButton" type="Submit">Add to Cart</button>
                 </form>
               </div>

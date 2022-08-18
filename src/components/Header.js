@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import { getAllCartProductsByCartId } from "../api";
 import WhiteSearchIcon from "./Photo/WhiteSearchIcon.png";
 import GreySearchIcon from "./Photo/GreySearchIcon.png";
 import MenuIcon from "./Photo/HeaderMenuIcon.png";
@@ -8,7 +9,7 @@ import CancelMenuIcon from "./Photo/CancelMenuIcon.png";
 import CartMenuIcon from "./Photo/CartMenuIcon.png";
 import "../style/Header.css";
 
-const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCartProducts }) => {
   const ref = useRef(null);
   const reftwo = useRef(null);
   const [hideMenu, setHideMenu] = useState(true);
@@ -47,6 +48,22 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   function accMenuHideFunc() {
     setHideAccountMenu(true);
   }
+  
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token")
+      if (token) {
+        async function getCartProductsByCartId() {
+          const cartId = localStorage.getItem("cartId");
+          const cartProducts = await getAllCartProductsByCartId(cartId);
+          setAllCartProducts(cartProducts.cart_productsbyid);
+        }
+        getCartProductsByCartId();
+      }
+    } catch (error) {
+      throw error;
+    }
+  }, [allCartProducts]);
 
   return (
     <div className="Header">
@@ -78,6 +95,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
       )}
       <NavLink to="/cartpage" className="MenuIcon">
         <img src={CartMenuIcon} />
+        <p className="CartCounter">{allCartProducts.length}</p>
       </NavLink>
       <div className="Container">
         {hideMenu ? (

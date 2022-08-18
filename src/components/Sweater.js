@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SweaterImage from "./Photo/SweaterImage.jpg";
 import { motion } from "framer-motion";
 import "../style/Sweater.css";
-import { getAllProductsByCategory } from "../api";
+import { createCart, createCartProducts, getAllProductsByCategory } from "../api";
 
 const Sweater = ({ allProducts, setAllProducts }) => {
   // function searchSweaterProducts(searchValue) {
@@ -62,7 +62,29 @@ const Sweater = ({ allProducts, setAllProducts }) => {
                 <p className="SweaterAbout">
                   <b>Description: </b>{element.description}
                 </p>
+                <form onSubmit={async (event) => {
+                  event.preventDefault();
+                  try {
+                    const cart_id = localStorage.getItem("cartId")
+                    const userId = localStorage.getItem("id")
+                    const quantity = 1
+                    const newpurchased = false
+                    if (!cart_id) {
+                      const createdCart = await createCart(userId, newpurchased)
+                      localStorage.setItem("cartId", createdCart.newCart.id)
+                      localStorage.setItem("purchased", createdCart.newCart.purchased)
+                      const cartId = localStorage.getItem("cartId")
+                      await createCartProducts(userId, cartId, element.id, quantity, element.price)
+                    }
+                    else {
+                      await createCartProducts(userId, cart_id, element.id, quantity, element.price)
+                    }
+                  } catch (error) {
+                    throw error;
+                  }
+                }}>
                     <button className="SweaterButton">Add to Cart</button>
+                </form>
               </div>
             </div>
           </div>

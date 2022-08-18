@@ -21,7 +21,7 @@ import {
 
 import { AnimatePresence } from "framer-motion";
 
-const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
+const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCartProducts }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -104,7 +104,7 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/youraccount" element={<Youraccount />} />
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
-        <Route path="/cartpage" element={<Cartpage />} />
+        <Route path="/cartpage" element={<Cartpage allCartProducts={allCartProducts} setAllCartProducts={setAllCartProducts} />} />
         <Route
           path="/logout"
           element={
