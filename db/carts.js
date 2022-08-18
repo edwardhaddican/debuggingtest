@@ -28,12 +28,12 @@ async function createCart({ user_id, purchased }) {
 async function getCurrentCart({ user_id }) {
   try {
     const {
-      rows: [cart],
+      rows: cart,
     } = await client.query(
       `
-            SELECT * FROM carts,
-            WHERE carts.user_id = $1,
-            AND purchased = false,
+            SELECT * FROM carts
+            WHERE carts.user_id = $1
+            AND purchased = false;
             `,
       [user_id]
     );

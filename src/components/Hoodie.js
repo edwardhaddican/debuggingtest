@@ -27,6 +27,15 @@ const Hoodie = ({ allProducts, setAllProducts }) => {
   //     searchHoodieProducts(searchProducts);
   //   }, [searchProducts]);
 
+  async function handleSubmit (event) {
+    event.preventDefault();
+    try {
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
   useEffect(() => {
     async function getHoodieProducts() {
       try {
@@ -62,8 +71,8 @@ const Hoodie = ({ allProducts, setAllProducts }) => {
                 <p className="HoodieAbout">
                   <b>Description: </b>{element.description}
                 </p>
-                <form>
-                <button className="HoodieButton">Add to Cart</button>
+                <form onSubmit={handleSubmit}>
+                <button className="HoodieButton" type="Submit">Add to Cart</button>
                 </form>
               </div>
             </div>

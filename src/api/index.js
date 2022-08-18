@@ -4,16 +4,16 @@ const BASE = "http://localhost:3001";
 
 export async function getAllUsers() {
   try {
-  const response = await fetch(`${BASE}/api/users`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const result = await response.json();
-  return result;
-} catch (error) {
-  throw (error)
-}
+    const response = await fetch(`${BASE}/api/users`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function registerPerson(
@@ -118,7 +118,6 @@ export async function updatePerson(
   }
 }
 
-
 export async function adminUpdatePerson(
   id,
   firstName,
@@ -142,7 +141,7 @@ export async function adminUpdatePerson(
         password: password,
         email: email,
         user_active: userActive,
-        admin_active: adminActive
+        admin_active: adminActive,
       }),
     });
     const result = await response.json();
@@ -152,9 +151,7 @@ export async function adminUpdatePerson(
   }
 }
 
-export async function deleteUser(
-  userId
-) {
+export async function deleteUser(userId) {
   try {
     const response = await fetch(`${BASE}/api/users/${userId}`, {
       method: "DELETE",
@@ -169,9 +166,7 @@ export async function deleteUser(
   }
 }
 
-export async function adminDeleteUser(
-  userId
-) {
+export async function adminDeleteUser(userId) {
   try {
     const response = await fetch(`${BASE}/api/users/admin/${userId}`, {
       method: "DELETE",
@@ -192,19 +187,19 @@ export async function adminDeleteUser(
 
 export async function getAllProducts() {
   try {
-  const response = await fetch(`${BASE}/api/products`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const result = await response.json();
-  return result;
-} catch (error) {
-  throw (error)
-}
+    const response = await fetch(`${BASE}/api/products`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
 }
 
-export async function getAllProductsByCategory (category) {
+export async function getAllProductsByCategory(category) {
   try {
     const response = await fetch(`${BASE}/api/products/category/${category}`, {
       headers: {
@@ -212,14 +207,14 @@ export async function getAllProductsByCategory (category) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT")
+    console.log(result, "API RESULT");
     return result;
   } catch (error) {
-    throw (error)
+    throw error;
   }
 }
 
-export async function getAllProductsByPrice (price) {
+export async function getAllProductsByPrice(price) {
   try {
     const response = await fetch(`${BASE}/api/products/price/${price}`, {
       headers: {
@@ -227,10 +222,10 @@ export async function getAllProductsByPrice (price) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT")
+    console.log(result, "API RESULT");
     return result;
   } catch (error) {
-    throw (error)
+    throw error;
   }
 }
 
@@ -242,10 +237,10 @@ export async function getProductBySize(size) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT")
+    console.log(result, "API RESULT");
     return result;
   } catch (error) {
-    throw (error)
+    throw error;
   }
 }
 
@@ -320,9 +315,7 @@ export async function updateProduct(
   }
 }
 
-export async function deleteProduct(
-  productId
-) {
+export async function deleteProduct(productId) {
   try {
     const response = await fetch(`${BASE}/api/products/${productId}`, {
       method: "DELETE",
@@ -341,6 +334,78 @@ export async function deleteProduct(
 
 // CART_PRODUCTS API CALLS BELOW
 
+export async function getAllCartProducts() {
+  try {
+    const response = await fetch(`${BASE}/api/cart_products`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
 
+export async function createCartProducts(
+  user_id,
+  cart_id,
+  product_id,
+  quantity,
+  price
+) {
+  try {
+    const response = await fetch(`${BASE}/api/cart_products/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        cart_id: cart_id,
+        product_id: product_id,
+        quantity: quantity,
+        price: price,
+      }),
+    });
+    const result = await response.json();
+    if (result.error) {
+      throw result;
+    }
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // CART_PRODUCTS API CALLS ABOVE
+
+// CARTS API CALLS BELOW
+
+export async function createCart(
+  user_id,
+  purchased
+) {
+  try {
+    const response = await fetch(`${BASE}/api/carts/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id,
+        purchased
+      }),
+    });
+    const result = await response.json();
+    if (result.error) {
+      throw result;
+    }
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// CARTS API CALLS ABOVE

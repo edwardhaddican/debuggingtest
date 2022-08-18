@@ -65,12 +65,12 @@ const productsRouter = require('./products');
 router.use('/products', productsRouter);
 
 // ROUTER: /api/carts
-//const carts = require('./carts');
-//router.use('/carts', cartRouter);
+const cartsRouter = require('./carts');
+router.use('/carts', cartsRouter);
 
 // ROUTER: /api/cart_products
-//const cart_productsRouter = require('./cart_products');
-//router.use('/cart_products', cart_productsRouter);
+const cart_productsRouter = require('./cart_products');
+router.use('/cart_products', cart_productsRouter);
 
 // ROUTER: /api/orders
 //const orders = require('./orders');
