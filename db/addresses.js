@@ -31,5 +31,52 @@ async function createAddress({
     throw error;
   }
 }
+async function getAddressByUserId(user_id) {
+  console.log('Starting to get address by user_id... addresses.js');
+  try {
+    const {
+      rows: [address],
+    } = await client.query(
+      `
+      SELECT *   
+      FROM addresses
+      WHERE user_id= $1;
+      `,
+      [user_id]
+    );
+    console.log('Finished Getting Address By UserId! addresses.js');
+    return address;
+  } catch (error) {
+    console.error('Error Getting Address By UserId! addresses.js');
+    throw error;
+  }
+}
 
-module.exports = { createAddress };
+async function updateAddress(address_id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(', ');
+  if (setString.length === 0) {
+    return;
+  }
+  try {
+    const {
+      rows: [address],
+    } = await client.query(
+      `
+          UPDATE addreses
+          SET ${setString}
+          WHERE id=${address_id}
+          RETURNING *;
+        `,
+      Object.values(fields)
+    );
+    console.log('Finished Updating Address! addresses.js');
+    return address;
+  } catch (error) {
+    console.error('Error Updating Address! addresses.js');
+    throw error;
+  }
+}
+
+module.exports = { createAddress, getAddressByUserId, updateAddress };
