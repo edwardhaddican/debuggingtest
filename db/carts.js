@@ -27,9 +27,7 @@ async function createCart({ user_id, purchased }) {
 
 async function getCurrentCart({ user_id }) {
   try {
-    const {
-      rows: cart,
-    } = await client.query(
+    const { rows: cart } = await client.query(
       `
             SELECT * FROM carts
             WHERE carts.user_id = $1
@@ -52,7 +50,7 @@ async function updateCartPurchaseStatus({ user_id }) {
       `
         UPDATE carts
         SET purchased = true
-        WHERE carts.user_id=${cart_id}
+        WHERE carts.user_id= $1
         RETURNING *;
       `,
       [user_id]
@@ -70,14 +68,14 @@ async function deleteCurrentCart({ user_id }) {
     await client.query(
       `
     DELETE FROM carts.*
-    WHERE cart.user_id=${cart_id}
+    WHERE carts.user_id = $1
     AND purchased = false;
     `[user_id]
     );
     await client.query(
       `
     DELETE FROM cart_products.*
-    WHERE cart_products.cart_id=${cart_product_id}
+    WHERE cart_products.cart_id = $1
     `
     );
   } catch (error) {
