@@ -56,7 +56,7 @@ async function getCurrentCart({ cart_id }) {
   }
 }
 
-async function updateCartPurchaseStatus({ user_id }) {
+async function updateCartPurchaseStatus({ user_id, order_id }) {
   try {
     const {
       rows: [cart],
@@ -64,10 +64,11 @@ async function updateCartPurchaseStatus({ user_id }) {
       `
         UPDATE carts
         SET purchased = true
-        WHERE carts.user_id= $1
+        WHERE carts.user_id = $1
+        AND carts.order_id = $2
         RETURNING *;
       `,
-      [user_id]
+      [user_id, order_id]
     );
     return cart;
   } catch (error) {
