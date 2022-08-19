@@ -1,6 +1,5 @@
-const client = require("./client");
+const client = require('./client');
 
-// ON CONFLICT (user_id, product_id) DO NOTHING - After VALUES in following assignProductToCartProducts function
 async function assignProductToCartProducts({
   user_id,
   cart_id,
@@ -10,18 +9,19 @@ async function assignProductToCartProducts({
 }) {
   try {
     const {
-      rows: cart_product,
+      rows: [cart_product],
     } = await client.query(
       `
-      INSERT INTO cart_products(
-        user_id,
-        cart_id,
-        product_id,
-        quantity,
-        price
-        ) 
-        VALUES($1, $2, $3, $4, $5)
-        RETURNING *;
+          INSERT INTO cart_products(
+            user_id
+            cart_id
+            product_id
+            quantity
+            price
+            ) 
+          VALUES($1, $2, $3, $4, $5) 
+          ON CONFLICT (user_id, product_id) DO NOTHING
+          RETURNING *;
         `,
       [user_id, cart_id, product_id, quantity, price]
     );
@@ -32,17 +32,9 @@ async function assignProductToCartProducts({
   }
 }
 
-
-async function getAllCartProducts() {
-  try {
-    const { rows: cart_products } = await client.query(`
-        SELECT *
-        FROM cart_products
-        `);
-    console.log("Finished Getting Cart_Products! db/cart_products.js");
-    return cart_products;
+    return cart_product;
   } catch (error) {
-    console.error("Error Getting Cart_Products! db/cart_products.js");
+    console.error('Error Adding cart_product to Cart!');
     throw error;
   }
 }
@@ -98,6 +90,7 @@ async function updateCartProductQuantity(id, fields = {}) {
     console.log('Finished Updating Cart Products! db/cart_products.js');
     return cartProduct;
   } catch (error) {
+    console.error('Error Editing Cart Product Quantity!');
     console.error('Error Updating Cart Products! db/products.js');
     throw error;
   }
@@ -113,38 +106,63 @@ async function deleteProductFromCart(id) {
     );
     console.log('Finished Removing Cart_Product From Cart! db/cart_products.js')
   } catch (error) {
-    console.error("Error Removing cart_product from Cart! db/products.js");
+    console.error('Error Removing cart_product from Cart! db/products.js');
     throw error;
   }
 }
 
 async function attachCartProductsToCart(carts) {
   const cartsToReturn = [...carts];
-  const binds = carts.map((_, index) => `$${index + 1}`).join(", ");
+  const binds = carts.map((_, index) => `$${index + 1}`).join(', ');
   const cart_ids = carts.map((cart) => cart.id);
   if (!cart_ids?.length) return [];
 
   try {
     const { rows: products } = await client.query(
       `
-        SELECT products.id,
-        products.gender,
-        products.category,
-        products.product_name,
-        products.description,
-        cart_products.id,
+        SELECT 
+          products.id,
+          products.gender,
+          products.category,
+          products.product_name,
+          products.description,
+          cart_products.id,
+          cart_products.quantity,
+          cart_products.price
+        AS 
+          "cart_products_id",
+          cart_products.cart_id
+        FROM 
+          products 
+        JOIN 
+          cart_products
+        ON 
+          cart_products.product_id 
+        WHERE 
+          cart_products.cart_id 
+        IN 
+          (${binds});
 
-
-        `
+      `,
+      cart_ids
     );
+
+    for (const cart of cartsToReturn) {
+      const productsToAdd = products.filter(
+        (product) => product.cart_id === cart.id
+      );
+      cart.products = productsToAdd;
+    }
+    return cartsToReturn;
   } catch (error) {
-    console.error("Error Attaching Cart Products To Cart!!!");
+    console.error('Error Attaching Cart Products To Cart!!!');
     throw error;
   }
 }
 
 module.exports = {
   assignProductToCartProducts,
+  editCartProductQuantity,
   getCartProductById,
   getAllCartProducts,
   getAllCartProductsByCartId,

@@ -12,7 +12,9 @@ async function createProduct({
 }) {
   console.log('Starting to create Product! db/products.js');
   try {
-    const { rows: [product] } = await client.query(
+    const {
+      rows: [product],
+    } = await client.query(
       `
         INSERT INTO products(
             gender,
@@ -38,7 +40,7 @@ async function createProduct({
       ]
     );
 
-    console.log("Product created..");
+    console.log('Product created..');
     console.log(product);
     console.log('Finished Creating Product! products.js');
     return product;
@@ -50,9 +52,7 @@ async function createProduct({
 
 async function getAllProducts() {
   try {
-    const {
-      rows: product
-    } = await client.query(`
+    const { rows: product } = await client.query(`
         SELECT *
         FROM products
         `);
@@ -83,59 +83,61 @@ async function getProductById(product_id) {
 }
 
 async function getProductByCategory(category) {
-  console.log("Starting to get product by category... products.js");
+  console.log('Starting to get product by category... products.js');
   try {
-    const {
-      rows: products,
-    } = await client.query(`
+    const { rows: products } = await client.query(
+      `
     SELECT *   
     FROM products
     WHERE "category"=$1;
-    `, [category]);
-    console.log("Finished Getting Product By Category! products.js");
+    `,
+      [category]
+    );
+    console.log('Finished Getting Product By Category! products.js');
     return products;
   } catch (error) {
-    console.error("Error Getting Product By Category! products.js");
+    console.error('Error Getting Product By Category! products.js');
     throw error;
   }
 }
 
 async function getProductByPrice(price) {
-  console.log("Starting to get product by category... products.js");
+  console.log('Starting to get product by category... products.js');
   try {
-    const {
-      rows: products,
-    } = await client.query(`
+    const { rows: products } = await client.query(
+      `
     SELECT *   
     FROM products
     WHERE "price"=$1;
-    `, [price]);
-    console.log("Finished Getting Product By Category! products.js");
+    `,
+      [price]
+    );
+    console.log('Finished Getting Product By Category! products.js');
     return products;
   } catch (error) {
-    console.error("Error Getting Product By Category! products.js");
+    console.error('Error Getting Product By Category! products.js');
     throw error;
   }
 }
 
 async function getProductBySize(size) {
-  console.log("Starting to get product by category... products.js");
+  console.log('Starting to get product by category... products.js');
   try {
-    const {
-      rows: products,
-    } = await client.query(`
+    const { rows: products } = await client.query(
+      `
     SELECT *   
     FROM products
     WHERE "size"=$1;
-    `, [size]);
-    console.log("Finished Getting Product By Category! products.js");
+    `,
+      [size]
+    );
+    console.log('Finished Getting Product By Category! products.js');
     return products;
   } catch (error) {
-    console.error("Error Getting Product By Category! products.js");
+    console.error('Error Getting Product By Category! products.js');
     throw error;
   }
 }
-
 
 async function updateProduct(product_id, fields = {}) {
   const setString = Object.keys(fields)
