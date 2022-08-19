@@ -12,7 +12,7 @@ async function createAddress({
   console.log('Starting to create Cart.. db/carts.js');
   try {
     const {
-      rows: [cart],
+      rows: [address],
     } = await client.query(
       `
             INSERT INTO addresses
@@ -23,7 +23,7 @@ async function createAddress({
       [user_id, phone_number, street01, street02, city, state, zipcode]
     );
     console.log('Address created..');
-    console.log(cart);
+    console.log(address);
     console.log('Finished Creating Address! address.js');
     return address;
   } catch (error) {

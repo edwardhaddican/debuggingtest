@@ -253,7 +253,7 @@ async function createInitialAddresses() {
         zipcode: 33333,
       },
     ];
-    const addresses = await Promise.all(addressesToCreate.map(createCart));
+    const addresses = await Promise.all(addressesToCreate.map(createAddress));
 
     console.log('Addresses Created:');
     console.log(addresses);
