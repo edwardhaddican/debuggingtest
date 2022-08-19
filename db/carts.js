@@ -1,5 +1,4 @@
 const client = require('./client');
-const { attachProductsToCarts } = require('./cart_products');
 
 async function createCart({ user_id, purchased }) {
   console.log('Starting to create Cart.. db/carts.js');
@@ -84,11 +83,43 @@ async function deleteCurrentCart({ user_id }) {
   }
 }
 
+async function attachCartToOrders(orders) {
+  const ordersToReturn = [...orders];
+  const binds = orders.map((_, index) => `$${index + 1}`).join(', ');
+  const order_ids = orders.map((order) => order.id);
+  if (!order_ids?.length) return [];
+
+  try {
+    const { rows: carts } = await client.query(
+      `
+        SELECT carts.*
+        FROM orders 
+        JOIN carts
+        ON orders.cart_id = orders.id
+        WHERE 
+          carts.cart_id 
+        IN 
+          (${binds});
+
+      `,
+      order_ids
+    );
+
+    for (const order of ordersToReturn) {
+      const cartsToAdd = carts.filter((cart) => cart.order_id === order.id);
+      order.carts = cartsToAdd;
+    }
+    return ordersToReturn;
+  } catch (error) {
+    console.error('Error Attaching Cart To Order!!!');
+    throw error;
+  }
+}
+
 module.exports = {
   createCart,
   getCurrentCart,
-  getAllCartsByOrderId,
   updateCartPurchaseStatus,
   deleteCurrentCart,
-  attachCartToOrder,
+  attachCartToOrders,
 };
