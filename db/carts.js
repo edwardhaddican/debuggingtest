@@ -24,6 +24,21 @@ async function createCart({ user_id, order_id, purchased }) {
   }
 }
 
+async function getAllCartsByOrderId(orderId) {
+  try {
+    const { rows: cartsbyid } = await client.query(`
+        SELECT *
+        FROM carts
+        WHERE order_id=${orderId};
+        `);
+    console.log('Finished Getting Cart id By Order id! db/carts.js');
+    return cartsbyid;
+  } catch (error) {
+    console.error('Error Getting Cart id by Order id! db/carts.js');
+    throw error;
+  }
+}
+
 async function getCurrentCart({ cart_id }) {
   try {
     const { rows: cart } = await client.query(
@@ -117,6 +132,7 @@ async function attachCartToOrders(orders) {
 
 module.exports = {
   createCart,
+  getAllCartsByOrderId,
   getCurrentCart,
   updateCartPurchaseStatus,
   deleteCurrentCart,
