@@ -403,6 +403,27 @@ export async function createCartProducts(
   }
 }
 
+export async function attachCartProductsToCart(cartId) {
+  try {
+    console.log(cartId, "CARTID INSIDE API SOURCE")
+    console.log("I AM INSIDE TRY AT API SOURCE")
+    const response = await fetch(`${BASE}/api/cart_products/${cartId}`, {
+      method:  "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cart_products_id: cartId
+      })
+    });
+    const result = await response.json();
+    console.log(result, "RESULT FROM API SOURCE")
+    return result
+  } catch(error) {
+    throw error
+  }
+}
+
 export async function updateCartProducts(
   cartProductId,
   quantityNum

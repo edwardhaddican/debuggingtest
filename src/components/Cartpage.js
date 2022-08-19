@@ -9,6 +9,7 @@ import {
   getAllCartProductsByCartId,
   updateCartProducts,
   deleteCartProducts,
+  attachCartProductsToCart,
 } from "../api";
 
 const Cartpage = ({ allCartProducts, setAllCartProducts }) => {
@@ -46,7 +47,14 @@ const Cartpage = ({ allCartProducts, setAllCartProducts }) => {
           <div className="CartOrderDetailsInfo">Price: $$$</div>
           <div className="CartOrderDetailsInfo">Order Quantity: N/A</div>
           <div className="CartOrderDetailsInfo">Expected Delivery: N/A</div>
-          <button className="CartPageButton">CheckOut</button>
+          <form onSubmit={async (event) => {
+                event.preventDefault();
+                const cartId = localStorage.getItem("cartId")
+                const newCart = await attachCartProductsToCart(cartId)
+                console.log(newCart, "BRING ON THE BUGS")
+          }}>
+          <button type="Submit" className="CartPageButton">CheckOut</button>
+          </form>
         </div>
         <div className="CartOrderContainer">
           {allCartProducts.map((element, idx) => {

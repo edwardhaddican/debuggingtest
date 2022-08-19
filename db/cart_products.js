@@ -117,10 +117,12 @@ async function deleteProductFromCart(id) {
   }
 }
 
-async function attachCartProductsToCart(carts) {
-  const cartsToReturn = [...carts];
-  const binds = carts.map((_, index) => `$${index + 1}`).join(', ');
-  const cart_ids = carts.map((cart) => cart.id);
+async function attachCartProductsToCart(cartId) {
+  const cart = await getAllCartProductsByCartId(cartId)
+  console.log(cart, "DO I HAVE MY STUFF")
+  const cartsToReturn = [...cart];
+  const binds = cart.map((_, index) => `$${index + 1}`).join(', ');
+  const cart_ids = cart.map((cart) => cart.id);
   if (!cart_ids?.length) return [];
 
   try {
@@ -143,7 +145,7 @@ async function attachCartProductsToCart(carts) {
         JOIN 
           cart_products
         ON 
-          cart_products.products_id 
+          cart_products.product_id = products.id
         WHERE 
           cart_products.cart_id 
         IN 

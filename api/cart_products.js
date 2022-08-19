@@ -6,6 +6,7 @@ const {
   updateCartProductQuantity,
   getCartProductById,
   deleteProductFromCart,
+  attachCartProductsToCart,
 } = require("../db");
 const router = express.Router();
 
@@ -52,6 +53,22 @@ router.post("/", async (req, res, next) => {
     next({ message: "CART_PRODUCT ERROR" });
   }
 });
+
+router.post("/:cartId", async (req, res, next) => {
+  const { cartId } = req.params
+  console.log(cartId, "IS THIS MY CARTID API BACKEND")
+    try {
+      console.log("INSIDE TRY API BACKEND")
+      const newCart = await attachCartProductsToCart(cartId)
+      console.log(newCart, "DID MY CARTPRODUCTS ATTACH TO PRODUCTS")
+      res.send({
+        message: "New Cart For Checkout Created!",
+        newCart:  newCart
+      })
+    } catch(error) {
+      next(error)
+    }
+})
 
 router.patch("/update", async (req, res, next) => {
   const { quantity, cartProductId } = req.body;
