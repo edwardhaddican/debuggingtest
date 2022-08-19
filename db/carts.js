@@ -20,7 +20,7 @@ async function createCart({ user_id, purchased }) {
     console.log('Finished Creating Cart! carts.js');
     return cart;
   } catch (error) {
-    console.error (error)
+    console.error(error);
     throw error;
   }
 }
@@ -84,26 +84,11 @@ async function deleteCurrentCart({ user_id }) {
   }
 }
 
-async function getPurchaseHistoryByUser({ user_id }) {
-  try {
-    const { rows } = await client.query(
-      `
-      
-      `,
-      [user_id]
-    );
-
-    return attachProductsToCarts(rows);
-  } catch (error) {
-    console.error('Error getting Purchase History by User!');
-    throw error;
-  }
-}
-
 module.exports = {
   createCart,
   getCurrentCart,
+  getAllCartsByOrderId,
   updateCartPurchaseStatus,
   deleteCurrentCart,
-  getPurchaseHistoryByUser,
+  attachCartToOrder,
 };
