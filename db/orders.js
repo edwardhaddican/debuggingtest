@@ -1,14 +1,6 @@
 const client = require('./client');
 
-async function createOrder({
-  user_id,
-  phone_number,
-  street01,
-  street02,
-  city,
-  state,
-  zipcode,
-}) {
+async function createOrder({ cart_id, address_id, shipped }) {
   console.log('Starting to create Order.. db/order.js');
   try {
     const {
@@ -16,11 +8,11 @@ async function createOrder({
     } = await client.query(
       `
               INSERT INTO orders
-              (user_id, phone_number, street01, street02, city, state, zipcode) 
-              VALUES($1, $2, $3, $4, $5, $6, $7)
+              (cart_id, address_id, shipped) 
+              VALUES($1, $2, $3)
               RETURNING *;
             `,
-      [user_id, phone_number, street01, street02, city, state, zipcode]
+      [cart_id, address_id, shipped]
     );
     console.log('Order created..');
     console.log(order);

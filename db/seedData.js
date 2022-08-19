@@ -81,7 +81,7 @@ async function createTables() {
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   cart_id INTEGER REFERENCES carts(id),
-  addresses_id INTEGER REFERENCES addresses(id),
+  address_id INTEGER REFERENCES addresses(id),
   shipped BOOLEAN default false
   );`);
 
