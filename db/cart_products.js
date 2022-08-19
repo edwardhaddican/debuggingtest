@@ -13,14 +13,13 @@ async function assignProductToCartProducts({
     } = await client.query(
       `
           INSERT INTO cart_products(
-            user_id
-            cart_id
-            product_id
-            quantity
+            user_id,
+            cart_id,
+            product_id,
+            quantity,
             price
-            ) 
+            )
           VALUES($1, $2, $3, $4, $5) 
-          ON CONFLICT (user_id, product_id) DO NOTHING
           RETURNING *;
         `,
       [user_id, cart_id, product_id, quantity, price]
