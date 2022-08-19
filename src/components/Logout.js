@@ -3,26 +3,28 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import "../style/Logout.css";
 
-const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
-    const navigate = useNavigate()
+const Logout = ({
+  isLoggedIn,
+  setIsLoggedIn,
+}) => {
+  const navigate = useNavigate();
+  async function handleYes(event) {
+    event.preventDefault();
+    setIsLoggedIn(false);
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+    localStorage.removeItem("admin");
+    navigate("/");
+  }
 
-    async function handleYes (event) {
-        event.preventDefault();
-        setIsLoggedIn(false)
-        localStorage.removeItem('id')
-        localStorage.removeItem('token')
-        localStorage.removeItem('username')
-        localStorage.removeItem('email')
-        localStorage.removeItem('first_name')
-        localStorage.removeItem('last_name')
-        localStorage.removeItem('admin')
-        navigate('/')
-    }
-
-    async function handleNo (event) {
-        event.preventDefault();
-        navigate('/youraccount')
-    }
+  async function handleNo(event) {
+    event.preventDefault();
+    navigate("/youraccount");
+  }
 
   return (
     <motion.div
@@ -34,10 +36,14 @@ const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
       <div className="LogoutHeader">Are You Sure You Want To Logout?</div>
       <div className="LogoutButtonContainer">
         <form onSubmit={handleYes}>
-          <button className="LogoutButtons" type='submit'>Yes</button>
+          <button className="LogoutButtons" type="submit">
+            Yes
+          </button>
         </form>
         <form onSubmit={handleNo}>
-          <button className="LogoutButtons" type='submit'>No</button>
+          <button className="LogoutButtons" type="submit">
+            No
+          </button>
         </form>
       </div>
     </motion.div>

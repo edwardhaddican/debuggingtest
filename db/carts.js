@@ -4,7 +4,6 @@ const { attachProductsToCarts } = require('./cart_products');
 async function createCart({ user_id, purchased }) {
   console.log('Starting to create Cart.. db/carts.js');
   try {
-    console.log(user_id, purchased, "INSIDE OF TRY IN BACKEND DB")
     const {
       rows: [cart],
     } = await client.query(

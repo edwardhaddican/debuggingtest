@@ -55,7 +55,6 @@ async function createUser({
 
 async function getUser({ username, password }) {
   const user = await getUserByUsername(username);
-  console.log(user, "USER");
   const hashedPassword = user.password;
 
   const isValid = await bcrypt.compare(password, hashedPassword);

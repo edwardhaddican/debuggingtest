@@ -65,7 +65,6 @@ export async function loginPerson(username, password) {
       }),
     });
     const result = await response.json();
-    console.log(result, "RESULT");
     if (result.error) {
       throw result;
     }
@@ -185,6 +184,20 @@ export async function adminDeleteUser(userId) {
 
 // PRODUCTS API CALLS BELOW
 
+export async function getTheProductById(productId) {
+  try {
+    const response = await fetch(`${BASE}/api/products/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getAllProducts() {
   try {
     const response = await fetch(`${BASE}/api/products`, {
@@ -221,7 +234,6 @@ export async function getAllProductsByPrice(price) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT");
     return result;
   } catch (error) {
     throw error;
@@ -236,7 +248,6 @@ export async function getProductBySize(size) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT");
     return result;
   } catch (error) {
     throw error;
@@ -386,6 +397,43 @@ export async function createCartProducts(
     if (result.error) {
       throw result;
     }
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateCartProducts(
+  cartProductId,
+  quantityNum
+) {
+  try {
+    const response = await fetch(`${BASE}/api/cart_products/update`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        quantity: quantityNum,
+        cartProductId: cartProductId
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteCartProducts (cartProductId) {
+  try {
+    const response = await fetch (`${BASE}/api/cart_products/delete/${cartProductId}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    const result = await response.json();
     return result;
   } catch (error) {
     throw error;

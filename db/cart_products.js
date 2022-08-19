@@ -25,8 +25,6 @@ async function assignProductToCartProducts({
         `,
       [user_id, cart_id, product_id, quantity, price]
     );
-    
-    console.log(user_id, cart_id, product_id, quantity, price);
     return cart_product;
   } catch (error) {
     console.error("Error Adding product to cart_product!");
@@ -49,7 +47,21 @@ async function getAllCartProducts() {
   }
 }
 
-async function getAllCartProductsById(cartId) {
+async function getCartProductById(cartProductId) {
+  try {
+    const { rows: cart_products } = await client.query(`
+        SELECT *
+        FROM cart_products
+        WHERE id=$1;
+        `, [cartProductId]);
+    console.log("Finished Getting Cart_Products! db/cart_products.js");
+    return cart_products;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getAllCartProductsByCartId(cartId) {
   try {
     const { rows: cart_productsbyid } = await client.query(`
         SELECT *
@@ -64,19 +76,29 @@ async function getAllCartProductsById(cartId) {
   }
 }
 
-async function editCartProductQuantity({ id, quantity }) {
+async function updateCartProductQuantity(id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(', ');
+  if (setString.length === 0) {
+    return;
+  }
   try {
-    const result = await client.query(
+    const {
+      rows: cartProduct,
+    } = await client.query(
       `
-          UPDATE cart_products
-          SET quantity = $1
-          WHERE id= $2
-        `,
-      [id, quantity]
+        UPDATE cart_products
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *;
+      `,
+      Object.values(fields)
     );
-    return result;
+    console.log('Finished Updating Cart Products! db/cart_products.js');
+    return cartProduct;
   } catch (error) {
-    console.error("Error Editing Cart Product Quantity!");
+    console.error('Error Updating Cart Products! db/products.js');
     throw error;
   }
 }
@@ -89,6 +111,7 @@ async function deleteProductFromCart(id) {
           WHERE id=${id}
           `
     );
+    console.log('Finished Removing Cart_Product From Cart! db/cart_products.js')
   } catch (error) {
     console.error("Error Removing cart_product from Cart! db/products.js");
     throw error;
@@ -122,9 +145,10 @@ async function attachCartProductsToCart(carts) {
 
 module.exports = {
   assignProductToCartProducts,
+  getCartProductById,
   getAllCartProducts,
-  getAllCartProductsById,
-  editCartProductQuantity,
+  getAllCartProductsByCartId,
+  updateCartProductQuantity,
   deleteProductFromCart,
   attachCartProductsToCart,
 };

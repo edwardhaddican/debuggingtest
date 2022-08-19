@@ -21,7 +21,14 @@ import {
 
 import { AnimatePresence } from "framer-motion";
 
-const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCartProducts }) => {
+const AnimatedRoutes = ({
+  isLoggedIn,
+  setIsLoggedIn,
+  allCartProducts,
+  setAllCartProducts,
+  setCartSize,
+  cartSize,
+}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -74,6 +81,8 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCart
             <Shortsleeve
               allProducts={allProducts}
               setAllProducts={setAllProducts}
+              setCartSize={setCartSize}
+              cartSize={cartSize}
             />
           }
         />
@@ -83,13 +92,20 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCart
             <Longsleeve
               allProducts={allProducts}
               setAllProducts={setAllProducts}
+              setCartSize={setCartSize}
+              cartSize={cartSize}
             />
           }
         />
         <Route
           path="/hoodie"
           element={
-            <Hoodie allProducts={allProducts} setAllProducts={setAllProducts} />
+            <Hoodie
+              allProducts={allProducts}
+              setAllProducts={setAllProducts}
+              setCartSize={setCartSize}
+              cartSize={cartSize}
+            />
           }
         />
         <Route
@@ -98,17 +114,32 @@ const AnimatedRoutes = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCart
             <Sweater
               allProducts={allProducts}
               setAllProducts={setAllProducts}
+              setCartSize={setCartSize}
+              cartSize={cartSize}
             />
           }
         />
         <Route path="/youraccount" element={<Youraccount />} />
         <Route path="/accountsettings" element={<Accountsettings />} />
         <Route path="/myorders" element={<Myorders />} />
-        <Route path="/cartpage" element={<Cartpage allCartProducts={allCartProducts} setAllCartProducts={setAllCartProducts} />} />
+        <Route
+          path="/cartpage"
+          element={
+            <Cartpage
+              allProducts={allProducts}
+              setAllProducts={setAllProducts}
+              allCartProducts={allCartProducts}
+              setAllCartProducts={setAllCartProducts}
+            />
+          }
+        />
         <Route
           path="/logout"
           element={
-            <Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Logout
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
           }
         />
         <Route
