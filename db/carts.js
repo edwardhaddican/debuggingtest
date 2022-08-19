@@ -77,14 +77,15 @@ async function updateCartPurchaseStatus({ user_id }) {
 }
 
 // **
-async function deleteCurrentCart({ user_id }) {
+async function deleteCurrentCart({ user_id, order_id }) {
   try {
     await client.query(
       `
     DELETE FROM carts.*
     WHERE carts.user_id = $1
+    AND carts.order_id = $2
     AND purchased = false;
-    `[user_id]
+    `[(user_id, order_id)]
     );
     await client.query(
       `
