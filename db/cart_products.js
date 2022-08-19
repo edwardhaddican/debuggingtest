@@ -32,13 +32,6 @@ async function assignProductToCartProducts({
   }
 }
 
-    return cart_product;
-  } catch (error) {
-    console.error('Error Adding cart_product to Cart!');
-    throw error;
-  }
-}
-
 async function getCartProductById(cartProductId) {
   try {
     const { rows: cart_products } = await client.query(`
@@ -60,10 +53,24 @@ async function getAllCartProductsByCartId(cartId) {
         FROM cart_products
         WHERE cart_id=${cartId};
         `);
-    console.log("Finished Getting Cart_Products! db/cart_products.js");
+    console.log("Finished Getting Cart_Products By Cart_Id! db/cart_products.js");
     return cart_productsbyid;
   } catch (error) {
-    console.error("Error Getting Cart_Products! db/cart_products.js");
+    console.error("Error Getting Cart_Products By Cart_Id! db/cart_products.js");
+    throw error;
+  }
+}
+
+async function getAllCartProducts() {
+  try {
+    const { rows: cart_products } = await client.query(`
+        SELECT *
+        FROM cart_products;
+        `);
+    console.log("Finished Getting All Cart_Products! db/cart_products.js");
+    return cart_products;
+  } catch (error) {
+    console.error("Error Getting All Cart_Products! db/cart_products.js");
     throw error;
   }
 }
@@ -162,7 +169,6 @@ async function attachCartProductsToCart(carts) {
 
 module.exports = {
   assignProductToCartProducts,
-  editCartProductQuantity,
   getCartProductById,
   getAllCartProducts,
   getAllCartProductsByCartId,
