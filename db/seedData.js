@@ -44,7 +44,7 @@ async function createTables() {
       product_name VARCHAR (255) NOT NULL,
       description VARCHAR (255) NOT NULL,
       size VARCHAR (255) NOT NULL,
-      price DECIMAL NOT NULL,
+      price MONEY NOT NULL,
       availability BOOLEAN DEFAULT true,
       quantity_instock SMALLINT
   );`);
@@ -63,7 +63,7 @@ async function createTables() {
       cart_id INTEGER REFERENCES carts(id),
       product_id INTEGER REFERENCES products(id),
       quantity INTEGER NOT NULL,
-      price VARCHAR (255) NOT NULL
+      price MONEY NOT NULL
   );`);
     await client.query(`  
   CREATE TABLE addresses (
@@ -143,7 +143,7 @@ async function createInitialProducts() {
         product_name: 'Short Sleeve',
         description: 'Fly Away Top',
         size: 'Small',
-        price: 30.0,
+        price: 30.01,
         availability: true,
         quantity_instock: 11,
       },
@@ -153,7 +153,7 @@ async function createInitialProducts() {
         product_name: 'Long Sleeve',
         description: 'Seamless Tiny Top',
         size: 'Medium',
-        price: 45.0,
+        price: 45.00,
         availability: true,
         quantity_instock: 23,
       },
@@ -163,7 +163,7 @@ async function createInitialProducts() {
         product_name: 'Sweater',
         description: 'Long Sleeve Oversized Sweater',
         size: 'Large',
-        price: 50.0,
+        price: 50.00,
         availability: true,
         quantity_instock: 6,
       },
@@ -173,7 +173,7 @@ async function createInitialProducts() {
         product_name: 'Hoodie',
         description: 'Stone Washed Hoodie Sweatshirt',
         size: 'Extra_Large',
-        price: 75.0,
+        price: 75.00,
         availability: true,
         quantity_instock: 9,
       },

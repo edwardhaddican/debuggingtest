@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { createCart, createCartProducts, getAllProductsByCategory } from "../api";
 import "../style/Shortsleeve.css";
 
-const Shortsleeve = ({ allProducts, setAllProducts }) => {
+const Shortsleeve = ({ allProducts, setAllProducts, setCartSize, cartSize }) => {
   // function searchHoodieProducts(searchValue) {
   //     if (searchValue.length) {
   //       const data = allProducts.filter((item) => {
@@ -31,7 +31,6 @@ const Shortsleeve = ({ allProducts, setAllProducts }) => {
     async function getShortSleeveProducts() {
       try {
         const result = await getAllProductsByCategory("Short_Sleeve");
-        console.log(result, "RESULT");
         const products = result.products;
         setAllProducts(products);
       } catch (error) {
@@ -80,6 +79,7 @@ const Shortsleeve = ({ allProducts, setAllProducts }) => {
                     else {
                       await createCartProducts(userId, cart_id, element.id, quantity, element.price)
                     }
+                    setCartSize(cartSize + 1)
                   } catch (error) {
                     throw error;
                   }

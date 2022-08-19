@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import HoodieImage from "./Photo/HoodieImage.jpg";
 import { motion } from "framer-motion";
 import "../style/Hoodie.css";
-import { createCart, createCartProducts, getAllProductsByCategory } from "../api";
+import {
+  createCart,
+  createCartProducts,
+  getAllProductsByCategory,
+} from "../api";
 
-const Hoodie = ({ allProducts, setAllProducts }) => {
+const Hoodie = ({ allProducts, setAllProducts, setCartSize, cartSize }) => {
   // function searchHoodieProducts(searchValue) {
   //     if (searchValue.length) {
   //       const data = allProducts.filter((item) => {
@@ -50,43 +54,81 @@ const Hoodie = ({ allProducts, setAllProducts }) => {
       {allProducts.map((element, idx) => {
         return (
           <div className="HoodieContainer" key={`Hoodie ${idx}`}>
-            <div><b>{element.product_name}</b></div>
+            <div>
+              <b>{element.product_name}</b>
+            </div>
             <img className="HoodieImage" src={HoodieImage} />
             <div className="HoodieInfoContainer">
               <div>
-                <div><b>Gender: </b>{element.gender}</div>
-                <div><b>Category: </b>{element.category}</div>
-                <div><b>Size: </b>{element.size}</div>
-                <div><b>Price: </b>{element.price}</div>
-                <div><b>In Stock? </b>{element.quantity_instock}</div>
+                <div>
+                  <b>Gender: </b>
+                  {element.gender}
+                </div>
+                <div>
+                  <b>Category: </b>
+                  {element.category}
+                </div>
+                <div>
+                  <b>Size: </b>
+                  {element.size}
+                </div>
+                <div>
+                  <b>Price: </b>
+                  {element.price}
+                </div>
+                <div>
+                  <b>In Stock? </b>
+                  {element.quantity_instock}
+                </div>
                 <p className="HoodieAbout">
-                  <b>Description: </b>{element.description}
+                  <b>Description: </b>
+                  {element.description}
                 </p>
-                <form onSubmit={async (event) => {
-                  event.preventDefault();
-                  try {
-                    const cart_id = localStorage.getItem("cartId")
-                    const purchased = localStorage.getItem("purchased")
-                    const userId = localStorage.getItem("id")
-                    const quantity = 1
-                    const newpurchased = false
-                    if (!cart_id) {
-                      const createdCart = await createCart(userId, newpurchased)
-                      localStorage.setItem("cartId", createdCart.newCart.id)
-                      localStorage.setItem("purchased", createdCart.newCart.purchased)
-                      const cartId = localStorage.getItem("cartId")
-                      await createCartProducts(userId, cartId, element.id, quantity, element.price)
+                <form
+                  onSubmit={async (event) => {
+                    event.preventDefault();
+                    try {
+                      const cart_id = localStorage.getItem("cartId");
+                      const userId = localStorage.getItem("id");
+                      const quantity = 1;
+                      const newpurchased = false;
+                      if (!cart_id) {
+                        const createdCart = await createCart(
+                          userId,
+                          newpurchased
+                        );
+                        localStorage.setItem("cartId", createdCart.newCart.id);
+                        localStorage.setItem(
+                          "purchased",
+                          createdCart.newCart.purchased
+                        );
+                        const cartId = localStorage.getItem("cartId");
+                        const priceNumber = Number(element.price);
+                        await createCartProducts(
+                          userId,
+                          cartId,
+                          element.id,
+                          quantity,
+                          priceNumber
+                        );
+                      } else {
+                        await createCartProducts(
+                          userId,
+                          cart_id,
+                          element.id,
+                          quantity,
+                          element.price
+                        );
+                      }
+                      setCartSize(cartSize + 1)
+                    } catch (error) {
+                      throw error;
                     }
-                    else {
-                      console.log("ARE WE IN THIS IF STATEMENT")
-                      await createCartProducts(userId, cart_id, element.id, quantity, element.price)
-                      console.log("DID WE MAKE IT OUT OF THE IF STATEMENT")
-                    }
-                  } catch (error) {
-                    throw error;
-                  }
-                }}>
-                <button className="HoodieButton" type="Submit">Add to Cart</button>
+                  }}
+                >
+                  <button className="HoodieButton" type="Submit">
+                    Add to Cart
+                  </button>
                 </form>
               </div>
             </div>

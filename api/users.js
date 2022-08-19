@@ -190,7 +190,6 @@ router.delete("/admin/:userId", async (req, res, next) => {
   const { userId } = req.params;
   try {
     const user = await getUserById(userId);
-    console.log(user, "USER HERE")
     if (user.admin_active === true){
       res.send({
         name: "CannotDeleteAdmin",

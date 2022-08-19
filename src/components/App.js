@@ -25,6 +25,7 @@ const App = () => {
   // }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [allCartProducts, setAllCartProducts] = useState([]);
+  const [cartSize, setCartSize] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -40,12 +41,12 @@ const App = () => {
       </video>
       <div className="ShowcaseOverlay"></div>
       <div className="ShowcaseHeader">
-        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} allCartProducts={allCartProducts} setAllCartProducts={setAllCartProducts}/>
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} allCartProducts={allCartProducts} setAllCartProducts={setAllCartProducts} cartSize={cartSize} setCartSize={setCartSize} />
       </div>
       <div className="ShowcaseFooter">
         <Footer />
       </div>
-      <AnimatedRoutes isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} allCartProducts={allCartProducts} setAllCartProducts={setAllCartProducts}/>
+      <AnimatedRoutes isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} allCartProducts={allCartProducts} setAllCartProducts={setAllCartProducts} cartSize={cartSize} setCartSize={setCartSize}/>
     </div>
   );
 };

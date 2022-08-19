@@ -24,6 +24,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:productId", async (req, res) => {
+  try {
+    const { productId } = req.params
+    const product = await getProductById(productId);
+
+    res.send({
+      product,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
 
 router.get("/category/:category", async (req, res) => {
   try {

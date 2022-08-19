@@ -9,7 +9,7 @@ import CancelMenuIcon from "./Photo/CancelMenuIcon.png";
 import CartMenuIcon from "./Photo/CartMenuIcon.png";
 import "../style/Header.css";
 
-const Header = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCartProducts }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCartProducts, cartSize, setCartSize }) => {
   const ref = useRef(null);
   const reftwo = useRef(null);
   const [hideMenu, setHideMenu] = useState(true);
@@ -63,7 +63,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCartProducts
     } catch (error) {
       throw error;
     }
-  }, [allCartProducts]);
+  }, [cartSize]);
 
   return (
     <div className="Header">

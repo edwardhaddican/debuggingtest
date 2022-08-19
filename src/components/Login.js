@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { loginPerson } from "../api";
 import "../style/Login.css";
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
 
 const Login = ({
   setIsLoggedIn,
@@ -12,8 +11,8 @@ const Login = ({
   setUsername,
   setPassword,
 }) => {
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const [hidePassword, setHidePassword] = useState(true);
   const [passwordType, setPasswordType] = useState("password");
 
