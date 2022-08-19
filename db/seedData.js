@@ -221,6 +221,49 @@ async function createInitialCarts() {
   }
 }
 
+async function createInitialAddresses() {
+  try {
+    console.log('Starting to Create Initial Addresses...');
+    const addressesToCreate = [
+      {
+        user_id: 1,
+        phone_number: 1112223333,
+        street01: '1111 Apple Lane',
+        street02: 'Suite 1',
+        city: 'Dallas',
+        state: 'TX',
+        zipcode: 11111,
+      },
+      {
+        user_id: 2,
+        phone_number: 2223334444,
+        street01: '2222 Banana Lane',
+        street02: 'Suite 2',
+        city: 'Austin',
+        state: 'TX',
+        zipcode: 22222,
+      },
+      {
+        user_id: 3,
+        phone_number: 3334445555,
+        street01: '333 Orange Lane',
+        street02: 'Suite 3',
+        city: 'Houston',
+        state: 'TX',
+        zipcode: 33333,
+      },
+    ];
+    const addresses = await Promise.all(addressesToCreate.map(createCart));
+
+    console.log('Addresses Created:');
+    console.log(addresses);
+    console.log('Finished Creating Addresses!');
+  } catch (error) {
+    console.error('Error Creating Initial Addresses! db/seedData.js');
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     await dropTables();
@@ -228,7 +271,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    // await createInitialCartProducts();
+    await createInitialAddresses();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -241,5 +284,5 @@ module.exports = {
   createInitialUsers,
   createInitialProducts,
   createInitialCarts,
-  // createInitialCartProducts,
+  createInitialAddresses,
 };
