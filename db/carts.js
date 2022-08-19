@@ -1,6 +1,6 @@
 const client = require('./client');
 
-async function createCart({ user_id, purchased }) {
+async function createCart({ user_id, order_id, purchased }) {
   console.log('Starting to create Cart.. db/carts.js');
   try {
     const {
@@ -8,11 +8,11 @@ async function createCart({ user_id, purchased }) {
     } = await client.query(
       `
           INSERT INTO carts
-          (user_id, purchased) 
-          VALUES($1, $2)
+          (user_id, order_id, purchased) 
+          VALUES($1, $2, $3)
           RETURNING *;
         `,
-      [user_id, purchased]
+      [user_id, order_id, purchased]
     );
     console.log('Cart created..');
     console.log(cart);
@@ -93,11 +93,10 @@ async function attachCartToOrders(orders) {
     const { rows: carts } = await client.query(
       `
         SELECT carts.*
-        FROM orders 
-        JOIN carts
+        FROM carts 
         ON orders.cart_id = orders.id
         WHERE 
-          carts.cart_id 
+          carts.order_id 
         IN 
           (${binds});
 
