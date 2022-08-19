@@ -1,7 +1,8 @@
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const { createCart } = require('./carts');
-const { createCartProduct } = require('./cart_products');
+const { createAddress } = require('./addresses');
+const { createOrder } = require('./orders');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -80,6 +81,7 @@ async function createTables() {
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   cart_id INTEGER REFERENCES carts(id),
+  address_id INTEGER REFERENCES addresses(id),
   shipped BOOLEAN default false
   );`);
 
@@ -153,7 +155,7 @@ async function createInitialProducts() {
         product_name: 'Long Sleeve',
         description: 'Seamless Tiny Top',
         size: 'Medium',
-        price: 45.00,
+        price: 45.0,
         availability: true,
         quantity_instock: 23,
       },
@@ -163,7 +165,7 @@ async function createInitialProducts() {
         product_name: 'Sweater',
         description: 'Long Sleeve Oversized Sweater',
         size: 'Large',
-        price: 50.00,
+        price: 50.0,
         availability: true,
         quantity_instock: 6,
       },
@@ -173,7 +175,7 @@ async function createInitialProducts() {
         product_name: 'Hoodie',
         description: 'Stone Washed Hoodie Sweatshirt',
         size: 'Extra_Large',
-        price: 75.00,
+        price: 75.0,
         availability: true,
         quantity_instock: 9,
       },
@@ -220,6 +222,80 @@ async function createInitialCarts() {
   }
 }
 
+async function createInitialAddresses() {
+  try {
+    console.log('Starting to Create Initial Addresses...');
+    const addressesToCreate = [
+      {
+        user_id: 1,
+        phone_number: 1112223333,
+        street01: '1111 Apple Lane',
+        street02: 'Suite 1',
+        city: 'Dallas',
+        state: 'TX',
+        zipcode: 11111,
+      },
+      {
+        user_id: 2,
+        phone_number: 2223334444,
+        street01: '2222 Banana Lane',
+        street02: 'Suite 2',
+        city: 'Austin',
+        state: 'TX',
+        zipcode: 22222,
+      },
+      {
+        user_id: 3,
+        phone_number: 3334445555,
+        street01: '333 Orange Lane',
+        street02: 'Suite 3',
+        city: 'Houston',
+        state: 'TX',
+        zipcode: 33333,
+      },
+    ];
+    const addresses = await Promise.all(addressesToCreate.map(createAddress));
+
+    console.log('Addresses Created:');
+    console.log(addresses);
+    console.log('Finished Creating Addresses!');
+  } catch (error) {
+    console.error('Error Creating Initial Addresses! db/seedData.js');
+    throw error;
+  }
+}
+
+async function createInitialOrders() {
+  try {
+    console.log('Starting to Create Initial Orders...');
+    const ordersToCreate = [
+      {
+        cart_id: 1,
+        address_id: 1,
+        shipped: false,
+      },
+      {
+        cart_id: 2,
+        address_id: 2,
+        shipped: false,
+      },
+      {
+        cart_id: 2,
+        address_id: 3,
+        shipped: true,
+      },
+    ];
+    const orders = await Promise.all(ordersToCreate.map(createOrder));
+
+    console.log('Orders Created:');
+    console.log(orders);
+    console.log('Finished Creating Orders!');
+  } catch (error) {
+    console.error('Error Creating Initial Orders! db/seedData.js');
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     await dropTables();
@@ -227,7 +303,8 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    // await createInitialCartProducts();
+    await createInitialAddresses();
+    await createInitialOrders();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -240,5 +317,6 @@ module.exports = {
   createInitialUsers,
   createInitialProducts,
   createInitialCarts,
-  // createInitialCartProducts,
+  createInitialAddresses,
+  createInitialOrders,
 };
