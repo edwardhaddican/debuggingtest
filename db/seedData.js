@@ -2,6 +2,7 @@ const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const { createCart } = require('./carts');
 const { createAddress } = require('./addresses');
+const { createOrder } = require('./orders');
 const client = require('./client');
 async function dropTables() {
   try {
@@ -264,6 +265,37 @@ async function createInitialAddresses() {
   }
 }
 
+async function createInitialOrders() {
+  try {
+    console.log('Starting to Create Initial Orders...');
+    const ordersToCreate = [
+      {
+        cart_id: 1,
+        address_id: 1,
+        shipped: false,
+      },
+      {
+        cart_id: 2,
+        address_id: 2,
+        shipped: false,
+      },
+      {
+        cart_id: 2,
+        address_id: 3,
+        shipped: true,
+      },
+    ];
+    const orders = await Promise.all(ordersToCreate.map(createOrder));
+
+    console.log('Orders Created:');
+    console.log(orders);
+    console.log('Finished Creating Orders!');
+  } catch (error) {
+    console.error('Error Creating Initial Orders! db/seedData.js');
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     await dropTables();
@@ -272,6 +304,7 @@ async function rebuildDB() {
     await createInitialProducts();
     await createInitialCarts();
     await createInitialAddresses();
+    await createInitialOrders();
   } catch (error) {
     console.error('Error during rebuild DB!!');
     throw error;
@@ -285,4 +318,5 @@ module.exports = {
   createInitialProducts,
   createInitialCarts,
   createInitialAddresses,
+  createInitialOrders,
 };
