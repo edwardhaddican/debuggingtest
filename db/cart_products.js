@@ -144,7 +144,7 @@ async function attachCartProductsToCart(carts) {
         JOIN 
           cart_products
         ON 
-          cart_products.product_id 
+          cart_products.products_id 
         WHERE 
           cart_products.cart_id 
         IN 
