@@ -1,6 +1,7 @@
 const client = require('./client');
+const { attachProductsToCarts } = require('./cart_products');
 
-async function createCart({ user_id, order_id, purchased }) {
+async function createCart({ user_id, purchased }) {
   console.log('Starting to create Cart.. db/carts.js');
   try {
     const {
@@ -8,11 +9,11 @@ async function createCart({ user_id, order_id, purchased }) {
     } = await client.query(
       `
           INSERT INTO carts
-          (user_id, order_id, purchased) 
-          VALUES($1, $2, $3)
+          (user_id, purchased) 
+          VALUES($1, $2)
           RETURNING *;
         `,
-      [user_id, order_id, purchased]
+      [user_id, purchased]
     );
     console.log('Cart created..');
     console.log(cart);
@@ -20,21 +21,6 @@ async function createCart({ user_id, order_id, purchased }) {
     return cart;
   } catch (error) {
     console.error(error);
-    throw error;
-  }
-}
-
-async function getAllCartsByOrderId(orderId) {
-  try {
-    const { rows: cartsbyid } = await client.query(`
-        SELECT *
-        FROM carts
-        WHERE order_id=${orderId};
-        `);
-    console.log('Finished Getting Cart id By Order id! db/carts.js');
-    return cartsbyid;
-  } catch (error) {
-    console.error('Error Getting Cart id by Order id! db/carts.js');
     throw error;
   }
 }
@@ -56,7 +42,7 @@ async function getCurrentCart({ cart_id }) {
   }
 }
 
-async function updateCartPurchaseStatus({ user_id, order_id }) {
+async function updateCartPurchaseStatus({ user_id }) {
   try {
     const {
       rows: [cart],
@@ -64,11 +50,10 @@ async function updateCartPurchaseStatus({ user_id, order_id }) {
       `
         UPDATE carts
         SET purchased = true
-        WHERE carts.user_id = $1
-        AND carts.order_id = $2
+        WHERE carts.user_id= $1
         RETURNING *;
       `,
-      [user_id, order_id]
+      [user_id]
     );
     return cart;
   } catch (error) {
@@ -78,15 +63,14 @@ async function updateCartPurchaseStatus({ user_id, order_id }) {
 }
 
 // **
-async function deleteCurrentCart({ user_id, order_id }) {
+async function deleteCurrentCart({ user_id }) {
   try {
     await client.query(
       `
     DELETE FROM carts.*
     WHERE carts.user_id = $1
-    AND carts.order_id = $2
     AND purchased = false;
-    `[(user_id, order_id)]
+    `[user_id]
     );
     await client.query(
       `
@@ -100,43 +84,26 @@ async function deleteCurrentCart({ user_id, order_id }) {
   }
 }
 
-async function attachCartToOrders(orders) {
-  const ordersToReturn = [...orders];
-  const binds = orders.map((_, index) => `$${index + 1}`).join(', ');
-  const order_ids = orders.map((order) => order.id);
-  if (!order_ids?.length) return [];
-
+async function getPurchaseHistoryByUser({ user_id }) {
   try {
-    const { rows: carts } = await client.query(
+    const { rows } = await client.query(
       `
-        SELECT carts.*
-        FROM carts 
-        ON orders.cart_id = orders.id
-        WHERE 
-          carts.order_id 
-        IN 
-          (${binds});
-
+      
       `,
-      order_ids
+      [user_id]
     );
 
-    for (const order of ordersToReturn) {
-      const cartsToAdd = carts.filter((cart) => cart.order_id === order.id);
-      order.carts = cartsToAdd;
-    }
-    return ordersToReturn;
+    return attachProductsToCarts(rows);
   } catch (error) {
-    console.error('Error Attaching Cart To Order!!!');
+    console.error('Error getting Purchase History by User!');
     throw error;
   }
 }
 
 module.exports = {
   createCart,
-  getAllCartsByOrderId,
   getCurrentCart,
   updateCartPurchaseStatus,
   deleteCurrentCart,
-  attachCartToOrders,
+  getPurchaseHistoryByUser,
 };

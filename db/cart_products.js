@@ -26,19 +26,22 @@ async function assignProductToCartProducts({
     );
     return cart_product;
   } catch (error) {
-    console.error("Error Adding product to cart_product!");
+    console.error('Error Adding product to cart_product!');
     throw error;
   }
 }
 
 async function getCartProductById(cartProductId) {
   try {
-    const { rows: cart_products } = await client.query(`
+    const { rows: cart_products } = await client.query(
+      `
         SELECT *
         FROM cart_products
         WHERE id=$1;
-        `, [cartProductId]);
-    console.log("Finished Getting Cart_Products! db/cart_products.js");
+        `,
+      [cartProductId]
+    );
+    console.log('Finished Getting Cart_Products! db/cart_products.js');
     return cart_products;
   } catch (error) {
     console.error(error);
@@ -52,10 +55,14 @@ async function getAllCartProductsByCartId(cartId) {
         FROM cart_products
         WHERE cart_id=${cartId};
         `);
-    console.log("Finished Getting Cart_Products By Cart_Id! db/cart_products.js");
+    console.log(
+      'Finished Getting Cart_Products By Cart_Id! db/cart_products.js'
+    );
     return cart_productsbyid;
   } catch (error) {
-    console.error("Error Getting Cart_Products By Cart_Id! db/cart_products.js");
+    console.error(
+      'Error Getting Cart_Products By Cart_Id! db/cart_products.js'
+    );
     throw error;
   }
 }
@@ -66,10 +73,10 @@ async function getAllCartProducts() {
         SELECT *
         FROM cart_products;
         `);
-    console.log("Finished Getting All Cart_Products! db/cart_products.js");
+    console.log('Finished Getting All Cart_Products! db/cart_products.js');
     return cart_products;
   } catch (error) {
-    console.error("Error Getting All Cart_Products! db/cart_products.js");
+    console.error('Error Getting All Cart_Products! db/cart_products.js');
     throw error;
   }
 }
@@ -82,9 +89,7 @@ async function updateCartProductQuantity(id, fields = {}) {
     return;
   }
   try {
-    const {
-      rows: cartProduct,
-    } = await client.query(
+    const { rows: cartProduct } = await client.query(
       `
         UPDATE cart_products
         SET ${setString}
@@ -110,7 +115,9 @@ async function deleteProductFromCart(id) {
           WHERE id=${id}
           `
     );
-    console.log('Finished Removing Cart_Product From Cart! db/cart_products.js')
+    console.log(
+      'Finished Removing Cart_Product From Cart! db/cart_products.js'
+    );
   } catch (error) {
     console.error('Error Removing cart_product from Cart! db/products.js');
     throw error;
@@ -118,8 +125,8 @@ async function deleteProductFromCart(id) {
 }
 
 async function attachCartProductsToCart(cartId) {
-  const cart = await getAllCartProductsByCartId(cartId)
-  console.log(cart, "DO I HAVE MY STUFF")
+  const cart = await getAllCartProductsByCartId(cartId);
+  console.log(cart, 'DO I HAVE MY STUFF');
   const cartsToReturn = [...cart];
   const binds = cart.map((_, index) => `$${index + 1}`).join(', ');
   const cart_ids = cart.map((cart) => cart.id);
