@@ -9,7 +9,7 @@ async function createAddress({
   state,
   zipcode,
 }) {
-  console.log('Starting to create Cart.. db/carts.js');
+  console.log('Starting to create Address.. db/addresses.js');
   try {
     const {
       rows: [address],

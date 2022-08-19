@@ -1,7 +1,7 @@
 const { createUser } = require('./users');
 const { createProduct } = require('./products');
 const { createCart } = require('./carts');
-const { createCartProduct } = require('./cart_products');
+const { createAddress } = require('./addresses');
 const client = require('./client');
 async function dropTables() {
   try {
