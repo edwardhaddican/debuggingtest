@@ -79,4 +79,31 @@ async function updateAddress(address_id, fields = {}) {
   }
 }
 
-module.exports = { createAddress, getAddressByUserId, updateAddress };
+async function deleteAddress(user_id, address_id) {
+  try {
+    const {
+      rows: [address],
+    } = await client.query(
+      `
+          DELETE FROM addresses
+          WHERE 
+          user_id=$1
+          AND
+          id=${address_id}
+          RETURNING *;
+          `,
+      [user_id, address_id]
+    );
+    return address;
+  } catch (error) {
+    console.error('Error Deleting Address! db/addresses.js');
+    throw error;
+  }
+}
+
+module.exports = {
+  createAddress,
+  getAddressByUserId,
+  updateAddress,
+  deleteAddress,
+};
