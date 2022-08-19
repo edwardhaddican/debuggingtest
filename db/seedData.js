@@ -80,6 +80,7 @@ async function createTables() {
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   cart_id INTEGER REFERENCES carts(id),
+  address_id INTEGER REFERENCES address(id),
   shipped BOOLEAN default false
   );`);
 
@@ -153,7 +154,7 @@ async function createInitialProducts() {
         product_name: 'Long Sleeve',
         description: 'Seamless Tiny Top',
         size: 'Medium',
-        price: 45.00,
+        price: 45.0,
         availability: true,
         quantity_instock: 23,
       },
@@ -163,7 +164,7 @@ async function createInitialProducts() {
         product_name: 'Sweater',
         description: 'Long Sleeve Oversized Sweater',
         size: 'Large',
-        price: 50.00,
+        price: 50.0,
         availability: true,
         quantity_instock: 6,
       },
@@ -173,7 +174,7 @@ async function createInitialProducts() {
         product_name: 'Hoodie',
         description: 'Stone Washed Hoodie Sweatshirt',
         size: 'Extra_Large',
-        price: 75.00,
+        price: 75.0,
         availability: true,
         quantity_instock: 9,
       },
