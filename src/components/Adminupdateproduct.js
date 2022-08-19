@@ -39,7 +39,6 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
       try {
         const result = await getAllProducts();
         const products = result.products;
-        console.log(products, "HERE BE THE PRODUCTS")
         setAllProducts(products);
       } catch (error) {
         throw error;
@@ -47,16 +46,6 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
     }
     getTheProducts();
   }, []);
-
-  //   async function handleDelete (event) {
-  //     event.preventDefault();
-  //     try {
-  //         console.log(element.id)
-  //         await deleteProduct(element.id)
-  //     } catch (error) {
-  //         throw error
-  //     }
-  //   }
 
   return (
     <div className="AdminUpdateContainer">

@@ -1,5 +1,12 @@
 const express = require("express");
-const { getAllCartProducts, assignProductToCartProducts } = require("../db");
+const {
+  getAllCartProducts,
+  assignProductToCartProducts,
+  getAllCartProductsByCartId,
+  updateCartProductQuantity,
+  getCartProductById,
+  deleteProductFromCart,
+} = require("../db");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -14,29 +21,84 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:cartId", async (req, res) => {
+  try {
+    const { cartId } = req.params;
+    const cart_productsbyid = await getAllCartProductsByCartId(cartId);
+    res.send({
+      cart_productsbyid,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
+
 router.post("/", async (req, res, next) => {
-    const {
+  const { user_id, cart_id, product_id, quantity, price } = req.body;
+  try {
+    const newCartProduct = await assignProductToCartProducts({
       user_id,
       cart_id,
       product_id,
       quantity,
-      price
-    } = req.body;
-    
-    
-    try {
-      const newCartProduct = await assignProductToCartProducts({
-        user_id,
-        cart_id,
-        product_id,
-        quantity,
-        price,
+      price,
+    });
+    console.log(newCartProduct, "NEWCARTPRODUCT")
+    res.send({
+      message: "New Cart_Product Created!",
+      newCartProduct: newCartProduct,
+    });
+  } catch (error) {
+    next({ message: "CART_PRODUCT ERROR" });
+  }
+});
+
+router.patch("/update", async (req, res, next) => {
+  const { quantity, cartProductId } = req.body;
+  const cartProductToUpdate = await getCartProductById(cartProductId);
+
+  try {
+    if (cartProductToUpdate) {
+      const updatedCartProduct = await updateCartProductQuantity( cartProductId, { quantity: quantity });
+      res.send({
+        message: "Cart Product Has Been Updated!",
+        updatedCartProduct: updatedCartProduct,
       });
-      console.log(newCartProduct, "NEW CART PRODUCT ABOVE")
-      res.send({ message: "New Cart_Product Created!", newCartProduct: newCartProduct });
-    } catch (error) {
-      next({ message: "CART_PRODUCT ERROR" });
+    } else {
+      res.status(401);
+      next({
+        error: "CARTPRODUCT ID DOESN'T EXIST",
+        message: `Cart Product ID of ${cartProductId} doesn't exist.`,
+        name: "NoCartProductWithThatID",
+      });
     }
-  });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/delete/:cartProductId", async (req, res, next) => {
+  const { cartProductId } = req.params;
+  const cartProductToDelete = await getCartProductById(cartProductId);
+
+  try {
+    if (cartProductToDelete) {
+      const deletedCartProduct = await deleteProductFromCart(cartProductId);
+      res.send({
+        message: "Cart Product Has Been Deleted!",
+        updatedCartProduct: deletedCartProduct,
+      });
+    } else {
+      res.status(401);
+      next({
+        error: "CART_PRODUCT ID DOESN'T EXIST",
+        message: `Cart Product ID of ${cartProductId} doesn't exist.`,
+        name: "NoCartProductWithThatID",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

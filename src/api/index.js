@@ -65,7 +65,6 @@ export async function loginPerson(username, password) {
       }),
     });
     const result = await response.json();
-    console.log(result, "RESULT");
     if (result.error) {
       throw result;
     }
@@ -185,6 +184,20 @@ export async function adminDeleteUser(userId) {
 
 // PRODUCTS API CALLS BELOW
 
+export async function getTheProductById(productId) {
+  try {
+    const response = await fetch(`${BASE}/api/products/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getAllProducts() {
   try {
     const response = await fetch(`${BASE}/api/products`, {
@@ -207,7 +220,6 @@ export async function getAllProductsByCategory(category) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT");
     return result;
   } catch (error) {
     throw error;
@@ -222,7 +234,6 @@ export async function getAllProductsByPrice(price) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT");
     return result;
   } catch (error) {
     throw error;
@@ -237,7 +248,6 @@ export async function getProductBySize(size) {
       },
     });
     const result = await response.json();
-    console.log(result, "API RESULT");
     return result;
   } catch (error) {
     throw error;
@@ -348,6 +358,20 @@ export async function getAllCartProducts() {
   }
 }
 
+export async function getAllCartProductsByCartId(cartId) {
+  try {
+    const response = await fetch(`${BASE}/api/cart_products/${cartId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function createCartProducts(
   user_id,
   cart_id,
@@ -379,6 +403,43 @@ export async function createCartProducts(
   }
 }
 
+export async function updateCartProducts(
+  cartProductId,
+  quantityNum
+) {
+  try {
+    const response = await fetch(`${BASE}/api/cart_products/update`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        quantity: quantityNum,
+        cartProductId: cartProductId
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteCartProducts (cartProductId) {
+  try {
+    const response = await fetch (`${BASE}/api/cart_products/delete/${cartProductId}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // CART_PRODUCTS API CALLS ABOVE
 
 // CARTS API CALLS BELOW
@@ -394,14 +455,11 @@ export async function createCart(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user_id,
-        purchased
+        user_id: user_id,
+        purchased: purchased
       }),
     });
     const result = await response.json();
-    if (result.error) {
-      throw result;
-    }
     return result;
   } catch (error) {
     throw error;

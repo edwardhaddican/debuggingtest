@@ -17,7 +17,6 @@ router.get("/:userId", async (req, res) => {
 
 router.post("/", async (req, res, next) => {
   const { user_id, purchased } = req.body;
-
   try {
     const newCart = await createCart({
         user_id, purchased

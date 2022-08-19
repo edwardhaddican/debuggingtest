@@ -20,7 +20,7 @@ async function createCart({ user_id, purchased }) {
     console.log('Finished Creating Cart! carts.js');
     return cart;
   } catch (error) {
-    console.error('Error Creating Cart! db/carts.js');
+    console.error (error)
     throw error;
   }
 }
