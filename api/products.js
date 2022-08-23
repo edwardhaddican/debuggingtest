@@ -148,7 +148,7 @@ router.patch("/:productId", async (req, res, next) => {
   }
 });
 
-router.delete("/:productId", async (req, res, next) => {
+router.delete("/admin/:productId", async (req, res, next) => {
   const { productId } = req.params;
   try {
     const deletedProduct = await deleteProduct(productId);

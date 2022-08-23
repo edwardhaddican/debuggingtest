@@ -26,7 +26,7 @@ async function assignProductToCartProducts({
     );
     return cart_product;
   } catch (error) {
-    console.error('Error Adding product to cart_product!');
+    console.error('Error Adding product to cart_product!', error);
     throw error;
   }
 }

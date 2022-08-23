@@ -3,7 +3,7 @@ import { updateProduct } from "../api";
 import "../style/Updateproductform.css";
 
 
-const UpdateProductForm = ({ element }) => {
+const UpdateProductForm = ({ element, setUpdatedAllProducts, allProducts }) => {
   const [gender, setGender] = useState("Male");
   const [category, setCategory] = useState("Short_Sleeve");
   const [productName, setProductName] = useState("");
@@ -28,6 +28,7 @@ const UpdateProductForm = ({ element }) => {
         availabilityBoolean,
         quantityInStock
       );
+      setUpdatedAllProducts(allProducts)
     } catch (error) {
       throw error;
     }

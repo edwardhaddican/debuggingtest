@@ -19,6 +19,7 @@ import {
 const Cartpage = ({ allCartProducts, setAllCartProducts }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(null);
   const [quantity, setQuantity] = useState("");
+  const [updatedAllCartProducts, setUpdatedAllCartProducts] = useState([])
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   useEffect(() => {
@@ -33,7 +34,7 @@ const Cartpage = ({ allCartProducts, setAllCartProducts }) => {
     } catch (error) {
       throw error;
     }
-  }, []);
+  }, [updatedAllCartProducts]);
 
   let subTotalCart = 0;
   let toFixedSubTotalCart = 0;
@@ -201,6 +202,7 @@ const Cartpage = ({ allCartProducts, setAllCartProducts }) => {
                               event.preventDefault();
                               setShowUpdateForm(null);
                               await updateCartProducts(element.id, quantity);
+                              setUpdatedAllCartProducts(allCartProducts)
                             }}
                           >
                             <label>
@@ -260,6 +262,7 @@ const Cartpage = ({ allCartProducts, setAllCartProducts }) => {
                           "productIdArray",
                           JSONfilteredProductIdArray
                         );
+                        setUpdatedAllCartProducts(allCartProducts)
                       }}
                     >
                       <button type="submit">Remove</button>

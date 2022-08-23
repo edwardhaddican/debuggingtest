@@ -11,6 +11,7 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
     useState(null);
   const [showUpdateFilteredProductsForm, setShowUpdateFilteredProductsForm] =
     useState(null);
+    const [updatedAllProducts, setUpdatedAllProducts] = useState([])
 
   function searchYourProducts(searchValue) {
     if (searchValue.length) {
@@ -45,7 +46,7 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
       }
     }
     getTheProducts();
-  }, []);
+  }, [updatedAllProducts]);
 
   return (
     <div className="AdminUpdateContainer">
@@ -116,7 +117,7 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
                       </>
                     ) : (
                       <>
-                        <UpdateProductForm element={element} />
+                        <UpdateProductForm element={element} setUpdatedAllProducts={setUpdatedAllProducts} allProducts={allProducts} />
                         <button
                           onClick={() => {
                             setShowUpdateFilteredProductsForm(null);
@@ -133,6 +134,7 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
                     onSubmit={async (event) => {
                       event.preventDefault();
                       await deleteProduct(element.id);
+                      setUpdatedAllProducts(allProducts)
                     }}
                   >
                     <button type="submit">Delete Product</button>
@@ -195,7 +197,7 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
                       </>
                     ) : (
                       <>
-                        <UpdateProductForm element={element} />
+                        <UpdateProductForm element={element} setUpdatedAllProducts={setUpdatedAllProducts} allProducts={allProducts} />
                         <button
                           onClick={() => {
                             setShowUpdateAllProductsForm(null);
@@ -212,6 +214,7 @@ const Adminupdateproduct = ({ allProducts, setAllProducts }) => {
                     onSubmit={async (event) => {
                       event.preventDefault();
                       await deleteProduct(element.id);
+                      setUpdatedAllProducts(allProducts)
                     }}
                   >
                     <button type="submit">Delete Product</button>

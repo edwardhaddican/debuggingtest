@@ -148,6 +148,34 @@ async function getAllUsers() {
   return rows;
 }
 
+async function updateUser(id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+
+  if (setString.length === 0) {
+    return;
+  }
+
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        UPDATE users
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *;
+        `,
+      Object.values(fields)
+    );
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function updateUserUsername(id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
@@ -175,6 +203,7 @@ async function updateUserUsername(id, fields = {}) {
     throw error;
   }
 }
+
 async function updateUserEmail(id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
@@ -246,6 +275,7 @@ module.exports = {
   getUserById,
   getUserByUsername,
   getAllUsers,
+  updateUser,
   updateUserUsername,
   updateUserEmail,
   getUserByEmail,

@@ -44,7 +44,6 @@ router.post("/", async (req, res, next) => {
       quantity,
       price,
     });
-    console.log(newCartProduct, "NEWCARTPRODUCT")
     res.send({
       message: "New Cart_Product Created!",
       newCartProduct: newCartProduct,

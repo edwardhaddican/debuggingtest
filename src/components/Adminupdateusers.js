@@ -27,13 +27,12 @@ const Adminupdateusers = ({
         const result = await getAllUsers();
         const users = result.users;
         setAllUsers(users);
-        setUpdatedAllUsers(users)
       } catch (error) {
         throw error;
       }
     }
     getTheUsers();
-  }, []);
+  }, [updatedAllUsers]);
 
   return (
     <div className="AdminUpdateUserContainer">
@@ -114,6 +113,8 @@ const Adminupdateusers = ({
                       setLastName={setLastName}
                       email={email}
                       setEmail={setEmail}
+                      allUsers={allUsers}
+                      setUpdatedAllUsers={setUpdatedAllUsers}
                     />
                     <button
                       onClick={() => {
@@ -127,12 +128,8 @@ const Adminupdateusers = ({
               </div>
               <form onSubmit={async (event) => {
                 event.preventDefault();
-                allUsers.filter((item) => {
-                  if (item.id !== element.id) {
-                    return item
-                  }
-                })
                 await adminDeleteUser(element.id)
+                setUpdatedAllUsers(allUsers)
               }}>
                 <button className="DeleteUserButton">Delete User</button>
               </form>

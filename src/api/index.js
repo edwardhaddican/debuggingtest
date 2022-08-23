@@ -192,7 +192,7 @@ export async function adminUpdatePerson(
   adminActive
 ) {
   try {
-    const response = await fetch(`${BASE}/api/users/admin/${id}`, {
+    const response = await fetch(`${BASE}/api/users/admin/updateUser/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -391,7 +391,7 @@ export async function updateProduct(
 
 export async function deleteProduct(productId) {
   try {
-    const response = await fetch(`${BASE}/api/products/${productId}`, {
+    const response = await fetch(`${BASE}/api/products/admin/${productId}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

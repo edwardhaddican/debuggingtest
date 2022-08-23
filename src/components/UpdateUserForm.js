@@ -14,6 +14,8 @@ const UpdateUserForm = ({
   setLastName,
   email,
   setEmail,
+  allUsers,
+  setUpdatedAllUsers
 }) => {
   const [hidePassword, setHidePassword] = useState(true);
   const [passwordType, setPasswordType] = useState("password");
@@ -26,6 +28,7 @@ const UpdateUserForm = ({
     event.preventDefault();
     try {
       await adminUpdatePerson(element.id, firstName, lastName, username, password, email, activeBoolean, adminBoolean)
+      setUpdatedAllUsers(allUsers)
     } catch (error) {
       throw error;
     }

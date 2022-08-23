@@ -9,6 +9,7 @@ const {
   getUserById,
   getUserByUsername,
   getAllUsers,
+  updateUser,
   updateUserUsername,
   updateUserEmail,
   getUserByEmail,
@@ -116,6 +117,7 @@ router.patch("/:userId/:username", async (req, res, next) => {
   const { username } = req.params;
 
   try {
+    console.log(username, "WE MADE IT HERE")
     const { userId } = req.params;
     const user = await getUserById(userId);
     const existingUsername = await getUserByUsername(username);
@@ -189,16 +191,15 @@ router.patch("/updatePassword/:username", async (req, res, next) => {
   }
 });
 
-router.patch("/admin/:userId", async (req, res, next) => {
+router.patch("/admin/updateUser/:userId", async (req, res, next) => {
   const { username, email, password, first_name, last_name, admin_active, user_active } = req.body;
 
   try {
     const { userId } = req.params;
-    const user = await getUserById(userId);
     const existingEmail = await getUserByEmail(email)
     const existingUsername = await getUserByUsername(username)
 
-    if (!user.active && !existingUsername && !existingEmail) {
+    if (!existingUsername && !existingEmail) {
       const updatedUser = updateUser(userId, {
         first_name: first_name,
         last_name: last_name,
@@ -211,17 +212,7 @@ router.patch("/admin/:userId", async (req, res, next) => {
 
       res.send({ message: `User ${first_name} is updated!`, user: updatedUser });
     } else {
-      next(
-        !user.active
-          ? {
-              name: "UnauthorizedUserError",
-              message: "You cannot update a user which is not yours.",
-            }
-          : {
-              name: "UserAlreadyActivated",
-              message: "That user has already been activated.",
-            }
-      );
+      next()
     }
   } catch ({ name, message }) {
     next({ name, message });
