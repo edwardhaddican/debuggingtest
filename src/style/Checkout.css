@@ -1,8 +1,5 @@
 .CheckoutContainer {
-    background-color: gray;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 1rem;
+    background-color: white;
     text-align: center;
     padding: .75rem;
     border-radius: .25rem;
@@ -19,9 +16,27 @@
 
 .CheckoutCartProducts {
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    margin-left: 5%;
+    margin-top: 3%;
+    background-color: lightgrey;
     border: 2px solid black;
-    height: 15rem;
-    width: 15rem;
+    height: 80%;
+    width: 80%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.CheckoutCartProducts::-webkit-scrollbar {
+    width: 10px;
+}
+
+.CheckoutCartProducts::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 10px;
 }
 
 .CheckoutPageButton {
@@ -43,9 +58,16 @@
 }
 
 .CheckoutImages {
-    margin-left: 1.5rem;
+    margin-left: 7.5rem;
 }
 
 p, b {
     font-size: 20px;
+}
+
+.CheckoutCartProductsContainer {
+    background-color: white;
+    width: 25rem;
+    height: 14rem;
+    margin-left: 9rem;
 }

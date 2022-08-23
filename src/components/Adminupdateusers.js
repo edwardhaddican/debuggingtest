@@ -18,11 +18,8 @@ const Adminupdateusers = ({
   email,
   setEmail,
 }) => {
-  const [usersFilteredData, setUsersFilteredData] = useState([]);
-  const [searchUsers, setSearchUsers] = useState("");
   const [showUpdateAllUsersForm, setShowUpdateAllUsersForm] = useState(null);
-  const [showUpdateFilteredUsersForm, setShowUpdateFilteredUsersForm] =
-    useState(null);
+  const [updatedAllUsers, setUpdatedAllUsers] = useState([])
 
   useEffect(() => {
     async function getTheUsers() {
@@ -30,6 +27,7 @@ const Adminupdateusers = ({
         const result = await getAllUsers();
         const users = result.users;
         setAllUsers(users);
+        setUpdatedAllUsers(users)
       } catch (error) {
         throw error;
       }
@@ -129,6 +127,11 @@ const Adminupdateusers = ({
               </div>
               <form onSubmit={async (event) => {
                 event.preventDefault();
+                allUsers.filter((item) => {
+                  if (item.id !== element.id) {
+                    return item
+                  }
+                })
                 await adminDeleteUser(element.id)
               }}>
                 <button className="DeleteUserButton">Delete User</button>

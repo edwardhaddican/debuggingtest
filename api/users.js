@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const { JWT_SECRET } = process.env;
 const {
   createUser,
@@ -8,9 +9,11 @@ const {
   getUserById,
   getUserByUsername,
   getAllUsers,
-  updateUser,
+  updateUserUsername,
+  updateUserEmail,
   getUserByEmail,
   deleteUser,
+  changeUserPassword,
 } = require("../db");
 const { requireUser } = require("./utils");
 
@@ -21,6 +24,16 @@ router.get("/", async (req, res) => {
     users,
   });
 });
+
+router.get("/:userId/:username/:password", async (req, res) => {
+  const {username, password} = req.params
+
+  const user = await getUser({username, password});
+
+  res.send({
+    user
+  })
+})
 
 router.post("/register", async (req, res, next) => {
   const {
@@ -99,19 +112,48 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.patch("/:userId", async (req, res, next) => {
-  const { username, email, password } = req.body;
+router.patch("/:userId/:username", async (req, res, next) => {
+  const { username } = req.params;
 
   try {
     const { userId } = req.params;
     const user = await getUserById(userId);
-    const existingEmail = await getUserByEmail(email)
-    const existingUsername = await getUserByUsername(username)
+    const existingUsername = await getUserByUsername(username);
 
-    if (!user.active && user.id == userId && !existingUsername && !existingEmail) {
-      const updatedUser = updateUser(userId, {
+    if (!user.active && user.id == userId && !existingUsername) {
+      const updatedUser = updateUserUsername(userId, {
         username: username,
-        password: password,
+      });
+
+      res.send({ user: updatedUser });
+    } else {
+      next(
+        !user.active
+          ? {
+              name: "UnauthorizedUserError",
+              message: "You cannot update a user which is not yours.",
+            }
+          : {
+              name: "UserAlreadyActivated",
+              message: "That user has already been activated.",
+            }
+      );
+    }
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
+router.patch("/:userId/:email", async (req, res, next) => {
+  const { email } = req.params;
+
+  try {
+    const { userId } = req.params;
+    const user = await getUserById(userId);
+    const existingEmail = await getUserByEmail(email);
+
+    if (!user.active && user.id == userId && !existingEmail) {
+      const updatedUser = updateUserEmail(userId, {
         email: email,
       });
 
@@ -131,6 +173,19 @@ router.patch("/:userId", async (req, res, next) => {
     }
   } catch ({ name, message }) {
     next({ name, message });
+  }
+});
+
+router.patch("/updatePassword/:username", async (req, res, next) => {
+  const { username, password, id, newPassword } = req.body
+  const SALT_COUNT = 10;
+  const newHashedPassword = await bcrypt.hash(newPassword, SALT_COUNT);
+
+  try {
+    const updatedPassword = await changeUserPassword(username, password, id, {password: newHashedPassword})
+    res.send(updatedPassword)
+  } catch (error) {
+    next (error)
   }
 });
 

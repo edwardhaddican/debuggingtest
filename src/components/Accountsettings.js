@@ -1,29 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileIconAccPage from "./Photo/ProfileIconAccPage.png";
 import { motion } from "framer-motion";
 import "../style/Accountsettings.css";
-import { updatePerson } from "../api";
+import { getUser, updatePersonUsername, updatePersonEmail, updatePersonPassword } from "../api";
 
 const Accountsettings = () => {
-  const username = localStorage.getItem("username");
   const first_name = localStorage.getItem("first_name");
   const last_name = localStorage.getItem("last_name");
-  const email = localStorage.getItem("email");
 
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("")
   const [newEmail, setNewEmail] = useState("");
 
-  async function handlePerson(event) {
+  useEffect(() => {
+    setUsername(localStorage.getItem("username"))
+    setEmail(localStorage.getItem("email"))
+  }, [username, email])
+
+  async function handleUsername(event) {
     event.preventDefault();
     const token = localStorage.getItem("token");
     const id = localStorage.getItem("id");
     try {
+      const username = localStorage.getItem("username")
       localStorage.removeItem("username");
-      localStorage.removeItem("email");
-      await updatePerson(token, newUsername, newPassword, newEmail, id);
+      await updatePersonUsername(token, username, newUsername, id);
       localStorage.setItem("username", newUsername);
+      setUsername(newUsername)
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function handleEmail(event) {
+    event.preventDefault();
+    const token = localStorage.getItem("token");
+    const id = localStorage.getItem("id");
+    try {
+      const email = localStorage.getItem("email")
+      localStorage.removeItem("email");
+      await updatePersonEmail(token, email, newEmail, id);
       localStorage.setItem("email", newEmail);
+      setEmail(newEmail)
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  async function handleUpdatePassword(event) {
+    event.preventDefault();
+    const username = localStorage.getItem("username")
+    const id = localStorage.getItem("id")
+    const token = localStorage.getItem("token")
+    const password = oldPassword
+    const currentPassword = await getUser(id, username, password)
+    try{
+      if (currentPassword) {
+        if (newPassword === verifyPassword) {
+          console.log("WE MADE IT HERE")
+          await updatePersonPassword(token, username, oldPassword, id, newPassword)
+        }
+      }
     } catch (error) {
       throw error;
     }
@@ -43,8 +84,8 @@ const Accountsettings = () => {
         </div>
         <img className="AccSettingsPic" src={ProfileIconAccPage} />
       </div>
-      <form onSubmit={handlePerson}>
         <div className="AccSettingsContainerRight">
+      <form onSubmit={handleUsername}>
           <div className="AccSettingsOptions">
             Username: {username}
             <br></br>
@@ -60,25 +101,15 @@ const Accountsettings = () => {
                   setNewUsername(event.target.value);
                 }}
               />
+              <br></br>
+              <br></br>
+              <button type="submit" className="updateUserButton">
+                Update Username
+              </button>
             </div>
           </div>
-          <div className="AccSettingsOptions">
-            Password:
-            <br></br>
-            <br></br>
-            <div>
-              <input
-                className="AccSettingsChangeBar"
-                name="Password"
-                type="text"
-                placeholder="New Password Here..."
-                value={newPassword}
-                onChange={(event) => {
-                  setNewPassword(event.target.value);
-                }}
-              />
-            </div>
-          </div>
+          </form>
+          <form onSubmit={handleEmail}>
           <div className="AccSettingsOptions">
             E-mail: {email}
             <br></br>
@@ -97,12 +128,53 @@ const Accountsettings = () => {
               <br></br>
               <br></br>
               <button type="submit" className="updateUserButton">
-                Update
+                Update Email
               </button>
             </div>
           </div>
-        </div>
       </form>
+      <form onSubmit={handleUpdatePassword}>
+      <div className="AccSettingsOptionsPassword">
+            <div>
+            <input
+                className="AccSettingsChangeBar"
+                name="Password"
+                type="password"
+                placeholder="Current Password..."
+                value={oldPassword}
+                onChange={(event) => {
+                  setOldPassword(event.target.value);
+                }}
+              />
+              <br></br>
+              <br></br>
+              <input
+                className="AccSettingsChangeBar"
+                name="Password"
+                type="password"
+                placeholder="New Password Here..."
+                value={newPassword}
+                onChange={(event) => {
+                  setNewPassword(event.target.value);
+                }}
+              />
+              <br></br>
+              <br></br>
+              <input
+                className="AccSettingsChangeBar"
+                name="Password"
+                type="password"
+                placeholder="Verify New Password..."
+                value={verifyPassword}
+                onChange={(event) => {
+                  setVerifyPassword(event.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <button className="updatePasswordButton" type="Submit">Update Password</button>
+      </form>
+      </div>
     </motion.div>
   );
 };

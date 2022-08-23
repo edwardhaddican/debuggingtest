@@ -76,6 +76,34 @@ async function getUser({ username, password }) {
   }
 }
 
+async function changeUserPassword(username, password, id, fields = {}) {
+  const user = await getUserByUsername(username);
+  const hashedPassword = user.password;
+  const isValid = await bcrypt.compare(password, hashedPassword)
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+
+  try {
+    if(isValid) {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        UPDATE users
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *;
+        `,
+      Object.values(fields)
+    );
+    return user;
+  } 
+    } catch (error) {
+      throw error
+    }
+    }
+
 async function getUserById(user_Id) {
   try {
     const {
@@ -120,7 +148,34 @@ async function getAllUsers() {
   return rows;
 }
 
-async function updateUser(id, fields = {}) {
+async function updateUserUsername(id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+
+  if (setString.length === 0) {
+    return;
+  }
+
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        UPDATE users
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *;
+        `,
+      Object.values(fields)
+    );
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+async function updateUserEmail(id, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -191,9 +246,11 @@ module.exports = {
   getUserById,
   getUserByUsername,
   getAllUsers,
-  updateUser,
+  updateUserUsername,
+  updateUserEmail,
   getUserByEmail,
   deleteUser,
+  changeUserPassword,
 };
 
 /*

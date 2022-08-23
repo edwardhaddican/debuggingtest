@@ -59,6 +59,17 @@
     width: 55%;
     height: 30rem;
     z-index: 650;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.AccSettingsContainerRight::-webkit-scrollbar {
+    width: 10px;
+}
+
+.AccSettingsContainerRight::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 10px;
 }
 
 .AccSettingsOptions {
@@ -75,6 +86,23 @@
 .updateUserButton {
     position: relative;
     bottom: 1rem;
+    width: 10rem;
+    height: 3rem;
+    font-size: 20px;
+    font-weight: bolder;
+    color: grey;
+    text-shadow: lightblue 0.1em 0.1em 0.2em;
+}
+
+.AccSettingsOptionsPassword {
+    position: relative;
+    
+    z-index: 1000;
+}
+
+.updatePasswordButton {
+    position: relative;
+    top: 1rem;
     width: 10rem;
     height: 3rem;
     font-size: 20px;

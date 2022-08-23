@@ -16,6 +16,20 @@ export async function getAllUsers() {
   }
 }
 
+export async function getUser(id, username, password) {
+  try {
+    const response = await fetch(`${BASE}/api/users/${id}/${username}/${password}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function registerPerson(
   username,
   password,
@@ -90,23 +104,45 @@ export async function loginPerson(username, password) {
   }
 }
 
-export async function updatePerson(
+export async function updatePersonUsername(
   token,
+  username,
   newUsername,
-  newPassword,
-  newEmail,
   id
 ) {
   try {
-    const response = await fetch(`${BASE}/api/users/${id}`, {
+    const response = await fetch(`${BASE}/api/users/${id}/${username}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        username: newUsername,
-        password: newPassword,
+        username: newUsername
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+export async function updatePersonEmail(
+  token,
+  email,
+  newEmail,
+  id
+) {
+  try {
+    const response = await fetch(`${BASE}/api/users/${id}/${email}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
         email: newEmail,
       }),
     });
@@ -114,6 +150,34 @@ export async function updatePerson(
     return result;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function updatePersonPassword(
+  token,
+  username,
+  password,
+  id,
+  newPassword
+) {
+  try {
+    const response = await fetch(`${BASE}/api/users/updatePassword/${username}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        id: id,
+        newPassword: newPassword
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error
   }
 }
 

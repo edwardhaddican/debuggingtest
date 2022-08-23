@@ -17,6 +17,16 @@
     height: 43rem;
     z-index: 650;
     overflow: scroll;
+    overflow-x: hidden;
+}
+
+.AdminUpdateUserContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.AdminUpdateUserContainer::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
 }
 
 .UpdateUserContainer {

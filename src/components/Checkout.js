@@ -44,15 +44,14 @@ const Checkout = () => {
     }
   }
 
-  console.log(720.09 +32.40 - 14.40)
-
   return (
     <>
       <div className="CheckoutContainer">
+      <div className="CheckoutCartProducts">
         {myCart
           ? myCart.newCart.map((element, idx) => {
               return (
-                <div className="CheckoutCartProducts" key={`Checkout ${idx}`}>
+                <div className="CheckoutCartProductsContainer" key={`Checkout ${idx}`}>
                   <div className="CheckoutImages">
                     {element.product_id === 1 ? (
                       <img className="CartImages" src={ShortSleeveImage} />
@@ -77,6 +76,7 @@ const Checkout = () => {
               );
             })
           : null}
+      </div>
       </div>
       <form
         onSubmit={async (event) => {
