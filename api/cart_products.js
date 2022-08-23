@@ -56,11 +56,8 @@ router.post("/", async (req, res, next) => {
 
 router.post("/:cartId", async (req, res, next) => {
   const { cartId } = req.params
-  console.log(cartId, "IS THIS MY CARTID API BACKEND")
     try {
-      console.log("INSIDE TRY API BACKEND")
       const newCart = await attachCartProductsToCart(cartId)
-      console.log(newCart, "DID MY CARTPRODUCTS ATTACH TO PRODUCTS")
       res.send({
         message: "New Cart For Checkout Created!",
         newCart:  newCart

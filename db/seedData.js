@@ -66,6 +66,7 @@ async function createTables() {
       quantity INTEGER NOT NULL,
       price MONEY NOT NULL
   );`);
+  
     await client.query(`  
   CREATE TABLE addresses (
     id SERIAL PRIMARY KEY,
@@ -77,6 +78,7 @@ async function createTables() {
     state VARCHAR (2),
     zipcode VARCHAR (10)
   );`);
+  
     await client.query(`  
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,

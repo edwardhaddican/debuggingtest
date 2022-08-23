@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import "../style/Register.css";
 import { registerPerson } from "../api";
@@ -21,7 +22,13 @@ const Register = ({
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const registeredPerson = await registerPerson(username, password, email, firstName, lastName)
+      const registeredPerson = await registerPerson(
+        username,
+        password,
+        email,
+        firstName,
+        lastName
+      );
       if (registeredPerson) {
         setUsername("");
         setPassword("");
@@ -43,10 +50,11 @@ const Register = ({
   }
 
   return (
-    <motion.div className="RegisterContainer"
-    initial={{opacity: 0}}
-        animate={{opacity: 0.9}}
-        transition={{duration: 0.5}}
+    <motion.div
+      className="RegisterContainer"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.9 }}
+      transition={{ duration: 0.5 }}
     >
       <div>
         <h1 className="RegisterHeader">Register</h1>
@@ -116,24 +124,29 @@ const Register = ({
         <button className="RegisterButton" type="submit">
           Register
         </button>
+        <br></br>
+        <br></br>
+        <NavLink id="RegisterButton" className="LoginInsteadButton" to="/login">
+          Already a Member? Login.
+        </NavLink>
       </form>
-        {hidePassword ? (
-          <button
-            id="RegisterButton"
-            className="ShowPasswordButton"
-            onClick={showPasswordFunc}
-          >
-            Show Password
-          </button>
-        ) : (
-          <button
-            id="RegisterButton"
-            className="ShowPasswordButton"
-            onClick={hidePasswordFunc}
-          >
-            Hide Password
-          </button>
-        )}
+      {hidePassword ? (
+        <button
+          id="RegisterButton"
+          className="ShowPasswordButton"
+          onClick={showPasswordFunc}
+        >
+          Show Password
+        </button>
+      ) : (
+        <button
+          id="RegisterButton"
+          className="ShowPasswordButton"
+          onClick={hidePasswordFunc}
+        >
+          Hide Password
+        </button>
+      )}
     </motion.div>
   );
 };

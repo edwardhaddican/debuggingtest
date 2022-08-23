@@ -8,7 +8,7 @@ import {
 } from "../api";
 import "../style/Longsleeve.css";
 
-const Longsleeve = ({ allProducts, setAllProducts, setCartSize, cartSize }) => {
+const Longsleeve = ({ allProducts, setAllProducts, setCartSize, cartSize, productIdArray }) => {
   // function searchHoodieProducts(searchValue) {
   //     if (searchValue.length) {
   //       const data = allProducts.filter((item) => {
@@ -109,14 +109,34 @@ const Longsleeve = ({ allProducts, setAllProducts, setCartSize, cartSize }) => {
                         quantity,
                         element.price
                       );
+                      if (localStorage.getItem('productIdArray')){
+                        productIdArray = JSON.parse(localStorage.getItem('productIdArray'))
+                        productIdArray.push(element.id);
+                      } else {
+                        productIdArray.push(element.id)
+                      }
+                      const jsonProductIdArray = JSON.stringify(productIdArray)
+                      localStorage.setItem('productIdArray', jsonProductIdArray)
                     } else {
-                      await createCartProducts(
-                        userId,
-                        cart_id,
-                        element.id,
-                        quantity,
-                        element.price
-                      );
+                      if (localStorage.getItem("productIdArray") && (JSON.parse(localStorage.getItem("productIdArray"))).includes(element.id)) {
+                        alert(`You are attempting to add a product which is already in your cart. If you would like to update the quantity of ${element.product_name}, please do so in your cart.`);
+                      } else {
+                        await createCartProducts(
+                          userId,
+                          cart_id,
+                          element.id,
+                          quantity,
+                          element.price
+                          );
+                          if (localStorage.getItem('productIdArray')){
+                            productIdArray = JSON.parse(localStorage.getItem('productIdArray'))
+                            productIdArray.push(element.id);
+                          } else {
+                            productIdArray.push(element.id)
+                          }
+                          const jsonProductIdArray = JSON.stringify(productIdArray)
+                          localStorage.setItem('productIdArray', jsonProductIdArray)
+                      }
                     }
                     setCartSize(cartSize + 1)
                   } catch (error) {

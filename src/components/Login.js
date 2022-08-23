@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { loginPerson } from "../api";
 import "../style/Login.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 const Login = ({
   setIsLoggedIn,
@@ -81,9 +81,16 @@ const Login = ({
             }}
           />
         </label>
+        <br></br>
+        <br></br>
         <button className="LoginButton" type="submit">
           Login
         </button>
+        <br></br>
+        <br></br>
+        <NavLink id="LoginButton" className="RegisterInsteadButton" to="/register">
+          Not a Member Yet? Register.
+        </NavLink>
       </form>
       {hidePassword ? (
         <button

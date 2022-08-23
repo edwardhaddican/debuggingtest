@@ -405,8 +405,6 @@ export async function createCartProducts(
 
 export async function attachCartProductsToCart(cartId) {
   try {
-    console.log(cartId, "CARTID INSIDE API SOURCE")
-    console.log("I AM INSIDE TRY AT API SOURCE")
     const response = await fetch(`${BASE}/api/cart_products/${cartId}`, {
       method:  "POST",
       headers: {
@@ -417,7 +415,6 @@ export async function attachCartProductsToCart(cartId) {
       })
     });
     const result = await response.json();
-    console.log(result, "RESULT FROM API SOURCE")
     return result
   } catch(error) {
     throw error

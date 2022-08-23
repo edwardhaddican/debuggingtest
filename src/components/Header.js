@@ -67,7 +67,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, allCartProducts, setAllCartProducts
 
   return (
     <div className="Header">
-      <div className="HeaderTitle">TOP SECRET SHIRTS LA</div>
+      <NavLink to='/' className="HeaderTitle">TOP SECRET SHIRTS LA</NavLink>
       {!hideSearch ? (
         <img
           src={WhiteSearchIcon}

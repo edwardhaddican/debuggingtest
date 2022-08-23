@@ -17,6 +17,8 @@ import {
   Cartpage,
   Logout,
   Admin,
+  Checkout,
+  Purchase
 } from "./";
 
 import { AnimatePresence } from "framer-motion";
@@ -36,6 +38,7 @@ const AnimatedRoutes = ({
   const [email, setEmail] = useState("");
   const [allProducts, setAllProducts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const [productIdArray, setProductIdArray] = useState([])
   const location = useLocation();
 
   return (
@@ -83,6 +86,9 @@ const AnimatedRoutes = ({
               setAllProducts={setAllProducts}
               setCartSize={setCartSize}
               cartSize={cartSize}
+              allCartProducts={allCartProducts}
+              setAllCartProducts={setAllCartProducts}
+              productIdArray={productIdArray}
             />
           }
         />
@@ -94,6 +100,7 @@ const AnimatedRoutes = ({
               setAllProducts={setAllProducts}
               setCartSize={setCartSize}
               cartSize={cartSize}
+              productIdArray={productIdArray}
             />
           }
         />
@@ -105,6 +112,7 @@ const AnimatedRoutes = ({
               setAllProducts={setAllProducts}
               setCartSize={setCartSize}
               cartSize={cartSize}
+              productIdArray={productIdArray}
             />
           }
         />
@@ -116,6 +124,7 @@ const AnimatedRoutes = ({
               setAllProducts={setAllProducts}
               setCartSize={setCartSize}
               cartSize={cartSize}
+              productIdArray={productIdArray}
             />
           }
         />
@@ -136,10 +145,7 @@ const AnimatedRoutes = ({
         <Route
           path="/logout"
           element={
-            <Logout
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-            />
+            <Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           }
         />
         <Route
@@ -163,6 +169,8 @@ const AnimatedRoutes = ({
             />
           }
         />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/purchase" element={<Purchase />} />
       </Routes>
     </AnimatePresence>
   );
