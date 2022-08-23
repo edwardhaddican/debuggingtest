@@ -15,6 +15,7 @@
     font-size: 40px;
     font-weight: bolder;
     text-shadow: black 0.1em 0.1em 0.2em;
+    text-decoration: none;
 }
 
 .Container {

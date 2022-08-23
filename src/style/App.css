@@ -78,3 +78,25 @@
   color: var(--green);
   padding: 1rem;
 }
+
+.loginSpecialImage {
+  display: flex;
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  right: 0;
+  bottom: 150px;
+}
+
+.loginSpecialText {
+  display: none;
+}
+
+.loginSpecialImage:hover ~ .loginSpecialText {
+  display: flex;
+  position: fixed;
+  color: white;
+  width: 150px;
+  right: 100px;
+  bottom: 125px;
+}

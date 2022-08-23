@@ -10,7 +10,7 @@
     margin-top: 17.5%;
     margin-left: 43%;
     width: 300px;
-    height: 515px;
+    height: 555px;
 }
 
 .RegisterForm {
@@ -57,6 +57,18 @@
     border: none;
     outline: none;
     margin-left: 27.5%;
+    margin-top: 5%;
+    background-color: white;
+    opacity: 0.9;
+    color: grey;
+    font-weight: bolder;
+}
+
+.LoginInsteadButton {
+    position: relative;
+    border: none;
+    outline: none;
+    margin-left: 6.5%;
     margin-top: 5%;
     background-color: white;
     opacity: 0.9;
