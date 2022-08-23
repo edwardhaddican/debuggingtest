@@ -23,6 +23,7 @@ const Login = ({
       if (loggedInUser) {
         // localStorage.setItem("token", token);
         setIsLoggedIn(true);
+        alert("You have successfully logged in! Welcome to Top Secret Shirts LA!")
         setUsername("");
         setPassword("");
         // navigate("/userRoutines");

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "../style/Logout.css";
 
 const Logout = ({
-  isLoggedIn,
   setIsLoggedIn,
 }) => {
   const navigate = useNavigate();
@@ -19,6 +18,7 @@ const Logout = ({
     localStorage.removeItem("last_name");
     localStorage.removeItem("admin");
     navigate("/");
+    alert("You have successfully logged out. Come back soon!")
   }
 
   async function handleNo(event) {

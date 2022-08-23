@@ -82,9 +82,15 @@ async function createTables() {
     await client.query(`  
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  product_id INTEGER REFERENCES products(id),
+  cart_productid INTEGER REFERENCES cart_products(id),
   cart_id INTEGER REFERENCES carts(id),
   address_id INTEGER REFERENCES addresses(id),
-  shipped BOOLEAN default false
+  shipped BOOLEAN DEFAULT false,
+  product_name VARCHAR(255) REFERENCES product(product_name),
+  quantity INTEGER REFERENCES cart_products(quantity),
+  price MONEY REFERENCES cart_products(price)
   );`);
 
     console.log('Finished building tables!');
