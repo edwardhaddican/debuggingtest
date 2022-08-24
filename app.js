@@ -22,6 +22,10 @@ router.use((error, req, res, next) => {
   });
 });
 
+app.get("*", (req,res) => {
+  res.sendFile(__dirname + "/public/index.html")
+})
+
 // clear
 
 /*
