@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path')
 const app = express();
 const router = require('./api');
 
@@ -22,9 +23,12 @@ router.use((error, req, res, next) => {
   });
 });
 
-app.get("*", (req,res) => {
-  res.sendFile(__dirname + "/index.html")
-})
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.use((req, res, next) => {
+  console.log('hi')
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // clear
 
